@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #050508;
-  --color-foreground: #f0f0f5;
-  --color-muted: #8a8a9a;
-  --color-accent: #c9a84c;
-  --color-accent-light: #e0c872;
-  --color-surface: #0e0e14;
-  --color-surface-light: #16161f;
-  --color-border: #1e1e2a;
+  /* Deep plum palette — derived from the Qamr logo */
+  --color-background: #0a0510;
+  --color-foreground: #f0ebe0;
+  --color-muted: #9088a0;
+  --color-accent: #d4bf8a;
+  --color-accent-light: #e8d5a8;
+  --color-accent-dim: #b8a06a;
+  --color-surface: #110a1c;
+  --color-surface-light: #1a1028;
+  --color-border: #251a38;
+  --color-border-light: #3a2850;
+  --color-plum: #2d0a3e;
+  --color-plum-light: #3d1252;
+  --color-plum-glow: #5a1e7a;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -23,30 +29,72 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Subtle glow effect for hero */
+/* ─── Hero ambient glow ─── */
 .hero-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 800px;
+  height: 800px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(90, 30, 122, 0.15) 0%,
+    rgba(61, 18, 82, 0.08) 40%,
+    transparent 70%
+  );
   pointer-events: none;
-  top: -200px;
+  top: -300px;
   left: 50%;
   transform: translateX(-50%);
 }
 
-/* Cosmic grain overlay */
+/* Secondary warm glow for hero */
+.hero-warm-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 191, 138, 0.06) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ─── Grain overlay — subtle cosmic texture ─── */
 .grain-overlay {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* Fade-in animation */
+/* ─── Islamic geometric pattern background ─── */
+.islamic-pattern-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4bf8a' stroke-width='0.5'%3E%3C!-- 8-pointed star pattern --%3E%3Cpath d='M40 10 L47 25 L62 18 L55 33 L70 40 L55 47 L62 62 L47 55 L40 70 L33 55 L18 62 L25 47 L10 40 L25 33 L18 18 L33 25 Z'/%3E%3Ccircle cx='40' cy='40' r='12'/%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+
+/* Denser pattern variant for section accents */
+.islamic-pattern-dense {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4bf8a' stroke-width='0.4'%3E%3Cpath d='M30 0 L35 12.5 L47.5 5 L42.5 17.5 L55 12.5 L47.5 25 L60 30 L47.5 35 L55 47.5 L42.5 42.5 L47.5 55 L35 47.5 L30 60 L25 47.5 L12.5 55 L17.5 42.5 L5 47.5 L12.5 35 L0 30 L12.5 25 L5 12.5 L17.5 17.5 L12.5 5 L25 12.5 Z'/%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+/* ─── Fade-in animations ─── */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -58,8 +106,35 @@ body {
   }
 }
 
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moon-glow-pulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.05); }
+}
+
 .animate-fade-in-up {
   animation: fade-in-up 0.7s ease-out both;
+}
+
+.animate-gentle-float {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+.animate-slow-spin {
+  animation: slow-spin 120s linear infinite;
+}
+
+.animate-moon-glow {
+  animation: moon-glow-pulse 4s ease-in-out infinite;
 }
 
 .animation-delay-100 { animation-delay: 0.1s; }
@@ -69,13 +144,64 @@ body {
 .animation-delay-500 { animation-delay: 0.5s; }
 .animation-delay-600 { animation-delay: 0.6s; }
 
-/* Smooth hover for cards */
+/* ─── Feature cards ─── */
 .feature-card {
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 191, 138, 0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(201, 168, 76, 0.2);
-  box-shadow: 0 8px 32px rgba(201, 168, 76, 0.06);
+  border-color: rgba(212, 191, 138, 0.15);
+  box-shadow: 0 8px 40px rgba(90, 30, 122, 0.1), 0 2px 16px rgba(212, 191, 138, 0.04);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+/* ─── Section divider — Islamic-inspired geometric line ─── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-light), transparent);
+}
+
+/* ─── Crescent moon icon ─── */
+.crescent-shadow {
+  filter: drop-shadow(0 0 20px rgba(212, 191, 138, 0.2));
+}
+
+/* ─── Screenshot cards ─── */
+.screenshot-card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.screenshot-card:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: 0 20px 60px rgba(45, 10, 62, 0.3);
 }

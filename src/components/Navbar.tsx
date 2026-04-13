@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -12,15 +13,19 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 bg-background/70 backdrop-blur-xl border-b border-border">
-      <div className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
+    <nav className="fixed top-0 left-0 right-0 z-40 bg-background/60 backdrop-blur-2xl border-b border-border/50">
+      <div className="mx-auto max-w-6xl flex items-center justify-between px-6 py-3">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
-          <span className="text-xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
+        <a href="#" className="flex items-center gap-3 group">
+          <Image
+            src="/logo.png"
+            alt="Qamr"
+            width={36}
+            height={36}
+            className="rounded-lg"
+          />
+          <span className="text-lg font-semibold tracking-tight text-foreground">
             Qamr
-          </span>
-          <span className="hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-muted font-medium mt-0.5">
-            Beta
           </span>
         </a>
 
@@ -30,14 +35,14 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted hover:text-foreground transition-colors"
+              className="text-sm text-muted hover:text-accent transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
           <a
             href="#download"
-            className="text-sm font-medium px-5 py-2 rounded-full bg-accent text-background hover:bg-accent-light transition-colors"
+            className="text-sm font-medium px-5 py-2 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 hover:border-accent/40 transition-all duration-200"
           >
             Get the App
           </a>
@@ -61,14 +66,14 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
+        <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-2xl">
           <div className="flex flex-col px-6 py-4 gap-4">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-sm text-muted hover:text-foreground transition-colors"
+                className="text-sm text-muted hover:text-accent transition-colors"
               >
                 {link.label}
               </a>
@@ -76,7 +81,7 @@ export default function Navbar() {
             <a
               href="#download"
               onClick={() => setOpen(false)}
-              className="text-sm font-medium px-5 py-2 rounded-full bg-accent text-background hover:bg-accent-light transition-colors text-center"
+              className="text-sm font-medium px-5 py-2.5 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-all text-center"
             >
               Get the App
             </a>
