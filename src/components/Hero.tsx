@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Crescent from "./Crescent";
 import StoreButtons from "./StoreButtons";
 
 export default function Hero() {
@@ -37,21 +38,8 @@ export default function Hero() {
         <div className="animate-fade-in-up flex justify-center mb-8">
           <div className="relative">
             {/* Moon glow */}
-            <div className="absolute inset-0 rounded-full bg-accent/15 blur-xl animate-moon-glow" aria-hidden="true" />
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              fill="none"
-              className="crescent-shadow relative z-10"
-            >
-              <path
-                d="M36 24C36 30.627 30.627 36 24 36C20.286 36 16.981 34.226 14.844 31.5C17.019 33.141 19.715 34.1 22.636 34.1C30.178 34.1 36.293 27.985 36.293 20.443C36.293 17.166 35.122 14.162 33.165 11.844C34.933 14.036 36 16.891 36 24Z"
-                fill="#d4bf8a"
-                fillOpacity="0.6"
-              />
-              <circle cx="24" cy="24" r="23" stroke="#d4bf8a" strokeWidth="0.5" strokeOpacity="0.15" />
-            </svg>
+            <div className="absolute -inset-4 rounded-full bg-accent/20 blur-2xl animate-moon-glow" aria-hidden="true" />
+            <Crescent size={56} opacity={0.75} className="crescent-shadow relative z-10" />
           </div>
         </div>
 
