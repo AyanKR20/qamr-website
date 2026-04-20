@@ -1,21 +1,29 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-geist-sans",
+const dmSans = DM_Sans({
+  variable: "--font-bd",
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-hd",
+  subsets: ["latin"],
+  weight: ["700", "800", "900"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Qamr — Real conversations in a world full of noise",
+  title: "Qamr — Real. Human. Social.",
   description:
-    "Qamr is the social platform built for meaningful connection. Feed, Pulse, Discovery, and a premium experience — all in one app.",
+    "Bots. Ads. AI slop. Nobody asked for any of it. Qamr is the alternative — a human-first social platform with real conversations, high-signal news, and everything Muslims need built in.",
   openGraph: {
-    title: "Qamr — Real conversations in a world full of noise",
-    description:
-      "The social platform built for meaningful connection.",
+    title: "Qamr — Real. Human. Social.",
+    description: "The social platform built for meaningful connection.",
     type: "website",
   },
 };
@@ -26,11 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
-        <div className="grain-overlay" aria-hidden="true" />
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${playfair.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
