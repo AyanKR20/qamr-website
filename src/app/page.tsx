@@ -118,7 +118,7 @@ export default function Home() {
             <img src="/screenshots/feed_tab.jpg" alt="Qamr Feed" />
           </div>
           <div className="hero-phone-side hero-phone-r">
-            <img src="/screenshots/tab2.jpg" alt="" />
+            <img src="/screenshots/tab2.JPG" alt="" />
           </div>
         </div>
         <div className="hero-floor-grad" />
@@ -339,7 +339,7 @@ export default function Home() {
               }}
             />
             <div className="feat-phone">
-              <img src="/screenshots/qamr_pulse.jpg" alt="Pulse" />
+              <img src="/screenshots/qamrpulse.jpg" alt="Pulse" />
             </div>
             <div className="feat-float bl">
               <div className="ff-label">Signal Rate</div>
@@ -455,7 +455,7 @@ export default function Home() {
               }}
             />
             <div className="feat-phone">
-              <img src="/screenshots/tab2.jpg" alt="Hub" />
+              <img src="/screenshots/tab2.JPG" alt="Hub" />
             </div>
             <div className="feat-float tr">
               <div className="ff-label">Tools</div>
