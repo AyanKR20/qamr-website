@@ -112,13 +112,13 @@ export default function Home() {
 
         <div className="hero-phone-wrap rv d4">
           <div className="hero-phone-side hero-phone-l">
-            <img src="/screenshots/pulse.jpg" alt="" />
+            <img src="/screenshots/qamrpulse.jpg" alt="" />
           </div>
           <div className="hero-phone">
-            <img src="/screenshots/feed.jpg" alt="Qamr Feed" />
+            <img src="/screenshots/feed_tab.jpg" alt="Qamr Feed" />
           </div>
           <div className="hero-phone-side hero-phone-r">
-            <img src="/screenshots/hub.jpg" alt="" />
+            <img src="/screenshots/tab2.jpg" alt="" />
           </div>
         </div>
         <div className="hero-floor-grad" />
@@ -297,7 +297,7 @@ export default function Home() {
               }}
             />
             <div className="feat-phone">
-              <img src="/screenshots/feed.jpg" alt="Feed" />
+              <img src="/screenshots/feed_tab.jpg" alt="Feed" />
             </div>
             <div className="feat-float tr">
               <div className="ff-label">AI Media</div>
@@ -339,7 +339,7 @@ export default function Home() {
               }}
             />
             <div className="feat-phone">
-              <img src="/screenshots/pulse.jpg" alt="Pulse" />
+              <img src="/screenshots/qamr_pulse.jpg" alt="Pulse" />
             </div>
             <div className="feat-float bl">
               <div className="ff-label">Signal Rate</div>
@@ -419,10 +419,10 @@ export default function Home() {
                 }}
               />
               <div className="world-phone up">
-                <img src="/screenshots/world.jpg" alt="Qamr World map" />
+                <img src="/screenshots/qamr_world.jpg" alt="Qamr World map" />
               </div>
               <div className="world-phone dn">
-                <img src="/screenshots/country.jpg" alt="Country community" />
+                <img src="/screenshots/country_discussion.jpg" alt="Country community" />
               </div>
             </div>
           </div>
@@ -455,7 +455,7 @@ export default function Home() {
               }}
             />
             <div className="feat-phone">
-              <img src="/screenshots/hub.jpg" alt="Hub" />
+              <img src="/screenshots/tab2.jpg" alt="Hub" />
             </div>
             <div className="feat-float tr">
               <div className="ff-label">Tools</div>
