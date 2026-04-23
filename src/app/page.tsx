@@ -1062,13 +1062,13 @@ footer {
   <div class="hero-phone-wrap rv d4">
     <div class="hero-phone-stage">
       <div class="hero-phone-side hero-phone-l">
-        <img src="ios/dms ios.jpg" alt="" />
+        <img src="ios/dms ios.png" alt="" />
       </div>
       <div class="hero-phone-side hero-phone-r">
-        <img src="ios/qamrhub_ios.jpg" alt="" />
+        <img src="ios/qamrhub_ios.png" alt="" />
       </div>
       <div class="hero-phone">
-        <img src="ios/feedtab_ios.jpg" alt="Qamr Feed" />
+        <img src="ios/feedtab_ios.png" alt="Qamr Feed" />
       </div>
     </div>
   </div>
@@ -1197,7 +1197,7 @@ footer {
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(90,30,122,.25) 0%,transparent 70%)"></div>
       <div class="feat-phone">
-        <img src="ios/feedtab_ios.jpg" alt="Feed" />
+        <img src="ios/feedtab_ios.png" alt="Feed" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">AI Media</div>
@@ -1221,7 +1221,7 @@ footer {
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(60,40,140,.2) 0%,transparent 70%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrpulse_ios.jpg" alt="Pulse" />
+        <img src="ios/qamrpulse_ios.png" alt="Pulse" />
       </div>
       <div class="feat-float bl">
         <div class="ff-label">Signal Rate</div>
@@ -1252,12 +1252,12 @@ footer {
 
         <!-- World map phone -->
         <div style="width:168px;border-radius:32px;border:1px solid var(--bord-lt);overflow:hidden;box-shadow:0 40px 70px rgba(0,0,0,.5),0 0 0 1px rgba(212,191,138,.04);transform:translateY(-6px);transition:transform .5s cubic-bezier(.16,1,.3,1);z-index:2;position:relative;" onmouseover="this.style.transform='translateY(-12px)'" onmouseout="this.style.transform='translateY(-6px)'">
-          <img src="ios/qamrworld_ios.jpg" style="width:100%;display:block;" alt="Qamr World map" />
+          <img src="ios/qamrworld_ios.png" style="width:100%;display:block;" alt="Qamr World map" />
         </div>
 
         <!-- Country discussion phone -->
         <div style="width:168px;border-radius:32px;border:1px solid var(--bord-lt);overflow:hidden;box-shadow:0 40px 70px rgba(0,0,0,.5),0 0 0 1px rgba(212,191,138,.04);transform:translateY(6px);transition:transform .5s cubic-bezier(.16,1,.3,1);z-index:2;position:relative;" onmouseover="this.style.transform='translateY(0)'" onmouseout="this.style.transform='translateY(6px)'">
-          <img src="ios/countryforum_ios.jpg" style="width:100%;display:block;" alt="Country community" />
+          <img src="ios/countryforum_ios.png" style="width:100%;display:block;" alt="Country community" />
         </div>
       </div>
 
@@ -1278,7 +1278,7 @@ footer {
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(212,191,138,.08) 0%,transparent 70%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrhub_ios.jpg" alt="Hub" />
+        <img src="ios/qamrhub_ios.png" alt="Hub" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">Tools</div>
