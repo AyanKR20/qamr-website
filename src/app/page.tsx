@@ -1200,10 +1200,10 @@ footer {
         <img src="ios/feedtab_ios.png" alt="Feed" />
       </div>
       <div class="feat-float tr">
-        <div class="ff-label">AI Media</div>
-        <div class="ff-val" style="color:#ef4444;font-size:15px;letter-spacing:.01em">Blocked</div>
-        <div class="ff-sub">Humans only</div>
-      </div>
+  <div class="ff-label">AI Media</div>
+  <div class="ff-val">Blocked</div>
+  <div class="ff-sub">Humans only</div>
+</div>
     </div>
   </div>
 
@@ -1222,11 +1222,6 @@ footer {
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(60,40,140,.2) 0%,transparent 70%)"></div>
       <div class="feat-phone">
         <img src="ios/qamrpulse_ios.png" alt="Pulse" />
-      </div>
-      <div class="feat-float bl">
-        <div class="ff-label">Signal Rate</div>
-        <div class="ff-val">94<span style="font-size:12px;color:var(--muted)">%</span></div>
-        <div class="ff-sub">Human-sourced</div>
       </div>
     </div>
   </div>
