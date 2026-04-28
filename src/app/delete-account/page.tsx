@@ -49,7 +49,7 @@ export default function DeleteAccountPage() {
   }, []);
 
   const canSendOtp = useMemo(() => EMAIL_RE.test(email.trim()) && !busy, [email, busy]);
-  const canVerify = useMemo(() => /^\d{6}$/.test(otp.trim()) && !busy, [otp, busy]);
+  const canVerify = useMemo(() => /^\d{6,10}$/.test(otp.trim()) && !busy, [otp, busy]);
   const canDelete = useMemo(
     () => confirmText === "DELETE" && !!session && !busy,
     [confirmText, session, busy]
@@ -283,9 +283,9 @@ export default function DeleteAccountPage() {
               {step === "otp" && (
                 <form onSubmit={handleVerifyOtp} noValidate>
                   <div className="da-step-num">Step 2 / 3</div>
-                  <h2 className="da-h2">Enter the 6-digit code</h2>
+                  <h2 className="da-h2">Enter the verification code</h2>
                   <p className="da-sub">
-                    We sent a 6-digit verification code to{" "}
+                    We sent a verification code to{" "}
                     <strong className="da-em">{email.trim()}</strong>. The code
                     expires in a few minutes. If you don&rsquo;t see it, check
                     your spam or promotions folder.
@@ -298,19 +298,19 @@ export default function DeleteAccountPage() {
                     type="text"
                     inputMode="numeric"
                     autoComplete="one-time-code"
-                    pattern="\d{6}"
-                    maxLength={6}
+                    pattern="\d{6,10}"
+                    maxLength={10}
                     value={otp}
                     onChange={(e) =>
-                      setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
+                      setOtp(e.target.value.replace(/\D/g, "").slice(0, 10))
                     }
-                    placeholder="000000"
+                    placeholder="••••••"
                     className="da-input da-input-otp"
                     disabled={busy}
                     aria-describedby="otp-hint"
                   />
                   <p id="otp-hint" className="da-hint">
-                    6 digits, no dashes or spaces.
+                    Digits only, exactly as it appears in the email.
                   </p>
                   {error && <div className="da-error">{error}</div>}
                   <div className="da-row">
