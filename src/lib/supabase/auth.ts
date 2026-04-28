@@ -30,16 +30,27 @@ async function readJson(res: Response): Promise<unknown> {
   }
 }
 
-function extractMessage(body: unknown, fallback: string): string {
-  if (!body || typeof body !== "object") return fallback;
-  const b = body as Record<string, unknown>;
-  return (
-    (typeof b.error_description === "string" && b.error_description) ||
-    (typeof b.msg === "string" && b.msg) ||
-    (typeof b.message === "string" && b.message) ||
-    (typeof b.error === "string" && b.error) ||
-    fallback
-  );
+function extractMessage(body: unknown, status: number, fallback: string): string {
+  let base = fallback;
+  if (body && typeof body === "object") {
+    const b = body as Record<string, unknown>;
+    base =
+      (typeof b.error_description === "string" && b.error_description) ||
+      (typeof b.msg === "string" && b.msg) ||
+      (typeof b.message === "string" && b.message) ||
+      (typeof b.error === "string" && b.error) ||
+      fallback;
+    const code = typeof b.code === "string" ? b.code : null;
+    if (code === "otp_disabled" || /signups\s+not\s+allowed/i.test(base)) {
+      return "No Qamr account is registered with that email.";
+    }
+    if (code === "over_email_send_rate_limit" || /rate\s*limit/i.test(base)) {
+      return "Too many requests. Wait a minute and try again.";
+    }
+  }
+  if (status === 429) return "Too many requests. Wait a minute and try again.";
+  if (status === 0) return "Network error. Check your connection and try again.";
+  return `${base} (${status})`;
 }
 
 export type Session = {
@@ -57,25 +68,29 @@ export async function sendEmailOtp(
   email: string
 ): Promise<{ ok: true } | { ok: false; error: SupabaseError }> {
   ensureConfigured();
-  const res = await fetch(`${SUPABASE_URL}/auth/v1/otp`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: SUPABASE_ANON_KEY!,
-    },
-    body: JSON.stringify({
-      email,
-      create_user: false,
-      data: { reason: "account_deletion" },
-    }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${SUPABASE_URL}/auth/v1/otp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY!,
+      },
+      body: JSON.stringify({ email, create_user: false }),
+    });
+  } catch {
+    return {
+      ok: false,
+      error: { status: 0, message: extractMessage(null, 0, "Network error.") },
+    };
+  }
   if (!res.ok) {
     const body = await readJson(res);
     return {
       ok: false,
       error: {
         status: res.status,
-        message: extractMessage(body, "Could not send code. Try again."),
+        message: extractMessage(body, res.status, "Could not send code. Try again."),
       },
     };
   }
@@ -90,21 +105,29 @@ export async function verifyEmailOtp(
   token: string
 ): Promise<{ ok: true; session: Session } | { ok: false; error: SupabaseError }> {
   ensureConfigured();
-  const res = await fetch(`${SUPABASE_URL}/auth/v1/verify`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      apikey: SUPABASE_ANON_KEY!,
-    },
-    body: JSON.stringify({ email, token, type: "email" }),
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${SUPABASE_URL}/auth/v1/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_ANON_KEY!,
+      },
+      body: JSON.stringify({ email, token, type: "email" }),
+    });
+  } catch {
+    return {
+      ok: false,
+      error: { status: 0, message: extractMessage(null, 0, "Network error.") },
+    };
+  }
   const body = await readJson(res);
   if (!res.ok) {
     return {
       ok: false,
       error: {
         status: res.status,
-        message: extractMessage(body, "Invalid or expired code."),
+        message: extractMessage(body, res.status, "Invalid or expired code."),
       },
     };
   }
