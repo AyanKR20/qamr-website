@@ -117,6 +117,15 @@ function extractMessage(body: unknown, status: number, fallback: string): string
     if (code === "over_email_send_rate_limit" || /rate\s*limit/i.test(base)) {
       return "Too many requests. Wait a minute and try again.";
     }
+    if (
+      code === "otp_expired" ||
+      code === "invalid_otp" ||
+      /token\s+has\s+expired/i.test(base) ||
+      /invalid\s+token/i.test(base) ||
+      /token.*invalid/i.test(base)
+    ) {
+      return "That code is invalid or has expired. Request a new one.";
+    }
   }
   if (status === 429) return "Too many requests. Wait a minute and try again.";
   if (status === 0) return "Network error. Check your connection and try again.";
@@ -150,8 +159,14 @@ export type Session = {
 };
 
 /**
- * Send a one-time email code to an existing user.
- * shouldCreateUser=false guarantees this never creates an account here.
+ * Trigger a 6-digit email OTP for an existing Qamr user.
+ *
+ * Hits Supabase's /auth/v1/otp endpoint with `create_user: false`, which:
+ *   - never creates a new auth user from this page (deletion-only flow), and
+ *   - tells GoTrue to render the Magic Link email template; the template MUST
+ *     include `{{ .Token }}` for the 6-digit code to appear in the email
+ *     body. The companion verifyEmailOtp() call uses /auth/v1/verify with
+ *     `type: "email"`, which accepts the token (code) — not the magic link.
  */
 export async function sendEmailOtp(
   email: string
@@ -192,7 +207,12 @@ export async function sendEmailOtp(
 }
 
 /**
- * Verify the 6-digit email OTP and return a session.
+ * Verify the 6-digit email OTP code and return a Supabase session.
+ *
+ * Posts to /auth/v1/verify with `type: "email"`, which is the OTP-code
+ * verification path (NOT the `magiclink` type, which would expect a token
+ * extracted from a clicked magic-link URL). The session returned here is
+ * what the /api/delete-account route handler later validates server-side.
  */
 export async function verifyEmailOtp(
   email: string,

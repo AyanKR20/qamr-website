@@ -49,7 +49,7 @@ export default function DeleteAccountPage() {
   }, []);
 
   const canSendOtp = useMemo(() => EMAIL_RE.test(email.trim()) && !busy, [email, busy]);
-  const canVerify = useMemo(() => otp.trim().length >= 6 && !busy, [otp, busy]);
+  const canVerify = useMemo(() => /^\d{6}$/.test(otp.trim()) && !busy, [otp, busy]);
   const canDelete = useMemo(
     () => confirmText === "DELETE" && !!session && !busy,
     [confirmText, session, busy]
@@ -283,11 +283,12 @@ export default function DeleteAccountPage() {
               {step === "otp" && (
                 <form onSubmit={handleVerifyOtp} noValidate>
                   <div className="da-step-num">Step 2 / 3</div>
-                  <h2 className="da-h2">Enter the code</h2>
+                  <h2 className="da-h2">Enter the 6-digit code</h2>
                   <p className="da-sub">
-                    We sent a 6-digit code to{" "}
+                    We sent a 6-digit verification code to{" "}
                     <strong className="da-em">{email.trim()}</strong>. The code
-                    expires in a few minutes.
+                    expires in a few minutes. If you don&rsquo;t see it, check
+                    your spam or promotions folder.
                   </p>
                   <label className="da-label" htmlFor="otp">
                     Verification code
@@ -297,16 +298,20 @@ export default function DeleteAccountPage() {
                     type="text"
                     inputMode="numeric"
                     autoComplete="one-time-code"
-                    pattern="[0-9]{6}"
-                    maxLength={10}
+                    pattern="\d{6}"
+                    maxLength={6}
                     value={otp}
                     onChange={(e) =>
-                      setOtp(e.target.value.replace(/[^0-9]/g, "").slice(0, 10))
+                      setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
                     }
-                    placeholder="123456"
+                    placeholder="000000"
                     className="da-input da-input-otp"
                     disabled={busy}
+                    aria-describedby="otp-hint"
                   />
+                  <p id="otp-hint" className="da-hint">
+                    6 digits, no dashes or spaces.
+                  </p>
                   {error && <div className="da-error">{error}</div>}
                   <div className="da-row">
                     <button
@@ -583,9 +588,10 @@ const CSS = `
 .qamr-delete .da-input:disabled { opacity: .5; cursor: not-allowed; }
 .qamr-delete .da-input::placeholder { color: rgba(138,130,152,.45); }
 .qamr-delete .da-input-otp {
-  letter-spacing: .35em; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 18px; text-align: center;
+  letter-spacing: .55em; font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 20px; text-align: center; padding-left: 18px;
 }
+.qamr-delete .da-hint { margin-top: 8px; font-size: 12px; color: var(--muted); }
 
 .qamr-delete .da-error {
   margin-top: 14px; padding: 12px 14px; border-radius: 10px;
