@@ -65,7 +65,7 @@ export default function QamrContact() {
               </div>
             </a>
 
-            <a href="https://instagram.com/qamrapp" target="_blank" rel="noopener noreferrer" className="c-card">
+            <a href="https://instagram.com/qamr.app" target="_blank" rel="noopener noreferrer" className="c-card">
               <div className="c-card-top">
                 <div className="c-icon">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -78,7 +78,7 @@ export default function QamrContact() {
               </div>
               <div className="c-body">
                 <div className="c-label">Follow along</div>
-                <div className="c-value">@qamrapp</div>
+                <div className="c-value">@qamr.app</div>
               </div>
               <div className="c-arrow">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
