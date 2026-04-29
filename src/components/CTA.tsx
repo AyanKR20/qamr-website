@@ -42,7 +42,7 @@ export default function CTA() {
             </span>
           </h2>
           <p className="mt-5 text-muted max-w-lg mx-auto text-lg leading-relaxed">
-            It needs a better one. Qamr is social media reimagined — built for
+            It needs a better one. Qamr is social media reimagined. Built for
             depth, clarity, and real human connection.
           </p>
 

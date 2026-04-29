@@ -14,8 +14,8 @@ export default function QamrContact() {
         <nav>
           <div className="nav-row">
             <a href="/" className="nav-brand">
-              <span className="nav-brand-name">Qamr</span>
               <img src="/logo.png" alt="Qamr" className="brand-mark" />
+              <span className="nav-brand-name">Qamr</span>
             </a>
             <a href="/" className="nav-back">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -36,7 +36,7 @@ export default function QamrContact() {
               Say <em>salaam.</em>
             </h1>
             <p className="c-lead">
-              Questions, feedback, press, partnerships — we actually read every message.
+              Questions, feedback, press, partnerships. We actually read every message.
               Pick whichever channel feels right.
             </p>
           </div>
@@ -109,8 +109,8 @@ export default function QamrContact() {
         <footer>
           <div className="foot-row">
             <a href="/" className="foot-brand">
-              <span>Qamr</span>
               <img src="/logo.png" alt="Qamr" className="brand-mark sm" />
+              <span>Qamr</span>
             </a>
             <div className="foot-links">
               <a href="/privacy">Privacy</a>
@@ -144,7 +144,7 @@ function FontLoader() {
     link.id = "qamr-fonts";
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap";
+      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Inter:wght@500;600;700&display=swap";
     document.head.appendChild(link);
   }
   return null;
@@ -179,7 +179,7 @@ const CSS = `
 .qamr-contact .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); }
 .qamr-contact .brand-mark { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; display: inline-block; }
 .qamr-contact .brand-mark.sm { width: 22px; height: 22px; border-radius: 6px; }
-.qamr-contact .nav-brand-name { font-family: var(--hd); font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
+.qamr-contact .nav-brand-name { font-family: 'Inter', system-ui, sans-serif; font-size: 19px; font-weight: 600; letter-spacing: -.02em; }
 .qamr-contact .nav-back {
   font-size: 12px; color: var(--muted-lt); text-decoration:none;
   display:inline-flex; align-items:center; gap: 8px;
@@ -356,7 +356,7 @@ const CSS = `
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
 }
 .qamr-contact .foot-brand { display:flex; align-items:center; gap:9px; text-decoration:none; }
-.qamr-contact .foot-brand span { font-family: var(--hd); font-size: 17px; font-weight: 900; color: rgba(237,232,223,.45); letter-spacing: -.02em; }
+.qamr-contact .foot-brand span { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; color: rgba(237,232,223,.45); letter-spacing: -.02em; }
 .qamr-contact .foot-links { display:flex; gap:24px; }
 .qamr-contact .foot-links a { font-size:12px; color: rgba(106,98,120,.5); text-decoration:none; transition: color .2s; }
 .qamr-contact .foot-links a:hover { color: var(--muted-lt); }

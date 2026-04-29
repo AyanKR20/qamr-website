@@ -18,11 +18,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Qamr — Real. Human. Social.",
+  title: "Qamr · Real. Human. Social.",
   description:
-    "Bots. Ads. AI slop. Nobody asked for any of it. Qamr is the alternative — a human-first social platform with real conversations, high-signal news, and everything Muslims need built in.",
+    "Bots. Ads. AI slop. Nobody asked for any of it. Qamr is the alternative. A human-first social platform with real conversations, high-signal news, and everything Muslims need built in.",
   openGraph: {
-    title: "Qamr — Real. Human. Social.",
+    title: "Qamr · Real. Human. Social.",
     description: "The social platform built for meaningful connection.",
     type: "website",
   },

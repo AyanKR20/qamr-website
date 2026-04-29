@@ -46,7 +46,7 @@ export default function Hero() {
         {/* Badge */}
         <div className="animate-fade-in-up animation-delay-100 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/10 bg-accent/5 text-xs text-accent mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          Now in beta — join the movement
+          Now in beta. Join the movement
         </div>
 
         {/* Headline */}

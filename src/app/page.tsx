@@ -22,7 +22,7 @@ export default function QamrLanding() {
     const fontLink = document.createElement("link");
     fontLink.rel = "stylesheet";
     fontLink.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap";
+      "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Inter:wght@500;600;700&display=swap";
     document.head.appendChild(preconnect1);
     document.head.appendChild(preconnect2);
     document.head.appendChild(fontLink);
@@ -251,7 +251,7 @@ nav.scrolled {
   text-decoration: none; color: var(--fg);
 }
 .nav-brand img { width: 30px; height: 30px; border-radius: 7px; }
-.nav-brand-name { font-family: var(--hd); font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
+.nav-brand-name { font-family: 'Inter', system-ui, sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
 .nav-links { display: flex; gap: 36px; list-style: none; }
 .nav-links a { font-size: 13px; color: var(--muted-lt); text-decoration: none; letter-spacing: .01em; transition: color .2s; }
 .nav-links a:hover { color: var(--fg); }
@@ -923,7 +923,7 @@ footer {
 }
 .foot-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
 .foot-brand img { width: 24px; height: 24px; border-radius: 6px; }
-.foot-brand span { font-family: var(--hd); font-size: 17px; font-weight: 900; color: rgba(237,232,223,.4); letter-spacing: -.02em; }
+.foot-brand span { font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 600; color: rgba(237,232,223,.4); letter-spacing: -.02em; }
 .foot-links { display: flex; gap: 24px; }
 .foot-links a { font-size: 12px; color: rgba(106,98,120,.5); text-decoration: none; transition: color .2s; }
 .foot-links a:hover { color: var(--muted-lt); }
@@ -995,8 +995,8 @@ footer {
 <nav id="nav">
   <div class="nav-row">
     <a href="#" class="nav-brand">
-      <span class="nav-brand-name">Qamr</span>
       <img src="logo.png" alt="Qamr" />
+      <span class="nav-brand-name">Qamr</span>
     </a>
     <ul class="nav-links">
       <li><a href="#contrast">Why Qamr</a></li>
@@ -1188,7 +1188,7 @@ footer {
     <div class="feat-text">
       <p class="feat-eyebrow">Feed</p>
       <h3 class="feat-h3">Your people.<br/><em>Nothing else.</em></h3>
-      <p class="feat-desc">A clean, human feed — free of AI-generated media and fake engagement. Real posts from real people, surfaced without manipulation or slop.</p>
+      <p class="feat-desc">A clean, human feed. No AI-generated media, no fake engagement. Real posts from real people, surfaced without manipulation or slop.</p>
       <div class="feat-pill">
         <span class="pill-live"></span>
         Zero AI-generated media
@@ -1212,7 +1212,7 @@ footer {
     <div class="feat-text">
       <p class="feat-eyebrow">Pulse</p>
       <h3 class="feat-h3">High signal.<br/><em>Zero noise.</em></h3>
-      <p class="feat-desc">Verified, high-impact news — curated by community signal, not engagement bait. Know what actually matters, every single day.</p>
+      <p class="feat-desc">Verified, high-impact news, curated by community signal instead of engagement bait. Know what actually matters, every single day.</p>
       <div class="feat-pill">
         <span class="pill-live"></span>
         Updated continuously
@@ -1234,7 +1234,7 @@ footer {
       <div style="background:var(--surface);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;">
         <p class="feat-eyebrow">Qamr World</p>
         <h3 class="feat-h3">Your Ummah,<br/><em>everywhere.</em></h3>
-        <p class="feat-desc">Explore Muslim communities across the globe. Ask questions, offer help, and discuss what matters — at the country level, with people who actually live it.</p>
+        <p class="feat-desc">Explore Muslim communities across the globe. Ask questions, offer help, and discuss what matters at the country level, with people who actually live it.</p>
         <div class="feat-pill" style="margin-top:36px;">
           <span class="pill-live"></span>
           Forum-style · Country communities
@@ -1264,10 +1264,10 @@ footer {
     <div class="feat-text">
       <p class="feat-eyebrow">Hub</p>
       <h3 class="feat-h3">Everything<br/><em>you need.</em></h3>
-      <p class="feat-desc">Quran. Hadith. Prayer times. Qibla. Global Muslim communities. All in one place — built with the care it deserves.</p>
+      <p class="feat-desc">Quran. Hadith. Prayer times. Qibla. Global Muslim communities. All in one place, built with the care it deserves.</p>
       <div class="feat-pill">
         <span class="pill-live"></span>
-        Qamr Hub — your companion
+        Qamr Hub, your companion
       </div>
     </div>
     <div class="feat-visual">
@@ -1311,7 +1311,7 @@ footer {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
         <div class="tc-title">Real community.</div>
-        <div class="tc-desc">Country rooms, forum-style discussion, and global Muslim communities — all human, all signal.</div>
+        <div class="tc-desc">Country rooms, forum-style discussion, and global Muslim communities. All human, all signal.</div>
       </div>
       <div class="trust-cell rv d3">
         <div class="tc-icon">
@@ -1338,7 +1338,7 @@ footer {
         Built for the<br/><em style="font-style:italic;color:var(--accent);font-weight:700;">global Muslim.</em>
       </h2>
       <p style="margin-top:20px;font-size:17px;color:var(--muted-lt);font-weight:300;max-width:520px;line-height:1.75;">
-        Qamr is a premium social platform for everyone — and inside it lives everything a Muslim needs for daily life, all in one place.
+        Qamr is a premium social platform for everyone, and inside it lives everything a Muslim needs for daily life, all in one place.
       </p>
     </div>
 
@@ -1366,7 +1366,7 @@ footer {
         </div>
         <div style="position:relative;z-index:2;padding:48px 40px;display:flex;flex-direction:column;gap:14px;flex:1;">
           <div style="font-family:var(--hd);font-size:22px;font-weight:700;letter-spacing:-.02em;">Hadith Collections</div>
-          <div style="font-size:14px;color:var(--muted-lt);font-weight:300;line-height:1.7;">Kutub al-Sittah, 40 Nawawi, and more — searchable, readable, shareable.</div>
+          <div style="font-size:14px;color:var(--muted-lt);font-weight:300;line-height:1.7;">Kutub al-Sittah, 40 Nawawi, and more. Searchable, readable, shareable.</div>
         </div>
       </div>
 
@@ -1402,7 +1402,7 @@ footer {
       <div style="padding:48px 40px;background:var(--surf-lt);border-radius:4px 20px 20px 4px;">
         <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:400;">بِسْمِ اللَّه</div>
         <div style="font-family:var(--hd);font-size:clamp(20px,2.5vw,28px);font-weight:700;letter-spacing:-.02em;margin-bottom:12px;line-height:1.2;">Your Islamic<br/>companion.</div>
-        <div style="font-size:14px;color:var(--muted-lt);font-weight:300;line-height:1.7;max-width:360px;">Social connection and spiritual practice, together in one thoughtfully built space. Not an afterthought — a foundation.</div>
+        <div style="font-size:14px;color:var(--muted-lt);font-weight:300;line-height:1.7;max-width:360px;">Social connection and spiritual practice, together in one thoughtfully built space. Not an afterthought. A foundation.</div>
       </div>
 
     </div>
@@ -1452,8 +1452,8 @@ footer {
 <footer>
   <div class="foot-row">
     <a href="#" class="foot-brand">
-      <span>Qamr</span>
       <img src="logo.png" alt="Qamr" />
+      <span>Qamr</span>
     </a>
     <div class="foot-links">
       <a href="privacypolicy">Privacy</a>

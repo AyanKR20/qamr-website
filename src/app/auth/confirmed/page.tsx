@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Crescent from "@/components/Crescent";
 
 export const metadata: Metadata = {
-  title: "Account confirmed — Qamr",
+  title: "Account confirmed | Qamr",
   description: "Your Qamr account has been confirmed. You can now log in.",
   robots: { index: false, follow: false },
 };
