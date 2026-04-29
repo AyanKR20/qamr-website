@@ -183,10 +183,21 @@ export async function deleteAuthUser(
   }
   if (!res.ok && res.status !== 404) {
     const body = await readJson(res);
+    if (IS_DEV) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `[supabase admin] auth admin delete ${res.status} body:`,
+        body
+      );
+    }
+    const b =
+      body && typeof body === "object" ? (body as Record<string, unknown>) : null;
+    const pick = (k: string) => (b && typeof b[k] === "string" ? (b[k] as string) : null);
     const message =
-      (body && typeof body === "object" && "msg" in body && typeof (body as Record<string, unknown>).msg === "string"
-        ? ((body as Record<string, unknown>).msg as string)
-        : null) ||
+      pick("error_description") ||
+      pick("msg") ||
+      pick("message") ||
+      pick("error") ||
       `Auth admin delete failed (${res.status})`;
     return { ok: false, status: res.status, message };
   }

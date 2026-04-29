@@ -157,8 +157,8 @@ export default function DeleteAccountPage() {
         <nav>
           <div className="nav-row">
             <a href="/" className="nav-brand">
-              <span className="brand-mark">Q</span>
               <span className="nav-brand-name">Qamr</span>
+              <img src="/logo.png" alt="Qamr" className="brand-mark" />
             </a>
             <a href="/" className="nav-back">
               <svg
@@ -424,8 +424,8 @@ export default function DeleteAccountPage() {
         <footer>
           <div className="foot-row">
             <a href="/" className="foot-brand">
-              <span className="brand-mark sm">Q</span>
               <span>Qamr</span>
+              <img src="/logo.png" alt="Qamr" className="brand-mark sm" />
             </a>
             <div className="foot-links">
               <a href="/privacy">Privacy</a>
@@ -467,14 +467,9 @@ const CSS = `
 }
 .qamr-delete .nav-row { max-width: 880px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; }
 .qamr-delete .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--fg); }
-.qamr-delete .brand-mark {
-  width: 28px; height: 28px; border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent), #b89a55);
-  color: #08040f; display: inline-flex; align-items: center; justify-content: center;
-  font-family: var(--hd); font-weight: 800; font-size: 15px;
-}
-.qamr-delete .brand-mark.sm { width: 22px; height: 22px; font-size: 12px; border-radius: 6px; }
-.qamr-delete .nav-brand-name { font-family: var(--hd); font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+.qamr-delete .brand-mark { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; display: inline-block; }
+.qamr-delete .brand-mark.sm { width: 22px; height: 22px; border-radius: 6px; }
+.qamr-delete .nav-brand-name { font-family: var(--hd); font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
 .qamr-delete .nav-back {
   font-size: 12px; color: var(--muted-lt); text-decoration: none;
   display: inline-flex; align-items: center; gap: 8px;
@@ -661,7 +656,7 @@ const CSS = `
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
 }
 .qamr-delete .foot-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-.qamr-delete .foot-brand span { font-family: var(--hd); font-size: 14px; font-weight: 700; color: rgba(237,232,223,.45); letter-spacing: -.02em; }
+.qamr-delete .foot-brand span { font-family: var(--hd); font-size: 17px; font-weight: 900; color: rgba(237,232,223,.45); letter-spacing: -.02em; }
 .qamr-delete .foot-links { display: flex; gap: 24px; }
 .qamr-delete .foot-links a { font-size: 12px; color: rgba(106,98,120,.6); text-decoration: none; transition: color .2s; }
 .qamr-delete .foot-links a:hover { color: var(--muted-lt); }

@@ -14,8 +14,8 @@ export default function QamrContact() {
         <nav>
           <div className="nav-row">
             <a href="/" className="nav-brand">
-              <span className="brand-mark">Q</span>
               <span className="nav-brand-name">Qamr</span>
+              <img src="/logo.png" alt="Qamr" className="brand-mark" />
             </a>
             <a href="/" className="nav-back">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -109,8 +109,8 @@ export default function QamrContact() {
         <footer>
           <div className="foot-row">
             <a href="/" className="foot-brand">
-              <span className="brand-mark sm">Q</span>
               <span>Qamr</span>
+              <img src="/logo.png" alt="Qamr" className="brand-mark sm" />
             </a>
             <div className="foot-links">
               <a href="/privacy">Privacy</a>
@@ -177,14 +177,9 @@ const CSS = `
 }
 .qamr-contact .nav-row { max-width: 1040px; margin: 0 auto; padding: 0 32px; display:flex; align-items:center; justify-content:space-between; }
 .qamr-contact .nav-brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); }
-.qamr-contact .brand-mark {
-  width: 28px; height: 28px; border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent), #b89a55);
-  color: #08040f; display:inline-flex; align-items:center; justify-content:center;
-  font-family: var(--hd); font-weight: 800; font-size: 15px;
-}
-.qamr-contact .brand-mark.sm { width: 22px; height: 22px; font-size: 12px; border-radius: 6px; }
-.qamr-contact .nav-brand-name { font-family: var(--hd); font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+.qamr-contact .brand-mark { width: 28px; height: 28px; border-radius: 7px; object-fit: cover; display: inline-block; }
+.qamr-contact .brand-mark.sm { width: 22px; height: 22px; border-radius: 6px; }
+.qamr-contact .nav-brand-name { font-family: var(--hd); font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
 .qamr-contact .nav-back {
   font-size: 12px; color: var(--muted-lt); text-decoration:none;
   display:inline-flex; align-items:center; gap: 8px;
@@ -361,7 +356,7 @@ const CSS = `
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
 }
 .qamr-contact .foot-brand { display:flex; align-items:center; gap:9px; text-decoration:none; }
-.qamr-contact .foot-brand span { font-family: var(--hd); font-size: 14px; font-weight: 700; color: rgba(237,232,223,.45); letter-spacing: -.02em; }
+.qamr-contact .foot-brand span { font-family: var(--hd); font-size: 17px; font-weight: 900; color: rgba(237,232,223,.45); letter-spacing: -.02em; }
 .qamr-contact .foot-links { display:flex; gap:24px; }
 .qamr-contact .foot-links a { font-size:12px; color: rgba(106,98,120,.5); text-decoration:none; transition: color .2s; }
 .qamr-contact .foot-links a:hover { color: var(--muted-lt); }

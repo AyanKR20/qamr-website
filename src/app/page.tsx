@@ -251,7 +251,7 @@ nav.scrolled {
   text-decoration: none; color: var(--fg);
 }
 .nav-brand img { width: 30px; height: 30px; border-radius: 7px; }
-.nav-brand-name { font-family: var(--hd); font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+.nav-brand-name { font-family: var(--hd); font-size: 22px; font-weight: 900; letter-spacing: -.02em; }
 .nav-links { display: flex; gap: 36px; list-style: none; }
 .nav-links a { font-size: 13px; color: var(--muted-lt); text-decoration: none; letter-spacing: .01em; transition: color .2s; }
 .nav-links a:hover { color: var(--fg); }
@@ -923,7 +923,7 @@ footer {
 }
 .foot-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
 .foot-brand img { width: 24px; height: 24px; border-radius: 6px; }
-.foot-brand span { font-family: var(--hd); font-size: 15px; font-weight: 700; color: rgba(237,232,223,.4); letter-spacing: -.02em; }
+.foot-brand span { font-family: var(--hd); font-size: 17px; font-weight: 900; color: rgba(237,232,223,.4); letter-spacing: -.02em; }
 .foot-links { display: flex; gap: 24px; }
 .foot-links a { font-size: 12px; color: rgba(106,98,120,.5); text-decoration: none; transition: color .2s; }
 .foot-links a:hover { color: var(--muted-lt); }
@@ -995,8 +995,8 @@ footer {
 <nav id="nav">
   <div class="nav-row">
     <a href="#" class="nav-brand">
-      <img src="logo.png" alt="Qamr" />
       <span class="nav-brand-name">Qamr</span>
+      <img src="logo.png" alt="Qamr" />
     </a>
     <ul class="nav-links">
       <li><a href="#contrast">Why Qamr</a></li>
@@ -1452,13 +1452,13 @@ footer {
 <footer>
   <div class="foot-row">
     <a href="#" class="foot-brand">
-      <img src="logo.png" alt="Qamr" />
       <span>Qamr</span>
+      <img src="logo.png" alt="Qamr" />
     </a>
     <div class="foot-links">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
+      <a href="privacypolicy">Privacy</a>
+      <a href="terms">Terms</a>
+      <a href="contact">Contact</a>
     </div>
     <p class="foot-copy">© 2026 Qamr. Built for humans.</p>
   </div>
