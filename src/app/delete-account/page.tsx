@@ -430,6 +430,7 @@ export default function DeleteAccountPage() {
             <div className="foot-links">
               <a href="/privacy">Privacy</a>
               <a href="/terms">Terms</a>
+              <a href="/community-guidelines">Community Guidelines</a>
               <a href="mailto:qamrapp@gmail.com">Contact</a>
             </div>
             <p className="foot-copy">© 2026 Qamr. Built for humans.</p>
