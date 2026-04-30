@@ -35,7 +35,7 @@ const GUIDELINES: Section[] = [
       "If you encounter child sexual abuse material, suspected grooming, or any threat to a minor on Qamr, report it immediately:",
       [
         "In-app: open the post, profile, comment, or message, tap the menu, and select Report",
-        "Email: safety@qamr.app for urgent or sensitive child-safety reports",
+        "Email: qamrapp@gmail.com for urgent or sensitive child-safety reports",
         "If a child is in immediate danger, contact local law enforcement first. In the United States, you may also report directly to the NCMEC CyberTipline at 1-800-843-5678 or report.cybertip.org",
       ],
     ],
@@ -144,7 +144,7 @@ const GUIDELINES: Section[] = [
       "How to report:",
       [
         "In-app: tap the menu on any post, profile, comment, or message and select Report, then choose the most accurate category",
-        "Email: safety@qamr.app for child safety, imminent harm, or sensitive cases that require direct escalation",
+        "Email: qamrapp@gmail.com for child safety, imminent harm, or sensitive cases that require direct escalation",
         "Law enforcement: contact local authorities in emergencies. Qamr cooperates with valid legal requests from authorities",
       ],
       "We protect the identity of reporters wherever possible and prohibit retaliation against users who report in good faith.",
@@ -162,7 +162,7 @@ const GUIDELINES: Section[] = [
         "Preserving relevant data and reporting to NCMEC, law enforcement, or other authorities where required by law",
       ],
       "Severe violations — particularly those involving child safety, credible threats of violence, or serious illegal activity — will result in immediate permanent termination without prior warning.",
-      "Users may appeal an enforcement decision by contacting safety@qamr.app. Appeals are reviewed by a different member of the safety team where feasible.",
+      "Users may appeal an enforcement decision by contacting qamrapp@gmail.com. Appeals are reviewed by a different member of the safety team where feasible.",
     ],
   },
   {
@@ -326,7 +326,7 @@ export default function CommunityGuidelinesView() {
                       </div>
                       <div>
                         <span className="lbl">Email (Child Safety)</span>
-                        <a href="mailto:safety@qamr.app">safety@qamr.app</a>
+                        <a href="mailto:qamrapp@gmail.com">qamrapp@gmail.com</a>
                       </div>
                     </div>
                     <div className="contact-row">
@@ -374,28 +374,7 @@ export default function CommunityGuidelinesView() {
                         </svg>
                       </div>
                       <div>
-                        <span className="lbl">Child Safety</span>
-                        <a href="mailto:safety@qamr.app">safety@qamr.app</a>
-                      </div>
-                    </div>
-                    <div className="contact-row">
-                      <div className="ci">
-                        <svg
-                          width="15"
-                          height="15"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                          <polyline points="22,6 12,13 2,6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="lbl">General</span>
+                        <span className="lbl">Email</span>
                         <a href="mailto:qamrapp@gmail.com">qamrapp@gmail.com</a>
                       </div>
                     </div>
