@@ -56,13 +56,15 @@ export default function QamrContact() {
                 <span className="c-tag">Email</span>
               </div>
               <div className="c-body">
-                <div className="c-label">Write us anything</div>
-                <div className="c-value">qamrapp@gmail.com</div>
-              </div>
-              <div className="c-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <div className="c-body-text">
+                  <div className="c-label">Write us anything</div>
+                  <div className="c-value">qamrapp@gmail.com</div>
+                </div>
+                <div className="c-arrow" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             </a>
 
@@ -78,13 +80,15 @@ export default function QamrContact() {
                 <span className="c-tag">Instagram</span>
               </div>
               <div className="c-body">
-                <div className="c-label">Follow along</div>
-                <div className="c-value">@qamr.app</div>
-              </div>
-              <div className="c-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7M7 7h10v10" />
-                </svg>
+                <div className="c-body-text">
+                  <div className="c-label">Follow along</div>
+                  <div className="c-value">@qamr.app</div>
+                </div>
+                <div className="c-arrow" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M7 17L17 7M7 7h10v10" />
+                  </svg>
+                </div>
               </div>
             </a>
 
@@ -149,7 +153,7 @@ function FontLoader() {
     link.id = "qamr-fonts";
     link.rel = "stylesheet";
     link.href =
-      "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap";
+      "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Inter:wght@500;600;700&display=swap";
     document.head.appendChild(link);
   }
   return null;
@@ -194,7 +198,8 @@ const CSS = `
 .qamr-contact .brand-mark { width: 26px; height: 26px; border-radius: 7px; object-fit: cover; display: inline-block; }
 .qamr-contact .brand-mark.sm { width: 20px; height: 20px; border-radius: 5px; }
 .qamr-contact .nav-brand-name {
-  font-family: var(--hd); font-size: 20px; font-weight: 600;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 19px; font-weight: 600;
   letter-spacing: -.02em; line-height: 1;
 }
 .qamr-contact .nav-back {
@@ -288,8 +293,10 @@ const CSS = `
 .qamr-contact .c-card {
   position: relative;
   display: flex; flex-direction: column;
-  padding: 32px 32px 36px;
+  justify-content: space-between;
+  padding: 28px 30px;
   min-height: 220px;
+  text-align: left;
   text-decoration: none; color: var(--fg);
   background: linear-gradient(180deg, rgba(22,14,34,.7) 0%, rgba(12,7,22,.85) 100%);
   border: 1px solid var(--border);
@@ -329,15 +336,15 @@ const CSS = `
 .qamr-contact .c-card-top {
   display: flex; align-items: center; justify-content: space-between;
   position: relative; z-index: 1;
-  margin-bottom: 64px;
 }
 .qamr-contact .c-icon {
-  width: 44px; height: 44px; border-radius: 11px;
+  width: 42px; height: 42px; border-radius: 11px;
   border: 1px solid rgba(212,191,138,.18);
   background: rgba(212,191,138,.05);
   color: var(--accent);
   display: flex; align-items: center; justify-content: center;
   transition: border-color .35s ease, background .35s ease, transform .35s ease;
+  flex: none;
 }
 .qamr-contact .c-card:hover .c-icon {
   border-color: rgba(212,191,138,.42);
@@ -349,24 +356,31 @@ const CSS = `
   color: var(--muted-lt); font-weight: 500;
 }
 
-.qamr-contact .c-body { position: relative; z-index: 1; }
+.qamr-contact .c-body {
+  position: relative; z-index: 1;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 20px;
+}
+.qamr-contact .c-body-text { min-width: 0; flex: 1; }
 .qamr-contact .c-label {
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--muted-lt);
-  letter-spacing: .01em;
-  margin-bottom: 8px;
+  letter-spacing: .005em;
+  margin-bottom: 10px;
   font-weight: 400;
 }
 .qamr-contact .c-value {
   font-family: var(--hd);
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 500; letter-spacing: -.02em;
-  color: var(--fg); line-height: 1.15;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 500; letter-spacing: -.022em;
+  color: var(--fg); line-height: 1.1;
   font-variation-settings: "opsz" 72;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .qamr-contact .c-arrow {
-  position: absolute; right: 28px; bottom: 28px;
   width: 36px; height: 36px; border-radius: 50%;
   background: rgba(212,191,138,.06); color: var(--accent);
   border: 1px solid rgba(212,191,138,.18);
@@ -374,6 +388,8 @@ const CSS = `
   transition: background .35s ease, transform .35s ease,
               border-color .35s ease, color .35s ease;
   z-index: 2;
+  flex: none;
+  margin-bottom: 2px;
 }
 .qamr-contact .c-card:hover .c-arrow {
   background: var(--accent); color: #08040f; border-color: var(--accent);
@@ -459,8 +475,9 @@ const CSS = `
   text-decoration: none;
 }
 .qamr-contact .foot-brand span {
-  font-family: var(--hd); font-size: 14px; font-weight: 500;
-  color: rgba(237,232,223,.5); letter-spacing: -.015em;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: rgba(237,232,223,.5); letter-spacing: -.02em;
 }
 .qamr-contact .foot-links { display: flex; gap: 24px; flex-wrap: wrap; }
 .qamr-contact .foot-links a {
@@ -480,9 +497,7 @@ const CSS = `
   .qamr-contact .c-hero { padding: 88px 24px 72px; }
   .qamr-contact .c-hero-inner { margin-bottom: 48px; }
   .qamr-contact .c-grid { grid-template-columns: 1fr; gap: 14px; }
-  .qamr-contact .c-card { min-height: 200px; padding: 28px; }
-  .qamr-contact .c-card-top { margin-bottom: 48px; }
-  .qamr-contact .c-arrow { right: 24px; bottom: 24px; }
+  .qamr-contact .c-card { min-height: 200px; padding: 26px; }
   .qamr-contact .c-meta { margin-top: 48px; }
   .qamr-contact .c-ribbon { padding: 72px 24px 80px; }
   .qamr-contact .rib-row { grid-template-columns: 1fr; gap: 1px; }
