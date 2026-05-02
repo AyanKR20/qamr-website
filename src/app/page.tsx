@@ -988,11 +988,12 @@ img, svg, video { max-width: 100%; height: auto; }
   .showcase-hd h2 { font-size: clamp(32px, 7vw, 48px); }
   .feature { grid-template-columns: 1fr; padding: 0 20px; gap: 4px; margin-bottom: 4px; }
   .feature.rev { direction: ltr; }
-  .feat-text { border-radius: 20px 20px 6px 6px !important; padding: 44px 28px; }
-  .feat-visual { border-radius: 6px 6px 20px 20px !important; min-height: 360px; padding: 36px 20px; }
+  .feat-text { border-radius: 20px 20px 6px 6px !important; padding: 40px 28px 36px; }
+  .feat-visual { border-radius: 6px 6px 20px 20px !important; min-height: 0; padding: 28px 20px; }
   .feat-h3 { font-size: clamp(28px, 6vw, 40px); }
   .feat-desc { font-size: 14.5px; max-width: 100%; margin-bottom: 28px; }
   .feat-phone { width: 200px; border-radius: 36px; }
+  .feat-phone img { display: block; width: 100%; }
   .feat-float { display: none; }
 
   /* World section dual-phone block — stack & shrink */
@@ -1093,12 +1094,12 @@ img, svg, video { max-width: 100%; height: auto; }
   .showcase-hd { padding: 0 16px; margin-bottom: 48px; }
   .showcase-hd h2 { font-size: clamp(28px, 8vw, 38px); }
   .feature { padding: 0 16px; }
-  .feat-text { padding: 36px 22px; }
-  .feat-visual { padding: 32px 18px; min-height: 320px; }
+  .feat-text { padding: 32px 22px 28px; }
+  .feat-visual { padding: 22px 18px; min-height: 0; }
   .feat-h3 { font-size: clamp(26px, 7vw, 34px); }
   .feat-desc { font-size: 14px; line-height: 1.7; margin-bottom: 22px; }
   .feat-pill { font-size: 11px; padding: 7px 14px; }
-  .feat-phone { width: 180px; border-radius: 32px; }
+  .feat-phone { width: min(62vw, 200px); border-radius: 28px; }
 
   #showcase > .rv { padding: 0 16px !important; }
   #showcase > .rv > div > div:first-child { padding: 36px 22px !important; }
