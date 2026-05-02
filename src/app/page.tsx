@@ -1021,7 +1021,10 @@ img, svg, video { max-width: 100%; height: auto; }
   .trust-top { margin-bottom: 56px; }
   .trust-top h2 { font-size: clamp(32px, 7vw, 48px); }
   .trust-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
-  .trust-cell { padding: 32px 24px; border-radius: 14px !important; }
+  .trust-cell { padding: 26px 20px; border-radius: 14px !important; }
+  .tc-icon { width: 36px; height: 36px; margin-bottom: 18px; }
+  .tc-title { font-size: 16px; }
+  .tc-desc { font-size: 12.5px; }
 
   /* Muslim section */
   #for-muslims { padding: 90px 0 !important; }
@@ -1113,10 +1116,12 @@ img, svg, video { max-width: 100%; height: auto; }
   .trust-container { padding: 0 16px; }
   .trust-top { margin-bottom: 40px; }
   .trust-top h2 { font-size: clamp(28px, 8vw, 38px); }
-  .trust-grid { grid-template-columns: 1fr; gap: 4px; }
-  .trust-cell { padding: 28px 22px; border-radius: 14px !important; }
-  .tc-title { font-size: 17px; }
-  .tc-desc { font-size: 13px; }
+  .trust-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
+  .trust-cell { padding: 18px 14px; border-radius: 12px !important; }
+  .tc-icon { width: 30px; height: 30px; border-radius: 8px; margin-bottom: 14px; }
+  .tc-icon svg { width: 13px; height: 13px; }
+  .tc-title { font-size: 14px; margin-bottom: 6px; letter-spacing: -.015em; }
+  .tc-desc { font-size: 11.5px; line-height: 1.55; }
 
   #for-muslims { padding: 72px 0 !important; }
   #for-muslims > div { padding: 0 16px !important; }
