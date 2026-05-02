@@ -1458,7 +1458,7 @@ footer {
       <a href="privacypolicy">Privacy</a>
       <a href="terms">Terms</a>
       <a href="/community-guidelines">Community Guidelines</a>
-      <a href="contact">Contact</a>
+      <a href="/contact">Contact</a>
     </div>
     <p class="foot-copy">© 2026 Qamr. Built for humans.</p>
   </div>
