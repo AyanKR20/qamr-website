@@ -1364,11 +1364,17 @@ img, svg, video { max-width: 100%; height: auto; }
       <h3 class="feat-h3">High signal.<br/><em>Zero noise.</em></h3>
       <p class="feat-desc">Verified, high-impact news, curated by community signal instead of engagement bait. Know what actually matters, every single day.</p>
 
-    </div>
+
+      </div>
     <div class="feat-visual">
-      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(80,50,170,.25) 0%,transparent 70%)"></div>
+      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
       <div class="feat-phone">
         <img src="ios/qamrpulse_ios.png" alt="Pulse" />
+      </div>
+      <div class="feat-float tr">
+        <div class="ff-label">AI Media</div>
+        <div class="ff-val">Blocked</div>
+        <div class="ff-sub">Humans only</div>
       </div>
     </div>
   </div>
@@ -1401,10 +1407,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <p class="feat-eyebrow">Hub</p>
       <h3 class="feat-h3">Everything<br/><em>you need.</em></h3>
       <p class="feat-desc">Quran. Hadith. Prayer times. Qibla. Global Muslim communities. All in one place, built with the care it deserves.</p>
-      <div class="feat-pill">
-        <span class="pill-live"></span>
-        Qamr Hub, your companion
-      </div>
+      
     </div>
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(212,191,138,.12) 0%,transparent 70%)"></div>
