@@ -1298,7 +1298,7 @@ img, svg, video { max-width: 100%; height: auto; }
           <div><div class="cpname">Ahmad Suleiman</div><div class="cphandle">@ahmad.s</div></div>
           <div class="cp-check"></div>
         </div>
-        <div class="cptext">Spent the morning hiking with no phone. It was the clearest I've thought in months.</div>
+        <div class="cptext">Trying to fix my routine slowly. Less screen time, more focus on what actually matters.</div>
         <div class="cpactions">
           <span class="cpa"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 84</span>
           <span class="cpa"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> 12</span>
@@ -1344,10 +1344,6 @@ img, svg, video { max-width: 100%; height: auto; }
       <p class="feat-eyebrow">Feed</p>
       <h3 class="feat-h3">Your people.<br/><em>Nothing else.</em></h3>
       <p class="feat-desc">A clean, human feed. No AI-generated media, no fake engagement. Real posts from real people, surfaced without manipulation or slop.</p>
-      <div class="feat-pill">
-        <span class="pill-live"></span>
-        Zero AI-generated media
-      </div>
     </div>
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
@@ -1367,10 +1363,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <p class="feat-eyebrow">Pulse</p>
       <h3 class="feat-h3">High signal.<br/><em>Zero noise.</em></h3>
       <p class="feat-desc">Verified, high-impact news, curated by community signal instead of engagement bait. Know what actually matters, every single day.</p>
-      <div class="feat-pill">
-        <span class="pill-live"></span>
-        Updated continuously
-      </div>
+
     </div>
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(80,50,170,.25) 0%,transparent 70%)"></div>
@@ -1386,10 +1379,7 @@ img, svg, video { max-width: 100%; height: auto; }
         <p class="feat-eyebrow">Qamr World</p>
         <h3 class="feat-h3">Your Ummah,<br/><em>everywhere.</em></h3>
         <p class="feat-desc">Explore Muslim communities across the globe. Ask questions, offer help, and discuss what matters at the country level, with people who actually live it.</p>
-        <div class="feat-pill" style="margin-top:36px;">
-          <span class="pill-live"></span>
-          Forum-style · Country communities
-        </div>
+
       </div>
 
       <div style="background:radial-gradient(ellipse at center,rgba(212,191,138,.025),transparent 70%),linear-gradient(180deg,var(--surf-lt) 0%,#100823 100%);padding:60px 40px;display:flex;align-items:center;justify-content:center;gap:18px;position:relative;min-height:560px;border-radius:8px 24px 24px 8px;">
