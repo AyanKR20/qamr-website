@@ -1180,7 +1180,7 @@ img, svg, video { max-width: 100%; height: auto; }
       Your feed is<br/><em>full of ghosts.</em>
     </h1>
     <p class="hero-sub rv d2">
-      Bots. Ads. AI slop. Nobody asked for any of it.<br/>
+      Bots. Spam. AI slop. Nobody asked for any of it.<br/>
       Qamr is the alternative.
     </p>
     <div class="ctas rv d3">
