@@ -135,20 +135,13 @@ export default function QamrLanding() {
     };
     document.addEventListener("click", onTrackClick, true);
 
-    // Platform detect — set primary "Download Qamr" CTA target
+    // Platform detect — used to target the floating download pill
     const APPSTORE = "https://apps.apple.com/app/qamr/id6764144560";
     const PLAYSTORE = "https://play.google.com/store/apps/details?id=com.ayank.qamr";
     const ua = (navigator.userAgent || "").toLowerCase();
     const isIOS = /iphone|ipad|ipod/.test(ua) || (/(macintosh)/.test(ua) && (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints! > 1);
     const isAndroid = /android/.test(ua);
-    const primaryHref = isIOS ? APPSTORE : isAndroid ? PLAYSTORE : "#cta";
-    const primaryLabel = isIOS ? "Download on App Store" : isAndroid ? "Get it on Google Play" : "Download Qamr";
-    document.querySelectorAll<HTMLAnchorElement>("[data-primary-cta]").forEach((el) => {
-      el.href = primaryHref;
-      const lbl = el.querySelector(".btn-primary-label");
-      if (lbl) lbl.textContent = primaryLabel;
-      el.dataset.track = isIOS ? "appstore_click" : isAndroid ? "playstore_click" : "primary_click";
-    });
+    const primaryHref = isIOS ? APPSTORE : isAndroid ? PLAYSTORE : APPSTORE;
 
     // Floating download pill — appears after hero scroll on mobile
     const floatDl = document.querySelector(".float-dl") as HTMLAnchorElement | null;
@@ -1399,92 +1392,62 @@ img, svg, video { max-width: 100%; height: auto; }
   .hero-phone-stage, .hero-phone { width: min(78vw, 220px); }
 }
 
-/* ───── PRIMARY CTA + INSTALL STACK ───── */
-.cta-stack {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 14px; width: 100%;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 16px 36px;
-  border-radius: 100px;
-  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 55%, #b89a55 100%);
-  color: #0a0518;
-  font-size: 15.5px; font-weight: 600; letter-spacing: -.005em;
+/* ───── HERO STORE BUTTONS (light, app-store style) ───── */
+.store-btn {
+  display: inline-flex; align-items: center; gap: 11px;
+  padding: 11px 22px 11px 18px;
+  min-width: 188px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--fg) 0%, #ddd6c5 100%);
+  color: #0f0819;
   text-decoration: none;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(0,0,0,.08);
   box-shadow:
-    0 14px 40px rgba(212,191,138,.22),
-    0 0 0 1px rgba(212,191,138,.18),
-    inset 0 1px 0 rgba(255,255,255,.35),
-    inset 0 -1px 0 rgba(0,0,0,.12);
-  transition: transform .3s var(--ease), box-shadow .4s var(--ease), filter .3s;
+    0 6px 18px rgba(0,0,0,.35),
+    0 0 0 1px rgba(212,191,138,.22),
+    inset 0 1px 0 rgba(255,255,255,.6),
+    inset 0 -1px 0 rgba(0,0,0,.06);
+  transition: transform .25s var(--ease), box-shadow .35s var(--ease), filter .25s var(--ease);
   will-change: transform;
-  min-width: 240px;
-  position: relative; overflow: hidden;
 }
-.btn-primary::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,.32) 50%, transparent 60%);
-  transform: translateX(-130%);
-  transition: transform .9s var(--ease);
-  pointer-events: none;
-}
-.btn-primary:hover {
+.store-btn:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 18px 50px rgba(212,191,138,.32),
-    0 0 0 1px rgba(212,191,138,.3),
-    inset 0 1px 0 rgba(255,255,255,.4),
-    inset 0 -1px 0 rgba(0,0,0,.14);
+    0 12px 28px rgba(0,0,0,.45),
+    0 0 0 1px rgba(212,191,138,.4),
+    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 -1px 0 rgba(0,0,0,.08);
+  filter: brightness(1.02);
 }
-.btn-primary:hover::after { transform: translateX(130%); }
-.btn-primary:active {
+.store-btn:active {
   transform: translateY(0) scale(.985);
   transition: transform .12s var(--ease);
 }
-.btn-primary svg { display: block; }
-
-/* Subtle "Available on" store indicators — text-style, not buttons */
-.store-links {
-  display: inline-flex; align-items: center; justify-content: center;
-  flex-wrap: wrap;
-  gap: 4px 6px;
-  margin-top: 2px;
-}
-.store-links-label {
-  font-size: 9.5px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-right: 6px;
-  font-weight: 500;
-}
-.store-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  color: var(--fg-dim);
-  text-decoration: none;
-  font-size: 12px; font-weight: 500;
-  letter-spacing: -.005em;
-  transition: color .25s var(--ease), background .25s var(--ease);
-}
-.store-link:hover {
-  color: var(--fg);
-  background: rgba(212,191,138,.045);
-}
-.store-link svg {
-  opacity: .8;
+.store-btn-icon {
   flex: none;
-  transition: opacity .25s var(--ease);
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
 }
-.store-link:hover svg { opacity: 1; }
-.store-link-sep {
-  width: 2px; height: 2px; border-radius: 50%;
-  background: rgba(212,191,138,.35);
-  margin: 0 2px;
+.store-btn-icon svg { display: block; }
+.store-btn-text {
+  display: flex; flex-direction: column;
+  line-height: 1.05;
+  text-align: left;
+}
+.store-btn-small {
+  font-size: 9.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(15,8,25,.62);
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.store-btn-big {
+  font-family: var(--bd);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: #0f0819;
 }
 
 /* ───── TRUST PILLS (replaces hero-meta) ───── */
@@ -1627,32 +1590,35 @@ img, svg, video { max-width: 100%; height: auto; }
   .hero-meta { display: none; }
   /* Hide the hero phone trio on mobile — the carousel section below takes over */
   .hero-phone-wrap, .hero-floor-grad { display: none; }
-  #hero { padding-bottom: 14px; }
-  .hero-sub { margin-bottom: 20px; }
-  .cta-stack { gap: 10px; }
-  .btn-primary {
-    width: 100%; max-width: 320px;
-    padding: 16px 28px; font-size: 15px;
+  #hero { padding-bottom: 12px; }
+  .hero-sub { margin-bottom: 18px; }
+  .ctas { gap: 8px; max-width: 360px; margin: 0 auto; }
+  .store-btn {
+    flex: 1 1 calc(50% - 4px);
     min-width: 0;
-    letter-spacing: -.005em;
+    justify-content: flex-start;
+    padding: 10px 14px;
+    border-radius: 13px;
   }
-  .store-links { gap: 2px 4px; }
-  .store-links-label {
-    width: 100%;
-    text-align: center;
-    margin: 0 0 2px;
-    font-size: 9px;
-  }
-  .store-link { padding: 4px 6px; font-size: 11.5px; gap: 5px; }
-  .store-link svg { width: 10px; height: 12px; }
+  .store-btn-icon { width: 22px; height: 22px; }
+  .store-btn-icon svg { width: 19px; height: 22px; }
+  .store-btn-small { font-size: 8.5px; margin-bottom: 2px; }
+  .store-btn-big { font-size: 14px; }
   .trust-pills { margin-top: 14px; gap: 6px 8px; }
   .trust-pill { font-size: 10.5px; padding: 5px 11px; }
 }
 
 @media (max-width: 480px) {
-  .btn-primary { padding: 15px 24px; font-size: 14.5px; }
-  .hero-sub { margin-bottom: 18px; }
+  .hero-sub { margin-bottom: 16px; }
   .trust-pills { margin-top: 12px; }
+  .store-btn { padding: 10px 12px; gap: 9px; }
+  .store-btn-big { font-size: 13.5px; }
+}
+
+/* Stack store buttons vertically on very small screens for full-width tappability */
+@media (max-width: 380px) {
+  .ctas { flex-direction: column; align-items: stretch; gap: 8px; max-width: 300px; }
+  .store-btn { flex: 0 0 auto; width: 100%; }
 }
 `}</style>
       <div dangerouslySetInnerHTML={{ __html: `
@@ -1689,24 +1655,29 @@ img, svg, video { max-width: 100%; height: auto; }
       Scroll with purpose — real people, meaningful content, and no AI-generated media. 
     </p>
     <div class="ctas rv d3">
-      <div class="cta-stack">
-        <a href="https://apps.apple.com/app/qamr/id6764144560" class="btn-primary" aria-label="Download Qamr" data-primary-cta data-track="primary_click" data-location="hero">
-          <span class="btn-primary-label">Download Qamr</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-        </a>
-        <div class="store-links" aria-label="Also available on">
-          <span class="store-links-label">Available on</span>
-          <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-link" aria-label="Open in App Store" data-track="appstore_click" data-location="hero">
-            <svg width="11" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            App Store
-          </a>
-          <span class="store-link-sep" aria-hidden="true"></span>
-          <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" class="store-link" aria-label="Open in Google Play" data-track="playstore_click" data-location="hero">
-            <svg width="11" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="currentColor" opacity=".85"/><path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="currentColor"/><path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="currentColor" opacity=".7"/><path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="currentColor"/></svg>
-            Google Play
-          </a>
-        </div>
-      </div>
+      <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-btn" aria-label="Download Qamr on the App Store" data-track="appstore_click" data-location="hero">
+        <span class="store-btn-icon">
+          <svg width="22" height="26" viewBox="0 0 24 24" fill="#0f0819" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        </span>
+        <span class="store-btn-text">
+          <span class="store-btn-small">Download on the</span>
+          <span class="store-btn-big">App Store</span>
+        </span>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" class="store-btn" aria-label="Get Qamr on Google Play" data-track="playstore_click" data-location="hero">
+        <span class="store-btn-icon">
+          <svg width="20" height="22" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="#0f0819" opacity=".95"/>
+            <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="#0f0819" opacity=".8"/>
+            <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="#0f0819" opacity=".62"/>
+            <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="#0f0819" opacity=".88"/>
+          </svg>
+        </span>
+        <span class="store-btn-text">
+          <span class="store-btn-small">Get it on</span>
+          <span class="store-btn-big">Google Play</span>
+        </span>
+      </a>
     </div>
     <div class="trust-pills rv d3" aria-label="What you get">
       <span class="trust-pill">Free to download</span>
