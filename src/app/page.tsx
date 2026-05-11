@@ -1326,7 +1326,8 @@ img, svg, video { max-width: 100%; height: auto; }
       A Social App<br/><em>Built for Muslims.</em>
     </h1>
     <p class="hero-sub rv d2">
-      Scroll with purpose. Real people, meaningful content, Quran, Hadith, Duas, reels, discussions, and high-signal news — all in one place.
+      Scroll with purpose. 
+      Real people, meaningful content, Quran, Hadith, Duas, reels, discussions, and high-signal news — all in one place.
     </p>
     <div class="ctas rv d3">
       <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-badge lg" aria-label="Download Qamr on the App Store — free" data-track="appstore_click" data-location="hero">
@@ -1619,7 +1620,7 @@ img, svg, video { max-width: 100%; height: auto; }
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
         </div>
         <div class="tc-title">No AI-generated media.</div>
-        <div class="tc-desc">Images, videos, and posts created by AI are detected and filtered. What you see is made by humans.</div>
+        <div class="tc-desc">Videos created by AI are removed. What you see is made by humans.</div>
       </div>
     </div>
   </div>
