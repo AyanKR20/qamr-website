@@ -135,6 +135,106 @@ export default function QamrLanding() {
     };
     document.addEventListener("click", onTrackClick, true);
 
+    // Platform detect — set primary "Download Qamr" CTA target
+    const APPSTORE = "https://apps.apple.com/app/qamr/id6764144560";
+    const PLAYSTORE = "https://play.google.com/store/apps/details?id=com.ayank.qamr";
+    const ua = (navigator.userAgent || "").toLowerCase();
+    const isIOS = /iphone|ipad|ipod/.test(ua) || (/(macintosh)/.test(ua) && (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints! > 1);
+    const isAndroid = /android/.test(ua);
+    const primaryHref = isIOS ? APPSTORE : isAndroid ? PLAYSTORE : "#cta";
+    const primaryLabel = isIOS ? "Download on App Store" : isAndroid ? "Get it on Google Play" : "Download Qamr";
+    document.querySelectorAll<HTMLAnchorElement>("[data-primary-cta]").forEach((el) => {
+      el.href = primaryHref;
+      const lbl = el.querySelector(".btn-primary-label");
+      if (lbl) lbl.textContent = primaryLabel;
+      el.dataset.track = isIOS ? "appstore_click" : isAndroid ? "playstore_click" : "primary_click";
+    });
+
+    // Floating download pill — appears after hero scroll on mobile
+    const floatDl = document.querySelector(".float-dl") as HTMLAnchorElement | null;
+    if (floatDl) {
+      floatDl.href = primaryHref;
+      floatDl.dataset.track = isIOS ? "appstore_click" : isAndroid ? "playstore_click" : "primary_click";
+    }
+    const hero = document.getElementById("hero");
+    let floatRaf: number | null = null;
+    const onScrollFloat = () => {
+      if (floatRaf) return;
+      floatRaf = requestAnimationFrame(() => {
+        floatRaf = null;
+        if (!floatDl || !hero) return;
+        const past = window.scrollY > hero.offsetHeight * 0.7;
+        floatDl.classList.toggle("show", past);
+      });
+    };
+    window.addEventListener("scroll", onScrollFloat, { passive: true });
+
+    // Screenshot carousel — active-card detection + subtle auto-advance
+    const scTrack = document.querySelector(".sc-track") as HTMLElement | null;
+    const scCards = Array.from(document.querySelectorAll<HTMLElement>(".sc-card"));
+    const scDots = Array.from(document.querySelectorAll<HTMLElement>(".sc-dot"));
+    let scAutoTimer: ReturnType<typeof setInterval> | null = null;
+    let scUserInteracted = false;
+    let scResumeTimer: ReturnType<typeof setTimeout> | null = null;
+    const setActiveCard = (i: number) => {
+      scCards.forEach((c, idx) => c.classList.toggle("is-active", idx === i));
+      scDots.forEach((d, idx) => d.classList.toggle("on", idx === i));
+    };
+    const scrollToCard = (i: number, smooth = true) => {
+      if (!scTrack || !scCards[i]) return;
+      const card = scCards[i];
+      const left = card.offsetLeft - (scTrack.clientWidth - card.clientWidth) / 2;
+      scTrack.scrollTo({ left, behavior: smooth ? "smooth" : "auto" });
+    };
+    if (scTrack && scCards.length) {
+      const scObs = new IntersectionObserver(
+        (entries) => {
+          let best: { ratio: number; el: HTMLElement } | null = null;
+          entries.forEach((e) => {
+            if (!best || e.intersectionRatio > best.ratio) {
+              best = { ratio: e.intersectionRatio, el: e.target as HTMLElement };
+            }
+          });
+          if (best) {
+            const idx = scCards.indexOf((best as { ratio: number; el: HTMLElement }).el);
+            if (idx >= 0) setActiveCard(idx);
+          }
+        },
+        { root: scTrack, threshold: [0.5, 0.75, 1] }
+      );
+      scCards.forEach((c) => scObs.observe(c));
+      setActiveCard(0);
+      // Center first card without smooth (avoid initial jump animation)
+      requestAnimationFrame(() => scrollToCard(0, false));
+
+      const startAuto = () => {
+        if (scAutoTimer) return;
+        scAutoTimer = setInterval(() => {
+          if (scUserInteracted || document.hidden) return;
+          const active = scCards.findIndex((c) => c.classList.contains("is-active"));
+          const next = (active + 1) % scCards.length;
+          scrollToCard(next);
+        }, 4500);
+      };
+      const onUserInteract = () => {
+        scUserInteracted = true;
+        if (scResumeTimer) clearTimeout(scResumeTimer);
+        scResumeTimer = setTimeout(() => { scUserInteracted = false; }, 6000);
+      };
+      scTrack.addEventListener("touchstart", onUserInteract, { passive: true });
+      scTrack.addEventListener("pointerdown", onUserInteract, { passive: true });
+      scTrack.addEventListener("wheel", onUserInteract, { passive: true });
+      scDots.forEach((d, i) => d.addEventListener("click", () => { onUserInteract(); scrollToCard(i); }));
+      // Only auto-scroll on mobile widths
+      const mq = window.matchMedia("(max-width: 900px)");
+      const syncAuto = () => {
+        if (mq.matches) startAuto();
+        else if (scAutoTimer) { clearInterval(scAutoTimer); scAutoTimer = null; }
+      };
+      syncAuto();
+      mq.addEventListener?.("change", syncAuto);
+    }
+
     const swatchHandlers: Array<[Element, EventListener]> = [];
     document.querySelectorAll(".tw-sw").forEach((sw) => {
       const h = () => {
@@ -162,6 +262,7 @@ export default function QamrLanding() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("scroll", onScrollParallax);
+      window.removeEventListener("scroll", onScrollFloat);
       window.removeEventListener("message", onMsg);
       document.removeEventListener("click", onTrackClick, true);
       heroWrap?.removeEventListener("pointermove", onPointerMove);
@@ -171,6 +272,9 @@ export default function QamrLanding() {
       surfHandlers.forEach(([el, h]) => el.removeEventListener("click", h));
       if (raf) cancelAnimationFrame(raf);
       if (parallaxRaf) cancelAnimationFrame(parallaxRaf);
+      if (floatRaf) cancelAnimationFrame(floatRaf);
+      if (scAutoTimer) clearInterval(scAutoTimer);
+      if (scResumeTimer) clearTimeout(scResumeTimer);
     };
   }, []);
 
@@ -1074,7 +1178,7 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 @media (max-width: 900px) {
-  body { font-size: 16px; padding-bottom: 76px; }
+  body { font-size: 16px; }
   .nav-links { display: none; }
   nav { padding: 14px 0; }
   nav.scrolled { padding: 10px 0; }
@@ -1207,7 +1311,7 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 @media (max-width: 480px) {
-  body { font-size: 15px; padding-bottom: 74px; }
+  body { font-size: 15px; }
   .nav-row { padding: 0 14px; }
   .nav-brand img { width: 26px; height: 26px; }
   .nav-brand-name { font-size: 18px; }
@@ -1294,6 +1398,223 @@ img, svg, video { max-width: 100%; height: auto; }
   .feat-h3 { font-size: 24px; }
   .hero-phone-stage, .hero-phone { width: min(78vw, 220px); }
 }
+
+/* ───── PRIMARY CTA + INSTALL STACK ───── */
+.cta-stack {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; width: 100%;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 16px 36px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 55%, #b89a55 100%);
+  color: #0a0518;
+  font-size: 15.5px; font-weight: 600; letter-spacing: -.005em;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 14px 40px rgba(212,191,138,.22),
+    0 0 0 1px rgba(212,191,138,.18),
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -1px 0 rgba(0,0,0,.12);
+  transition: transform .3s var(--ease), box-shadow .4s var(--ease), filter .3s;
+  will-change: transform;
+  min-width: 240px;
+  position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 40%, rgba(255,255,255,.32) 50%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform .9s var(--ease);
+  pointer-events: none;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 50px rgba(212,191,138,.32),
+    0 0 0 1px rgba(212,191,138,.3),
+    inset 0 1px 0 rgba(255,255,255,.4),
+    inset 0 -1px 0 rgba(0,0,0,.14);
+}
+.btn-primary:hover::after { transform: translateX(130%); }
+.btn-primary svg { display: block; }
+
+.store-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; width: 100%;
+}
+.store-badge.sm {
+  padding: 10px 16px 10px 14px;
+  min-width: 0; flex: 0 1 auto;
+  border-radius: 14px;
+}
+.store-badge.sm .sb-icon { width: 22px; height: 22px; }
+.store-badge.sm .sb-icon svg { width: 20px; height: 22px; }
+.store-badge.sm .sb-small { font-size: 9px; margin-bottom: 2px; }
+.store-badge.sm .sb-big { font-size: 14px; }
+
+/* ───── TRUST PILLS (replaces hero-meta) ───── */
+.trust-pills {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 8px; margin-top: 22px;
+}
+.trust-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 14px; border-radius: 100px;
+  border: 1px solid var(--border);
+  background: rgba(212,191,138,.035);
+  font-size: 11.5px; color: var(--fg-dim); font-weight: 400;
+  letter-spacing: .005em;
+  white-space: nowrap;
+}
+.trust-pill::before {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 6px rgba(212,191,138,.5);
+  flex: none;
+}
+
+/* ───── SCREENSHOT CAROUSEL (mobile-first) ───── */
+#screens { display: none; position: relative; z-index: 1; }
+
+@media (max-width: 900px) {
+  #screens {
+    display: block;
+    padding: 8px 0 28px;
+  }
+  .sc-track {
+    display: flex; gap: 16px;
+    overflow-x: auto; overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 18px 18vw 30px;
+    scroll-padding-inline: 18vw;
+  }
+  .sc-track::-webkit-scrollbar { display: none; }
+  .sc-card {
+    flex: 0 0 64vw;
+    max-width: 280px;
+    scroll-snap-align: center;
+    border-radius: 38px;
+    overflow: hidden;
+    border: 1px solid var(--bord-lt);
+    background: #0a0518;
+    box-shadow:
+      0 50px 100px rgba(0,0,0,.6),
+      0 0 0 1px rgba(212,191,138,.06),
+      inset 0 1px 0 rgba(255,255,255,.05);
+    opacity: .55;
+    filter: brightness(.78);
+    transform: scale(.92);
+    transition: opacity .45s var(--ease), filter .45s var(--ease), transform .45s var(--ease);
+    will-change: transform, opacity, filter;
+  }
+  .sc-card.is-active {
+    opacity: 1;
+    filter: none;
+    transform: scale(1);
+    box-shadow:
+      0 60px 120px rgba(0,0,0,.7),
+      0 0 60px rgba(212,191,138,.1),
+      0 0 0 1px rgba(212,191,138,.14),
+      inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .sc-card img {
+    width: 100%; display: block;
+    backface-visibility: hidden;
+  }
+  .sc-dots {
+    display: flex; justify-content: center; gap: 7px;
+    margin-top: 4px;
+  }
+  .sc-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(212,191,138,.18);
+    border: none; padding: 0; cursor: pointer;
+    transition: background .3s var(--ease), width .3s var(--ease);
+  }
+  .sc-dot.on {
+    background: var(--accent);
+    width: 18px; border-radius: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  #screens { padding: 6px 0 22px; }
+  .sc-track { padding: 16px 14vw 26px; scroll-padding-inline: 14vw; }
+  .sc-card { flex-basis: 70vw; border-radius: 34px; }
+}
+
+/* ───── FLOATING DOWNLOAD PILL (mobile, after hero scroll) ───── */
+.float-dl {
+  display: none;
+  position: fixed;
+  right: 14px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 820;
+  align-items: center; gap: 8px;
+  padding: 11px 18px 11px 14px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, rgba(20,12,36,.92) 0%, rgba(8,4,15,.96) 100%);
+  border: 1px solid rgba(212,191,138,.4);
+  color: var(--fg);
+  font-family: var(--bd);
+  font-size: 13px; font-weight: 500; letter-spacing: -.005em;
+  text-decoration: none;
+  box-shadow:
+    0 14px 36px rgba(0,0,0,.5),
+    0 0 24px rgba(212,191,138,.08),
+    inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  pointer-events: none;
+}
+.float-dl.show {
+  opacity: 1; transform: translateY(0);
+  pointer-events: auto;
+}
+.float-dl svg { display: block; flex: none; }
+.float-dl .fdl-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(212,191,138,.6);
+}
+@media (max-width: 900px) {
+  .float-dl { display: inline-flex; }
+  /* Sticky-cta is now disabled — old rule kept off */
+  .sticky-cta { display: none !important; }
+  body { padding-bottom: 0; }
+}
+
+/* ───── HERO INSTALL STACK MOBILE OVERRIDES ───── */
+@media (max-width: 900px) {
+  .hero-meta { display: none; }
+  /* Hide the hero phone trio on mobile — the carousel section below takes over */
+  .hero-phone-wrap, .hero-floor-grad { display: none; }
+  #hero { padding-bottom: 18px; }
+  .cta-stack { gap: 12px; }
+  .btn-primary {
+    width: 100%; max-width: 340px;
+    padding: 15px 28px; font-size: 15px;
+    min-width: 0;
+  }
+  .store-row { gap: 8px; max-width: 340px; width: 100%; }
+  .store-row .store-badge { flex: 1 1 50%; min-width: 0; justify-content: center; }
+  .trust-pills { margin-top: 16px; gap: 6px 8px; }
+  .trust-pill { font-size: 10.5px; padding: 5px 11px; }
+}
+
+@media (max-width: 480px) {
+  .btn-primary { padding: 14px 24px; font-size: 14.5px; }
+  .store-badge.sm { padding: 9px 12px; }
+  .store-badge.sm .sb-big { font-size: 13px; }
+  .store-badge.sm .sb-small { font-size: 8.5px; }
+}
 `}</style>
       <div dangerouslySetInnerHTML={{ __html: `
 
@@ -1320,49 +1641,54 @@ img, svg, video { max-width: 100%; height: auto; }
   <div class="hero-text">
     <div class="hero-kicker rv">
       <span class="kicker-dot"></span>
-      Now live on iOS and Android
+      Now live on iOS &amp; Android
     </div>
     <h1 class="hero-h1 rv d1">
-      A Social App<br/><em>Built for Muslims.</em>
+      Scroll with <em>Purpose.</em>
     </h1>
     <p class="hero-sub rv d2">
-      Scroll with purpose. 
-      Real people, meaningful content, Quran, Hadith, Duas, reels, discussions, and high-signal news — all in one place.
+      A social app built for Muslims — real people, meaningful content, and no AI-generated media.
     </p>
     <div class="ctas rv d3">
-      <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-badge lg" aria-label="Download Qamr on the App Store — free" data-track="appstore_click" data-location="hero">
-        <span class="sb-icon">
-          <svg width="24" height="28" viewBox="0 0 24 24" fill="#ede8df" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        </span>
-        <span class="sb-text">
-          <span class="sb-small">Download on the</span>
-          <span class="sb-big">App Store</span>
-        </span>
-      </a>
-      <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" class="store-badge lg" aria-label="Get Qamr on Google Play — free" data-track="playstore_click" data-location="hero">
-        <span class="sb-icon">
-          <svg width="22" height="24" viewBox="0 0 24 24" aria-hidden="true">
-            <defs>
-              <linearGradient id="qg1a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8d5a8"/><stop offset="1" stop-color="#b89a55"/></linearGradient>
-            </defs>
-            <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="url(#qg1a)"/>
-            <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="#d4bf8a"/>
-            <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="#b89a55"/>
-            <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="#e8d5a8"/>
-          </svg>
-        </span>
-        <span class="sb-text">
-          <span class="sb-small">Get it on</span>
-          <span class="sb-big">Google Play</span>
-        </span>
-      </a>
+      <div class="cta-stack">
+        <a href="https://apps.apple.com/app/qamr/id6764144560" class="btn-primary" aria-label="Download Qamr" data-primary-cta data-track="primary_click" data-location="hero">
+          <span class="btn-primary-label">Download Qamr</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </a>
+        <div class="store-row">
+          <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-badge sm" aria-label="Download on the App Store" data-track="appstore_click" data-location="hero">
+            <span class="sb-icon">
+              <svg width="22" height="24" viewBox="0 0 24 24" fill="#ede8df" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            </span>
+            <span class="sb-text">
+              <span class="sb-small">Download on the</span>
+              <span class="sb-big">App Store</span>
+            </span>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" class="store-badge sm" aria-label="Get it on Google Play" data-track="playstore_click" data-location="hero">
+            <span class="sb-icon">
+              <svg width="20" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <defs>
+                  <linearGradient id="qg1a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8d5a8"/><stop offset="1" stop-color="#b89a55"/></linearGradient>
+                </defs>
+                <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="url(#qg1a)"/>
+                <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="#d4bf8a"/>
+                <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="#b89a55"/>
+                <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="#e8d5a8"/>
+              </svg>
+            </span>
+            <span class="sb-text">
+              <span class="sb-small">Get it on</span>
+              <span class="sb-big">Google Play</span>
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="hero-meta rv d3" aria-label="What you get">
-      <span><strong>Free</strong> to download</span>
-      <span class="hero-meta-dot"></span>
-      <span>No AI-generated media</span>
-      <span class="hero-meta-dot"></span>
-      <span>Built by a Muslim founder</span>
+    <div class="trust-pills rv d3" aria-label="What you get">
+      <span class="trust-pill">Free to download</span>
+      <span class="trust-pill">Muslim-built</span>
+      <span class="trust-pill">No AI-generated media</span>
     </div>
   </div>
 
@@ -1380,6 +1706,26 @@ img, svg, video { max-width: 100%; height: auto; }
     </div>
   </div>
   <div class="hero-floor-grad"></div>
+</section>
+
+<!-- SCREENSHOT CAROUSEL (mobile) -->
+<section id="screens" aria-label="App screenshots">
+  <div class="sc-track" role="group" aria-roledescription="carousel">
+    <div class="sc-card is-active" aria-label="Feed and reels">
+      <img src="ios/feedtab_ios.png" alt="Qamr feed and reels" loading="eager" />
+    </div>
+    <div class="sc-card" aria-label="Qamr Hub — Quran, Hadith, Duas">
+      <img src="ios/qamrhub_ios.png" alt="Qamr Hub — Quran, Hadith, Duas, prayer tools" loading="lazy" />
+    </div>
+    <div class="sc-card" aria-label="Qamr Pulse — Ummah news">
+      <img src="ios/qamrpulse_ios.png" alt="Qamr Pulse — high-signal Ummah news and discussions" loading="lazy" />
+    </div>
+  </div>
+  <div class="sc-dots" aria-hidden="true">
+    <button class="sc-dot on" type="button" aria-label="Screenshot 1"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 2"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 3"></button>
+  </div>
 </section>
 
 <!-- MARQUEE -->
@@ -1434,6 +1780,74 @@ img, svg, video { max-width: 100%; height: auto; }
         <div class="why-num">05</div>
         <div class="why-title">Discussions by country &amp; topic</div>
         <div class="why-desc">Country rooms and topic threads so you find Muslims who get your context.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="showcase">
+  <div class="showcase-hd rv">
+    <div class="section-eye">Inside the App</div>
+    <h2>A premium Muslim social app,<br/><em>built right.</em></h2>
+  </div>
+
+  <div class="feature rv">
+    <div class="feat-text">
+      <p class="feat-eyebrow">Feed &amp; Reels</p>
+      <h3 class="feat-h3">A feed and reels <em>worth opening.</em></h3>
+      <p class="feat-desc">Real people, real posts, and reels you actually want to watch. No AI-generated media, no fake engagement, no doomscroll.</p>
+      <span class="feat-pill"><span class="pill-live"></span>No AI-generated media</span>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
+      <div class="feat-phone">
+        <img src="ios/feedtab_ios.png" alt="Qamr feed and reels" />
+      </div>
+      <div class="feat-float tr">
+        <div class="ff-label">AI Media</div>
+        <div class="ff-val">Blocked</div>
+        <div class="ff-sub">Humans only</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature rev rv">
+    <div class="feat-text">
+      <p class="feat-eyebrow">Qamr Hub</p>
+      <h3 class="feat-h3">Quran, Hadith, Duas <em>&amp; prayer tools.</em></h3>
+      <p class="feat-desc">Full Quran with audio recitation and translation. Kutub al-Sittah. Daily Duas. Prayer times and Qibla for your location. All inside the same app.</p>
+      <span class="feat-pill"><span class="pill-live"></span>Built for daily practice</span>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(212,191,138,.12) 0%,transparent 70%)"></div>
+      <div class="feat-phone">
+        <img src="ios/qamrhub_ios.png" alt="Quran, Hadith, Duas and prayer tools" />
+      </div>
+      <div class="feat-float tr">
+        <div class="ff-label">In one place</div>
+        <div class="ff-val">Quran · Hadith · Duas</div>
+        <div class="ff-sub">Prayer times &amp; Qibla</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature rv">
+    <div class="feat-text">
+      <p class="feat-eyebrow">Pulse &amp; Ummah</p>
+      <h3 class="feat-h3">High-signal news. <em>Ummah discussions.</em></h3>
+      <p class="feat-desc">Qamr Pulse surfaces what actually matters across the Ummah — verified and curated. Discuss it with Muslims in country rooms and topic threads.</p>
+      <span class="feat-pill"><span class="pill-live"></span>Real talk, real people</span>
+    </div>
+    <div class="feat-visual">
+      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
+      <div class="feat-phone">
+        <img src="ios/qamrpulse_ios.png" alt="Qamr Pulse and Ummah discussions" />
+      </div>
+      <div class="feat-float tr">
+        <div class="ff-label">Discussions</div>
+        <div class="ff-val">By country &amp; topic</div>
+        <div class="ff-sub">No engagement bait</div>
       </div>
     </div>
   </div>
@@ -1513,74 +1927,6 @@ img, svg, video { max-width: 100%; height: auto; }
           <span class="cpa"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg> 519</span>
           <span class="cpa"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> 88</span>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SHOWCASE -->
-<section id="showcase">
-  <div class="showcase-hd rv">
-    <div class="section-eye">Inside the App</div>
-    <h2>A premium Muslim social app,<br/><em>built right.</em></h2>
-  </div>
-
-  <div class="feature rv">
-    <div class="feat-text">
-      <p class="feat-eyebrow">Feed &amp; Reels</p>
-      <h3 class="feat-h3">A feed and reels <em>worth opening.</em></h3>
-      <p class="feat-desc">Real people, real posts, and reels you actually want to watch. No AI-generated media, no fake engagement, no doomscroll.</p>
-      <span class="feat-pill"><span class="pill-live"></span>No AI-generated media</span>
-    </div>
-    <div class="feat-visual">
-      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
-      <div class="feat-phone">
-        <img src="ios/feedtab_ios.png" alt="Qamr feed and reels" />
-      </div>
-      <div class="feat-float tr">
-        <div class="ff-label">AI Media</div>
-        <div class="ff-val">Blocked</div>
-        <div class="ff-sub">Humans only</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="feature rev rv">
-    <div class="feat-text">
-      <p class="feat-eyebrow">Qamr Hub</p>
-      <h3 class="feat-h3">Quran, Hadith, Duas <em>&amp; prayer tools.</em></h3>
-      <p class="feat-desc">Full Quran with audio recitation and translation. Kutub al-Sittah. Daily Duas. Prayer times and Qibla for your location. All inside the same app.</p>
-      <span class="feat-pill"><span class="pill-live"></span>Built for daily practice</span>
-    </div>
-    <div class="feat-visual">
-      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(212,191,138,.12) 0%,transparent 70%)"></div>
-      <div class="feat-phone">
-        <img src="ios/qamrhub_ios.png" alt="Quran, Hadith, Duas and prayer tools" />
-      </div>
-      <div class="feat-float tr">
-        <div class="ff-label">In one place</div>
-        <div class="ff-val">Quran · Hadith · Duas</div>
-        <div class="ff-sub">Prayer times &amp; Qibla</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="feature rv">
-    <div class="feat-text">
-      <p class="feat-eyebrow">Pulse &amp; Ummah</p>
-      <h3 class="feat-h3">High-signal news. <em>Ummah discussions.</em></h3>
-      <p class="feat-desc">Qamr Pulse surfaces what actually matters across the Ummah — verified and curated. Discuss it with Muslims in country rooms and topic threads.</p>
-      <span class="feat-pill"><span class="pill-live"></span>Real talk, real people</span>
-    </div>
-    <div class="feat-visual">
-      <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
-      <div class="feat-phone">
-        <img src="ios/qamrpulse_ios.png" alt="Qamr Pulse and Ummah discussions" />
-      </div>
-      <div class="feat-float tr">
-        <div class="ff-label">Discussions</div>
-        <div class="ff-val">By country &amp; topic</div>
-        <div class="ff-sub">No engagement bait</div>
       </div>
     </div>
   </div>
@@ -1682,27 +2028,11 @@ img, svg, video { max-width: 100%; height: auto; }
   </div>
 </footer>
 
-<!-- STICKY MOBILE DOWNLOAD BAR -->
-<div class="sticky-cta" role="region" aria-label="Download Qamr">
-  <div class="sticky-cta-inner">
-    <a href="https://apps.apple.com/app/qamr/id6764144560" aria-label="Download Qamr on the App Store — free" data-track="appstore_click" data-location="sticky">
-      <svg width="18" height="20" viewBox="0 0 24 24" fill="#ede8df" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      App Store
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" aria-label="Get Qamr on Google Play — free" data-track="playstore_click" data-location="sticky">
-      <svg width="18" height="20" viewBox="0 0 24 24" aria-hidden="true">
-        <defs>
-          <linearGradient id="qgst" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8d5a8"/><stop offset="1" stop-color="#b89a55"/></linearGradient>
-        </defs>
-        <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="url(#qgst)"/>
-        <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="#d4bf8a"/>
-        <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="#b89a55"/>
-        <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="#e8d5a8"/>
-      </svg>
-      Google Play
-    </a>
-  </div>
-</div>
+<!-- FLOATING DOWNLOAD PILL (mobile, after hero scroll) -->
+<a href="https://apps.apple.com/app/qamr/id6764144560" class="float-dl" aria-label="Download Qamr" data-track="primary_click" data-location="float">
+  <span class="fdl-dot" aria-hidden="true"></span>
+  Download Qamr
+</a>
 
 <!-- TWEAKS -->
 <div id="tweaks-panel">
