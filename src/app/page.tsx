@@ -1686,7 +1686,7 @@ img, svg, video { max-width: 100%; height: auto; }
        A social app for <em>Muslims.</em>
     </h1>
     <p class="hero-sub rv d2">
-      Scroll with purpose — real people, meaningful content, and no AI-generated media. Everything from Quran to Dua & Adhkar.
+      Scroll with purpose — real people, meaningful content, and no AI-generated media. 
     </p>
     <div class="ctas rv d3">
       <div class="cta-stack">
