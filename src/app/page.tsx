@@ -1865,7 +1865,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrpulse_ios.png" alt="Qamr Pulse and Ummah discussions" />
+        <img src="ios/qamrpulse_ios.jpg" alt="Qamr Pulse and Ummah discussions" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">Discussions</div>
