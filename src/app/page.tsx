@@ -1683,10 +1683,10 @@ img, svg, video { max-width: 100%; height: auto; }
       Now live on iOS &amp; Android
     </div>
     <h1 class="hero-h1 rv d1">
-      Scroll with <em>Purpose.</em>
+       A social app for <em>Muslims.</em>
     </h1>
     <p class="hero-sub rv d2">
-      A social app built for Muslims — real people, meaningful content, and no AI-generated media.
+      Scroll with purpose — real people, meaningful content, and no AI-generated media. Everything from Quran to Dua & Adhkar.
     </p>
     <div class="ctas rv d3">
       <div class="cta-stack">
