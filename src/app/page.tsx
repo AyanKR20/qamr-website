@@ -1440,21 +1440,52 @@ img, svg, video { max-width: 100%; height: auto; }
     inset 0 -1px 0 rgba(0,0,0,.14);
 }
 .btn-primary:hover::after { transform: translateX(130%); }
+.btn-primary:active {
+  transform: translateY(0) scale(.985);
+  transition: transform .12s var(--ease);
+}
 .btn-primary svg { display: block; }
 
-.store-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 10px; width: 100%;
+/* Subtle "Available on" store indicators — text-style, not buttons */
+.store-links {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 2px;
 }
-.store-badge.sm {
-  padding: 10px 16px 10px 14px;
-  min-width: 0; flex: 0 1 auto;
-  border-radius: 14px;
+.store-links-label {
+  font-size: 9.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 6px;
+  font-weight: 500;
 }
-.store-badge.sm .sb-icon { width: 22px; height: 22px; }
-.store-badge.sm .sb-icon svg { width: 20px; height: 22px; }
-.store-badge.sm .sb-small { font-size: 9px; margin-bottom: 2px; }
-.store-badge.sm .sb-big { font-size: 14px; }
+.store-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  color: var(--fg-dim);
+  text-decoration: none;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: -.005em;
+  transition: color .25s var(--ease), background .25s var(--ease);
+}
+.store-link:hover {
+  color: var(--fg);
+  background: rgba(212,191,138,.045);
+}
+.store-link svg {
+  opacity: .8;
+  flex: none;
+  transition: opacity .25s var(--ease);
+}
+.store-link:hover svg { opacity: 1; }
+.store-link-sep {
+  width: 2px; height: 2px; border-radius: 50%;
+  background: rgba(212,191,138,.35);
+  margin: 0 2px;
+}
 
 /* ───── TRUST PILLS (replaces hero-meta) ───── */
 .trust-pills {
@@ -1596,24 +1627,32 @@ img, svg, video { max-width: 100%; height: auto; }
   .hero-meta { display: none; }
   /* Hide the hero phone trio on mobile — the carousel section below takes over */
   .hero-phone-wrap, .hero-floor-grad { display: none; }
-  #hero { padding-bottom: 18px; }
-  .cta-stack { gap: 12px; }
+  #hero { padding-bottom: 14px; }
+  .hero-sub { margin-bottom: 20px; }
+  .cta-stack { gap: 10px; }
   .btn-primary {
-    width: 100%; max-width: 340px;
-    padding: 15px 28px; font-size: 15px;
+    width: 100%; max-width: 320px;
+    padding: 16px 28px; font-size: 15px;
     min-width: 0;
+    letter-spacing: -.005em;
   }
-  .store-row { gap: 8px; max-width: 340px; width: 100%; }
-  .store-row .store-badge { flex: 1 1 50%; min-width: 0; justify-content: center; }
-  .trust-pills { margin-top: 16px; gap: 6px 8px; }
+  .store-links { gap: 2px 4px; }
+  .store-links-label {
+    width: 100%;
+    text-align: center;
+    margin: 0 0 2px;
+    font-size: 9px;
+  }
+  .store-link { padding: 4px 6px; font-size: 11.5px; gap: 5px; }
+  .store-link svg { width: 10px; height: 12px; }
+  .trust-pills { margin-top: 14px; gap: 6px 8px; }
   .trust-pill { font-size: 10.5px; padding: 5px 11px; }
 }
 
 @media (max-width: 480px) {
-  .btn-primary { padding: 14px 24px; font-size: 14.5px; }
-  .store-badge.sm { padding: 9px 12px; }
-  .store-badge.sm .sb-big { font-size: 13px; }
-  .store-badge.sm .sb-small { font-size: 8.5px; }
+  .btn-primary { padding: 15px 24px; font-size: 14.5px; }
+  .hero-sub { margin-bottom: 18px; }
+  .trust-pills { margin-top: 12px; }
 }
 `}</style>
       <div dangerouslySetInnerHTML={{ __html: `
@@ -1655,32 +1694,16 @@ img, svg, video { max-width: 100%; height: auto; }
           <span class="btn-primary-label">Download Qamr</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
         </a>
-        <div class="store-row">
-          <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-badge sm" aria-label="Download on the App Store" data-track="appstore_click" data-location="hero">
-            <span class="sb-icon">
-              <svg width="22" height="24" viewBox="0 0 24 24" fill="#ede8df" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            </span>
-            <span class="sb-text">
-              <span class="sb-small">Download on the</span>
-              <span class="sb-big">App Store</span>
-            </span>
+        <div class="store-links" aria-label="Also available on">
+          <span class="store-links-label">Available on</span>
+          <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-link" aria-label="Open in App Store" data-track="appstore_click" data-location="hero">
+            <svg width="11" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
           </a>
-          <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" class="store-badge sm" aria-label="Get it on Google Play" data-track="playstore_click" data-location="hero">
-            <span class="sb-icon">
-              <svg width="20" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <defs>
-                  <linearGradient id="qg1a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8d5a8"/><stop offset="1" stop-color="#b89a55"/></linearGradient>
-                </defs>
-                <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="url(#qg1a)"/>
-                <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="#d4bf8a"/>
-                <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="#b89a55"/>
-                <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="#e8d5a8"/>
-              </svg>
-            </span>
-            <span class="sb-text">
-              <span class="sb-small">Get it on</span>
-              <span class="sb-big">Google Play</span>
-            </span>
+          <span class="store-link-sep" aria-hidden="true"></span>
+          <a href="https://play.google.com/store/apps/details?id=com.ayank.qamr" class="store-link" aria-label="Open in Google Play" data-track="playstore_click" data-location="hero">
+            <svg width="11" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="currentColor" opacity=".85"/><path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="currentColor"/><path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="currentColor" opacity=".7"/><path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="currentColor"/></svg>
+            Google Play
           </a>
         </div>
       </div>
