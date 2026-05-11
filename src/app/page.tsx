@@ -1590,35 +1590,82 @@ img, svg, video { max-width: 100%; height: auto; }
   .hero-meta { display: none; }
   /* Hide the hero phone trio on mobile — the carousel section below takes over */
   .hero-phone-wrap, .hero-floor-grad { display: none; }
-  #hero { padding-bottom: 12px; }
-  .hero-sub { margin-bottom: 18px; }
-  .ctas { gap: 8px; max-width: 360px; margin: 0 auto; }
-  .store-btn {
-    flex: 1 1 calc(50% - 4px);
-    min-width: 0;
-    justify-content: flex-start;
-    padding: 10px 14px;
-    border-radius: 13px;
+  #hero { padding-bottom: 10px; }
+
+  /* Tighter, more refined headline */
+  .hero-h1 {
+    font-size: clamp(34px, 8.4vw, 50px);
+    line-height: 1.02;
+    letter-spacing: -.03em;
+    margin-bottom: 14px;
   }
-  .store-btn-icon { width: 22px; height: 22px; }
-  .store-btn-icon svg { width: 19px; height: 22px; }
-  .store-btn-small { font-size: 8.5px; margin-bottom: 2px; }
-  .store-btn-big { font-size: 14px; }
-  .trust-pills { margin-top: 14px; gap: 6px 8px; }
-  .trust-pill { font-size: 10.5px; padding: 5px 11px; }
+
+  /* More breathing room before the CTA pair */
+  .hero-sub { margin-bottom: 28px; }
+
+  /* Lighter, app-store-native buttons — equal width, softer shadow */
+  .ctas { gap: 10px; max-width: 340px; margin: 0 auto; }
+  .store-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
+    padding: 9px 14px;
+    border-radius: 12px;
+    gap: 9px;
+    background: linear-gradient(180deg, #f1ece0 0%, #e1dac9 100%);
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow:
+      0 4px 12px rgba(0,0,0,.22),
+      0 0 0 1px rgba(212,191,138,.14),
+      inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  .store-btn:hover {
+    box-shadow:
+      0 8px 20px rgba(0,0,0,.3),
+      0 0 0 1px rgba(212,191,138,.28),
+      inset 0 1px 0 rgba(255,255,255,.6);
+  }
+  .store-btn-icon { width: 20px; height: 20px; }
+  .store-btn-icon svg { height: 18px; width: auto; }
+  .store-btn-small { font-size: 8px; margin-bottom: 1px; letter-spacing: .12em; }
+  .store-btn-big { font-size: 13px; }
+
+  /* Smaller, more subtle trust pills */
+  .trust-pills { margin-top: 18px; gap: 5px 6px; }
+  .trust-pill {
+    font-size: 10px;
+    padding: 4px 9px;
+    color: rgba(201,194,182,.78);
+    background: rgba(212,191,138,.025);
+    border-color: rgba(212,191,138,.08);
+  }
+  .trust-pill::before {
+    width: 3px; height: 3px;
+    box-shadow: 0 0 4px rgba(212,191,138,.4);
+    opacity: .8;
+  }
 }
 
 @media (max-width: 480px) {
-  .hero-sub { margin-bottom: 16px; }
-  .trust-pills { margin-top: 12px; }
-  .store-btn { padding: 10px 12px; gap: 9px; }
-  .store-btn-big { font-size: 13.5px; }
+  .hero-h1 {
+    font-size: clamp(30px, 9vw, 42px);
+    letter-spacing: -.028em;
+    margin-bottom: 12px;
+  }
+  .hero-sub { margin-bottom: 24px; font-size: 13.5px; line-height: 1.55; }
+  .ctas { max-width: 320px; gap: 8px; }
+  .store-btn { padding: 9px 12px; gap: 8px; }
+  .store-btn-big { font-size: 12.5px; }
+  .store-btn-small { font-size: 7.5px; }
+  .trust-pills { margin-top: 16px; }
+  .trust-pill { font-size: 9.5px; padding: 4px 8px; }
 }
 
 /* Stack store buttons vertically on very small screens for full-width tappability */
 @media (max-width: 380px) {
-  .ctas { flex-direction: column; align-items: stretch; gap: 8px; max-width: 300px; }
-  .store-btn { flex: 0 0 auto; width: 100%; }
+  .ctas { flex-direction: column; align-items: stretch; gap: 8px; max-width: 280px; }
+  .store-btn { flex: 0 0 auto; width: 100%; padding: 10px 14px; }
+  .store-btn-big { font-size: 13px; }
 }
 `}</style>
       <div dangerouslySetInnerHTML={{ __html: `
