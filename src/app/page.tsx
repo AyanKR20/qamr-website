@@ -1398,14 +1398,17 @@ img, svg, video { max-width: 100%; height: auto; }
   padding: 11px 22px 11px 18px;
   min-width: 188px;
   border-radius: 14px;
-  background: linear-gradient(180deg, var(--fg) 0%, #ddd6c5 100%);
+  background:
+    radial-gradient(ellipse at top right, rgba(120,60,160,.08) 0%, transparent 60%),
+    linear-gradient(180deg, #f3ede2 0%, #d6cbd4 100%);
   color: #0f0819;
   text-decoration: none;
   border: 1px solid rgba(0,0,0,.08);
   box-shadow:
     0 6px 18px rgba(0,0,0,.35),
     0 0 0 1px rgba(212,191,138,.22),
-    inset 0 1px 0 rgba(255,255,255,.6),
+    0 0 22px rgba(90,30,122,.06),
+    inset 0 1px 0 rgba(255,255,255,.62),
     inset 0 -1px 0 rgba(0,0,0,.06);
   transition: transform .25s var(--ease), box-shadow .35s var(--ease), filter .25s var(--ease);
   will-change: transform;
@@ -1415,6 +1418,7 @@ img, svg, video { max-width: 100%; height: auto; }
   box-shadow:
     0 12px 28px rgba(0,0,0,.45),
     0 0 0 1px rgba(212,191,138,.4),
+    0 0 30px rgba(90,30,122,.1),
     inset 0 1px 0 rgba(255,255,255,.7),
     inset 0 -1px 0 rgba(0,0,0,.08);
   filter: brightness(1.02);
@@ -1636,12 +1640,14 @@ img, svg, video { max-width: 100%; height: auto; }
     padding: 14px 22px;
     gap: 12px;
     border-radius: 16px;
-    background: linear-gradient(180deg, #f6f1e3 0%, #d8d1bf 100%);
+    background:
+      radial-gradient(ellipse at top right, rgba(120,60,160,.1) 0%, transparent 60%),
+      linear-gradient(180deg, #f5efe2 0%, #d2c6d2 100%);
     border: 1px solid rgba(0,0,0,.08);
     box-shadow:
       0 10px 26px rgba(0,0,0,.35),
       0 0 0 1px rgba(212,191,138,.28),
-      0 0 22px rgba(212,191,138,.05),
+      0 0 26px rgba(90,30,122,.09),
       inset 0 1px 0 rgba(255,255,255,.7),
       inset 0 -1px 0 rgba(0,0,0,.06);
   }
@@ -1650,7 +1656,7 @@ img, svg, video { max-width: 100%; height: auto; }
     box-shadow:
       0 14px 32px rgba(0,0,0,.4),
       0 0 0 1px rgba(212,191,138,.42),
-      0 0 28px rgba(212,191,138,.1),
+      0 0 32px rgba(90,30,122,.14),
       inset 0 1px 0 rgba(255,255,255,.75),
       inset 0 -1px 0 rgba(0,0,0,.08);
   }
@@ -1726,7 +1732,7 @@ img, svg, video { max-width: 100%; height: auto; }
       Now live on iOS &amp; Android
     </div>
     <h1 class="hero-h1 rv d1">
-       A social app for <em>Muslims.</em>
+      The social app for <em>Muslims.</em>
     </h1>
     <p class="hero-sub rv d2">
       Scroll with purpose — real people, meaningful content, and no AI-generated media. 
@@ -1769,7 +1775,7 @@ img, svg, video { max-width: 100%; height: auto; }
         <img src="ios/dms ios.png" alt="" />
       </div>
       <div class="hero-phone-side hero-phone-r">
-        <img src="ios/qamrhub_ios.jpg" alt="" />
+        <img src="ios/qamrhub_ios.PNG" alt="" />
       </div>
       <div class="hero-phone">
         <img src="ios/feedtab_ios.png" alt="Qamr Feed" />
@@ -1782,20 +1788,32 @@ img, svg, video { max-width: 100%; height: auto; }
 <!-- SCREENSHOT CAROUSEL (mobile) -->
 <section id="screens" aria-label="App screenshots">
   <div class="sc-track" role="group" aria-roledescription="carousel">
-    <div class="sc-card is-active" aria-label="Feed and reels">
-      <img src="ios/feedtab_ios.png" alt="Qamr feed and reels" loading="eager" />
+    <div class="sc-card is-active" aria-label="Feed">
+      <img src="ios/feedtab_ios.png" alt="Qamr feed" loading="eager" />
+    </div>
+    <div class="sc-card" aria-label="Reels">
+      <img src="ios/reels_ios.png" alt="Qamr reels" loading="lazy" />
     </div>
     <div class="sc-card" aria-label="Qamr Hub — Quran, Hadith, Duas">
-      <img src="ios/qamrhub_ios.jpg" alt="Qamr Hub — Quran, Hadith, Duas, prayer tools" loading="lazy" />
+      <img src="ios/qamrhub_ios.PNG" alt="Qamr Hub — Quran, Hadith, Duas, prayer tools" loading="lazy" />
     </div>
     <div class="sc-card" aria-label="Qamr Pulse — Ummah news">
-      <img src="ios/qamrpulse_ios.jpg" alt="Qamr Pulse — high-signal Ummah news and discussions" loading="lazy" />
+      <img src="ios/qamrpulse_ios.PNG" alt="Qamr Pulse — high-signal Ummah news and discussions" loading="lazy" />
+    </div>
+    <div class="sc-card" aria-label="Direct messages">
+      <img src="ios/dms_ios.png" alt="Qamr direct messages" loading="lazy" />
+    </div>
+    <div class="sc-card" aria-label="Profile">
+      <img src="ios/profile_ios.png" alt="Qamr profile" loading="lazy" />
     </div>
   </div>
   <div class="sc-dots" aria-hidden="true">
     <button class="sc-dot on" type="button" aria-label="Screenshot 1"></button>
     <button class="sc-dot" type="button" aria-label="Screenshot 2"></button>
     <button class="sc-dot" type="button" aria-label="Screenshot 3"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 4"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 5"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 6"></button>
   </div>
 </section>
 
@@ -1893,7 +1911,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(212,191,138,.12) 0%,transparent 70%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrhub_ios.jpg" alt="Quran, Hadith, Duas and prayer tools" />
+        <img src="ios/qamrhub_ios.PNG" alt="Quran, Hadith, Duas and prayer tools" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">In one place</div>
@@ -1913,7 +1931,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.3) 0%,transparent 70%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrpulse_ios.jpg" alt="Qamr Pulse and Ummah discussions" />
+        <img src="ios/qamrpulse_ios.PNG" alt="Qamr Pulse and Ummah discussions" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">Discussions</div>
