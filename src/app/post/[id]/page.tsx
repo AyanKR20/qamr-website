@@ -243,19 +243,21 @@ const CSS = `
   min-width: 204px;
   border-radius: 18px;
   background:
-    radial-gradient(ellipse at top right, rgba(120,60,160,.16) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(24,14,38,.82) 0%, rgba(10,6,20,.92) 100%);
+    radial-gradient(ellipse at 50% -25%, rgba(232,213,168,.22) 0%, transparent 55%),
+    radial-gradient(ellipse at top right, rgba(140,70,180,.26) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(44,24,68,.92) 0%, rgba(16,10,28,.96) 100%);
   color: var(--fg);
   text-decoration: none;
-  border: 1px solid rgba(212,191,138,.22);
+  border: 1px solid rgba(212,191,138,.42);
   box-shadow:
-    0 14px 36px rgba(0,0,0,.55),
-    0 0 0 1px rgba(212,191,138,.06),
-    0 0 32px rgba(212,191,138,.06),
-    inset 0 1px 0 rgba(255,255,255,.05),
-    inset 0 -1px 0 rgba(0,0,0,.3);
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    0 18px 44px rgba(0,0,0,.55),
+    0 0 0 1px rgba(212,191,138,.14),
+    0 0 48px rgba(212,191,138,.14),
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 2px 6px rgba(232,213,168,.08),
+    inset 0 -12px 28px rgba(0,0,0,.28);
+  backdrop-filter: blur(14px) saturate(1.25);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
   transition: transform .4s var(--ease), box-shadow .45s var(--ease), border-color .35s var(--ease);
   overflow: hidden;
   will-change: transform;
@@ -264,29 +266,30 @@ const CSS = `
   content: '';
   position: absolute; inset: 0;
   border-radius: inherit; padding: 1px;
-  background: linear-gradient(160deg, rgba(212,191,138,.55), rgba(212,191,138,.04) 42%, rgba(212,191,138,.3) 100%);
+  background: linear-gradient(160deg, rgba(232,213,168,.85), rgba(212,191,138,.1) 42%, rgba(232,213,168,.55) 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
-  pointer-events: none; opacity: .8;
+  pointer-events: none; opacity: .92;
   transition: opacity .4s var(--ease);
 }
 .qamr-soon .qs-btn::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(110deg, transparent 42%, rgba(212,191,138,.16) 50%, transparent 58%);
+  background: linear-gradient(110deg, transparent 40%, rgba(232,213,168,.26) 50%, transparent 60%);
   transform: translateX(-130%);
   transition: transform 1s var(--ease);
   pointer-events: none;
 }
 .qamr-soon .qs-btn:hover {
   transform: translateY(-3px);
-  border-color: rgba(212,191,138,.38);
+  border-color: rgba(232,213,168,.65);
   box-shadow:
-    0 22px 52px rgba(0,0,0,.65),
-    0 0 0 1px rgba(212,191,138,.18),
-    0 0 48px rgba(212,191,138,.12),
-    inset 0 1px 0 rgba(255,255,255,.07),
-    inset 0 -1px 0 rgba(0,0,0,.32);
+    0 28px 64px rgba(0,0,0,.62),
+    0 0 0 1px rgba(212,191,138,.32),
+    0 0 72px rgba(212,191,138,.24),
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 2px 8px rgba(232,213,168,.14),
+    inset 0 -12px 28px rgba(0,0,0,.26);
 }
 .qamr-soon .qs-btn:hover::before { opacity: 1; }
 .qamr-soon .qs-btn:hover::after { transform: translateX(130%); }
@@ -302,7 +305,7 @@ const CSS = `
 }
 .qamr-soon .qs-btn-icon svg {
   display: block;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.55)) drop-shadow(0 0 6px rgba(232,213,168,.12));
 }
 .qamr-soon .qs-btn-text {
   display: flex; flex-direction: column;
@@ -311,11 +314,13 @@ const CSS = `
 }
 .qamr-soon .qs-btn-small {
   font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(212,191,138,.72); font-weight: 500; margin-bottom: 3px;
+  color: rgba(232,213,168,.88); font-weight: 500; margin-bottom: 3px;
+  text-shadow: 0 0 12px rgba(212,191,138,.18);
 }
 .qamr-soon .qs-btn-big {
   font-size: 17px; font-weight: 600; letter-spacing: -.01em;
   color: var(--fg);
+  text-shadow: 0 1px 2px rgba(0,0,0,.45);
 }
 
 .qamr-soon .qs-note {
@@ -342,15 +347,17 @@ const CSS = `
     padding: 17px 24px; gap: 13px;
     border-radius: 20px;
     background:
-      radial-gradient(ellipse at top right, rgba(120,60,160,.18) 0%, transparent 60%),
-      linear-gradient(180deg, rgba(26,16,42,.85) 0%, rgba(10,6,20,.94) 100%);
-    border: 1px solid rgba(212,191,138,.24);
+      radial-gradient(ellipse at 50% -25%, rgba(232,213,168,.25) 0%, transparent 55%),
+      radial-gradient(ellipse at top right, rgba(140,70,180,.28) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(46,26,72,.94) 0%, rgba(16,10,28,.97) 100%);
+    border: 1px solid rgba(212,191,138,.46);
     box-shadow:
-      0 18px 44px rgba(0,0,0,.6),
-      0 0 0 1px rgba(212,191,138,.08),
-      0 0 40px rgba(212,191,138,.08),
-      inset 0 1px 0 rgba(255,255,255,.05),
-      inset 0 -1px 0 rgba(0,0,0,.32);
+      0 22px 52px rgba(0,0,0,.62),
+      0 0 0 1px rgba(212,191,138,.16),
+      0 0 56px rgba(212,191,138,.18),
+      inset 0 1px 0 rgba(255,255,255,.16),
+      inset 0 2px 8px rgba(232,213,168,.1),
+      inset 0 -14px 32px rgba(0,0,0,.3);
   }
   .qamr-soon .qs-btn-icon { width: 28px; height: 28px; }
   .qamr-soon .qs-btn-icon svg { height: 24px; width: auto; }
