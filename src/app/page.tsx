@@ -50,7 +50,7 @@ export default function QamrLanding() {
     const heroWrap = document.querySelector(".hero-phone-wrap") as HTMLElement | null;
     let raf: number | null = null;
     let target = { rx: 0, ry: 0 };
-    let curr = { rx: 0, ry: 0 };
+    const curr = { rx: 0, ry: 0 };
     const tick = () => {
       curr.rx += (target.rx - curr.rx) * 0.08;
       curr.ry += (target.ry - curr.ry) * 0.08;
@@ -102,14 +102,14 @@ export default function QamrLanding() {
       document.documentElement.style.setProperty("--accent", s.accent);
       document.documentElement.style.setProperty("--acc-lt", s.accentLt);
       if (s.surface === "deep") {
-        document.documentElement.style.setProperty("--surface", "#080411");
-        document.documentElement.style.setProperty("--surf-lt", "#0d0819");
+        document.documentElement.style.setProperty("--surface", "#13072a");
+        document.documentElement.style.setProperty("--surf-lt", "#22113d");
       } else {
-        document.documentElement.style.setProperty("--surface", "#0f0819");
-        document.documentElement.style.setProperty("--surf-lt", "#160e22");
+        document.documentElement.style.setProperty("--surface", "#1a0d2e");
+        document.documentElement.style.setProperty("--surf-lt", "#281544");
       }
     };
-    const S = { accent: "#d4bf8a", accentLt: "#e8d5a8", heroStyle: "tight", surface: "deep" };
+    const S = { accent: "#ffd97d", accentLt: "#ffe9a8", heroStyle: "tight", surface: "deep" };
     applyTweaks(S);
 
     const panel = document.getElementById("tweaks-panel");
@@ -276,21 +276,23 @@ export default function QamrLanding() {
       <style>{`
 /* ───── TOKENS ───── */
 :root {
-  --bg:        #06030c;
-  --bg-2:      #0a0518;
-  --bg-3:      #120a24;
-  --fg:        #ede8df;
-  --fg-dim:    #c9c2b6;
-  --muted:     #6a6278;
-  --muted-lt:  #8a8298;
-  --accent:    #d4bf8a;
-  --acc-lt:    #e8d5a8;
-  --surface:   #0f0819;
-  --surf-lt:   #160e22;
-  --border:    rgba(212,191,138,.08);
-  --bord-lt:   rgba(212,191,138,.16);
-  --plum:      #2d0a3e;
-  --glow:      #5a1e7a;
+  /* Qamr ad palette — warm gold over violet */
+  --bg:        #120726;
+  --bg-2:      #1f0f3c;
+  --bg-3:      #3a1f5e;
+  --fg:        #fff8ef;
+  --fg-dim:    #e6d8d0;
+  --muted:     #8a7ba0;
+  --muted-lt:  #b5a9c4;
+  --accent:    #ffd97d;
+  --acc-lt:    #ffe9a8;
+  --surface:   #1a0d2e;
+  --surf-lt:   #281544;
+  --border:    rgba(255,217,125,.12);
+  --bord-lt:   rgba(255,217,125,.26);
+  --plum:      #4d1f6e;
+  --glow:      #9a52b8;
+  --violet:    #6b3aa0;
   --hd: 'Playfair Display', Georgia, serif;
   --bd: 'DM Sans', system-ui, sans-serif;
   --ease: cubic-bezier(.16,1,.3,1);
@@ -310,16 +312,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Layered global gradient — black → navy → plum */
+/* Layered global gradient — warm gold → plum → midnight */
 body::before {
   content: '';
   position: fixed; inset: 0;
   pointer-events: none; z-index: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(45,10,62,.35) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 100% 30%, rgba(20,30,80,.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 0% 60%, rgba(60,20,90,.15) 0%, transparent 60%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 50%, var(--bg) 100%);
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(255,217,125,.34) 0%, rgba(255,180,110,.16) 28%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 95% 22%, rgba(107,58,160,.50) 0%, rgba(74,38,124,.22) 38%, transparent 68%),
+    radial-gradient(ellipse 64% 46% at 14% 70%, rgba(154,82,184,.20) 0%, transparent 58%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(42,20,72,.6) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 48%, #16092e 100%);
 }
 
 /* Grain */
@@ -346,7 +349,7 @@ nav {
   transition: background .5s var(--ease), border-color .5s, backdrop-filter .5s, padding .4s var(--ease);
 }
 nav.scrolled {
-  background: rgba(8,4,15,.72);
+  background: rgba(9,4,15,.76);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(28px) saturate(1.2);
   -webkit-backdrop-filter: blur(28px) saturate(1.2);
@@ -392,18 +395,18 @@ nav.scrolled {
   position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
   width: 1200px; height: 800px; border-radius: 50%;
   background:
-    radial-gradient(ellipse, rgba(120,40,160,.22) 0%, rgba(45,10,62,.10) 40%, transparent 70%);
+    radial-gradient(ellipse, rgba(255,217,125,.18) 0%, rgba(140,70,170,.28) 40%, transparent 72%);
   pointer-events: none;
   filter: blur(8px);
   animation: orb 14s ease-in-out infinite;
   will-change: transform, opacity;
 }
 .hero-orb-warm {
-  position: absolute; top: 22%; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 360px; border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(212,191,138,.08) 0%, transparent 70%);
+  position: absolute; top: 18%; left: 50%; transform: translateX(-50%);
+  width: 720px; height: 420px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,217,125,.26) 0%, rgba(240,180,120,.08) 42%, transparent 72%);
   pointer-events: none;
-  filter: blur(20px);
+  filter: blur(22px);
   animation: warmPulse 9s ease-in-out infinite;
 }
 @keyframes orb {
@@ -915,6 +918,348 @@ nav.scrolled {
 .ff-val { font-family: var(--hd); font-size: 24px; font-weight: 700; color: var(--fg); letter-spacing: -.03em; line-height: 1; }
 .ff-sub { font-size: 9.5px; color: var(--muted); margin-top: 4px; }
 
+/* QAMR WORLD — community-forward */
+#qamr-world {
+  padding: 140px 0 160px;
+  position: relative;
+  z-index: 1;
+}
+.world-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.world-head {
+  max-width: 880px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.world-head .section-eye { justify-content: center; }
+.world-head .section-eye::before { background: linear-gradient(90deg, transparent, var(--accent)); }
+.world-head .section-eye::after {
+  content: ''; flex: none;
+  width: 28px; height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: .7;
+}
+.world-head h2 {
+  font-family: var(--hd);
+  font-size: clamp(44px, 6vw, 84px);
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.0;
+  margin-bottom: 22px;
+  text-wrap: balance;
+}
+.world-head h2 em {
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 60%, #c2a86a 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.world-head p {
+  max-width: 580px;
+  margin: 0 auto;
+  color: var(--fg-dim);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.world-panel {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  gap: 4px;
+  align-items: stretch;
+  border-radius: 28px;
+  overflow: hidden;
+}
+.world-copy {
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 28px 8px 8px 28px;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(255,217,125,.14), transparent 48%),
+    radial-gradient(ellipse at 100% 100%, rgba(132,61,180,.18), transparent 54%),
+    linear-gradient(180deg, var(--surface) 0%, var(--surf-lt) 100%);
+  border: 1px solid rgba(255,217,125,.08);
+}
+.world-stats {
+  display: flex; gap: 28px;
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(255,217,125,.10);
+}
+.world-stat strong {
+  display: block;
+  font-family: var(--hd);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -.025em;
+  line-height: 1;
+  background: linear-gradient(180deg, var(--acc-lt), var(--accent) 70%, #c2a86a);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.world-stat span {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted-lt);
+}
+.world-copy h3 {
+  font-family: var(--hd);
+  font-size: clamp(30px, 3.2vw, 44px);
+  font-weight: 700;
+  letter-spacing: -.028em;
+  line-height: 1.06;
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+.world-copy h3 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 600;
+}
+.world-copy p {
+  color: var(--fg-dim);
+  font-size: 15.5px;
+  font-weight: 300;
+  line-height: 1.76;
+  margin-bottom: 28px;
+  max-width: 460px;
+}
+.world-points {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.world-point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--fg-dim);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.world-point i {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  background: rgba(255,217,125,.10);
+  border: 1px solid rgba(255,217,125,.22);
+  flex: none;
+  font-style: normal;
+}
+.world-point i svg { display: block; }
+
+.world-countries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.world-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: rgba(255,217,125,.04);
+  border: 1px solid rgba(255,217,125,.14);
+  font-size: 11.5px;
+  color: var(--fg-dim);
+  letter-spacing: -.005em;
+  transition: background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.world-chip:hover {
+  background: rgba(255,217,125,.08);
+  border-color: rgba(255,217,125,.28);
+  transform: translateY(-1px);
+}
+.world-chip .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(255,217,125,.6);
+}
+.world-chip span:last-child { color: var(--muted); font-size: 10.5px; }
+
+.world-visual {
+  min-height: 660px;
+  border-radius: 8px 28px 28px 8px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 70px 44px;
+  background:
+    radial-gradient(ellipse at 14% 14%, rgba(255,217,125,.22), transparent 44%),
+    radial-gradient(ellipse at 86% 84%, rgba(96,52,150,.42), transparent 58%),
+    radial-gradient(circle at 50% 50%, rgba(70,38,120,.30), transparent 65%),
+    linear-gradient(145deg, #1a0926 0%, #2c1554 52%, #0e0720 100%);
+  border: 1px solid rgba(255,217,125,.10);
+}
+.world-visual::before {
+  content: '';
+  position: absolute;
+  inset: 22px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,217,125,.10);
+  pointer-events: none;
+}
+/* Orbital decorative rings */
+.world-rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.world-rings::before,
+.world-rings::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(255,217,125,.14);
+  animation: ringRot 60s linear infinite;
+}
+.world-rings::before { width: 480px; height: 480px; }
+.world-rings::after { width: 320px; height: 320px; animation-direction: reverse; animation-duration: 40s; border-color: rgba(255,217,125,.20); }
+@keyframes ringRot {
+  to { transform: rotate(360deg); }
+}
+
+/* Avatar dots circling the visual */
+.world-orbit {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.world-orbit-av {
+  position: absolute;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,217,125,.5);
+  background: linear-gradient(135deg, var(--violet), var(--plum));
+  box-shadow: 0 8px 22px rgba(0,0,0,.5), 0 0 0 4px rgba(20,10,40,.7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--acc-lt);
+  font-family: var(--bd);
+  letter-spacing: .01em;
+}
+.world-orbit-av.av1 { top: 11%; left: 9%; background: linear-gradient(135deg, #6b3aa0, #2a1248); }
+.world-orbit-av.av2 { top: 19%; right: 10%; background: linear-gradient(135deg, #8c4b65, #3a1640); }
+.world-orbit-av.av3 { top: 50%; left: 5%; background: linear-gradient(135deg, #c2a86a, #6b4515); color: #221207; border-color: rgba(255,217,125,.8); }
+.world-orbit-av.av4 { top: 56%; right: 5%; background: linear-gradient(135deg, #4f3a8a, #1c1245); }
+.world-orbit-av.av5 { bottom: 12%; left: 14%; background: linear-gradient(135deg, #783a8a, #2c1450); }
+.world-orbit-av.av6 { bottom: 16%; right: 16%; background: linear-gradient(135deg, #a76544, #461d22); }
+
+.world-phone {
+  width: min(34vw, 228px);
+  max-width: 228px;
+  min-width: 184px;
+  border-radius: 42px;
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
+  border: 1px solid rgba(255,217,125,.22);
+  box-shadow:
+    0 56px 110px rgba(0,0,0,.7),
+    0 0 80px rgba(255,217,125,.12),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  transition: transform .7s var(--ease), box-shadow .7s var(--ease);
+}
+.world-phone:first-of-type { transform: rotate(-7deg) translateY(20px); }
+.world-phone:last-of-type { transform: rotate(7deg) translateY(-18px); }
+.world-visual:hover .world-phone:first-of-type { transform: rotate(-4deg) translateY(4px); }
+.world-visual:hover .world-phone:last-of-type { transform: rotate(4deg) translateY(-4px); }
+.world-phone img {
+  width: 100%;
+  display: block;
+}
+.world-badge {
+  position: absolute;
+  left: 42px;
+  bottom: 44px;
+  z-index: 4;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(14,8,28,.84);
+  border: 1px solid rgba(255,217,125,.22);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 24px 70px rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.world-badge .pulse-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255,217,125,.18), 0 0 12px rgba(255,217,125,.6);
+  animation: pulse 2.4s ease-in-out infinite;
+  flex: none;
+}
+.world-badge strong {
+  display: block;
+  font-family: var(--hd);
+  font-size: 19px;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: var(--fg);
+}
+.world-badge span {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  color: var(--muted-lt);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* Activity card upper-right */
+.world-activity {
+  position: absolute;
+  top: 44px;
+  right: 44px;
+  z-index: 4;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(14,8,28,.84);
+  border: 1px solid rgba(255,217,125,.18);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  display: flex; align-items: center; gap: 10px;
+  animation: floatCard 6s ease-in-out infinite;
+}
+.world-activity-avs {
+  display: flex;
+}
+.world-activity-avs .av {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid #14082a;
+  margin-left: -7px;
+}
+.world-activity-avs .av:first-child { margin-left: 0; }
+.world-activity-avs .av:nth-child(1) { background: linear-gradient(135deg, #8c4b65, #3a1640); }
+.world-activity-avs .av:nth-child(2) { background: linear-gradient(135deg, #6b3aa0, #2a1248); }
+.world-activity-avs .av:nth-child(3) { background: linear-gradient(135deg, #c2a86a, #6b4515); }
+.world-activity-text { font-size: 11px; line-height: 1.3; color: var(--fg-dim); letter-spacing: -.005em; }
+.world-activity-text strong { color: var(--accent); font-weight: 500; }
+
 /* ───── TRUST ───── */
 #trust { padding: 140px 0; border-top: 1px solid var(--border); position: relative; z-index: 1; }
 .trust-container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
@@ -1165,6 +1510,7 @@ img, svg, video { max-width: 100%; height: auto; }
   #hero { padding: 140px 28px 0; }
   .contrast-header, .showcase-hd { padding: 0 28px; }
   .feature { padding: 0 28px; }
+  .world-wrap { padding: 0 28px; }
   .split { padding: 0 28px; }
   .trust-container { padding: 0 28px; }
   footer { padding: 40px 28px; }
@@ -1235,6 +1581,22 @@ img, svg, video { max-width: 100%; height: auto; }
   .feat-phone { width: 200px; border-radius: 36px; }
   .feat-phone img { display: block; width: 100%; }
   .feat-float { display: none; }
+
+  #qamr-world { padding: 72px 0 92px; }
+  .world-wrap { padding: 0 20px; }
+  .world-panel { grid-template-columns: 1fr; gap: 4px; }
+  .world-copy { border-radius: 20px 20px 6px 6px; padding: 42px 28px 38px; }
+  .world-copy h2 { font-size: clamp(32px, 7vw, 48px); }
+  .world-copy p { max-width: 100%; font-size: 14.5px; }
+  .world-visual {
+    border-radius: 6px 6px 20px 20px;
+    min-height: 430px;
+    padding: 42px 20px;
+    gap: 14px;
+  }
+  .world-phone { width: min(39vw, 180px); min-width: 132px; border-radius: 30px; }
+  .world-badge { left: 20px; bottom: 20px; padding: 12px 14px; border-radius: 13px; }
+  .world-badge strong { font-size: 19px; }
 
   /* World section dual-phone block — stack & shrink */
   #showcase > .rv > div[style*="grid-template-columns:1fr 1fr"] {
@@ -1343,6 +1705,37 @@ img, svg, video { max-width: 100%; height: auto; }
   .feat-desc { font-size: 14px; line-height: 1.7; margin-bottom: 22px; }
   .feat-pill { font-size: 11px; padding: 7px 14px; }
   .feat-phone { width: min(62vw, 200px); border-radius: 28px; }
+
+  #qamr-world { padding: 70px 0 90px; }
+  .world-wrap { padding: 0 16px; }
+  .world-head { margin-bottom: 32px; }
+  .world-head h2 { font-size: clamp(30px, 8vw, 42px); }
+  .world-head p { font-size: 14px; }
+  .world-panel { grid-template-columns: 1fr; }
+  .world-copy { padding: 30px 22px 28px; border-radius: 22px 22px 8px 8px; }
+  .world-stats { gap: 16px; margin-bottom: 22px; padding-bottom: 20px; }
+  .world-stat strong { font-size: 22px; }
+  .world-stat span { font-size: 9.5px; letter-spacing: .12em; }
+  .world-copy h3 { font-size: clamp(24px, 7vw, 32px); }
+  .world-copy p { font-size: 14px; line-height: 1.7; margin-bottom: 22px; }
+  .world-point { font-size: 12.5px; align-items: flex-start; }
+  .world-point i { width: 24px; height: 24px; }
+  .world-point i svg { width: 11px; height: 11px; }
+  .world-countries { gap: 6px; }
+  .world-chip { font-size: 11px; padding: 5px 10px; }
+  .world-visual { min-height: 380px; padding: 30px 14px 70px; gap: 8px; border-radius: 8px 8px 22px 22px; }
+  .world-visual::before { inset: 12px; border-radius: 18px; }
+  .world-phone { width: min(40vw, 144px); min-width: 110px; border-radius: 24px; }
+  .world-rings::before { width: 280px; height: 280px; }
+  .world-rings::after { width: 200px; height: 200px; }
+  .world-orbit-av { width: 30px; height: 30px; font-size: 10.5px; }
+  .world-orbit-av.av3, .world-orbit-av.av4 { display: none; }
+  .world-activity { top: 18px; right: 18px; padding: 9px 11px; gap: 8px; }
+  .world-activity-avs .av { width: 18px; height: 18px; }
+  .world-activity-text { font-size: 10.5px; }
+  .world-badge { left: 14px; right: 14px; bottom: 14px; padding: 11px 14px; gap: 10px; }
+  .world-badge strong { font-size: 16px; }
+  .world-badge span { font-size: 9.5px; }
 
   #showcase > .rv { padding: 0 16px !important; }
   #showcase > .rv > div > div:first-child { padding: 36px 22px !important; }
@@ -1712,6 +2105,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <ul class="nav-links">
       <li><a href="#contrast">Why Qamr</a></li>
       <li><a href="#showcase">Platform</a></li>
+      <li><a href="#qamr-world">Qamr World</a></li>
       <li><a href="#trust">Our Promise</a></li>
     </ul>
   </div>
@@ -1728,10 +2122,10 @@ img, svg, video { max-width: 100%; height: auto; }
       Now live on iOS &amp; Android
     </div>
     <h1 class="hero-h1 rv d1">
-      The social app for <em>Muslims.</em>
+      Connect with the <em>Ummah.</em>
     </h1>
     <p class="hero-sub rv d2">
-      Scroll with purpose — real people, meaningful content, and no AI-generated media. 
+      The social app where Muslims actually meet. Country forums, topic majalis, Qamr World map — real people, no AI slop.
     </p>
     <div class="ctas rv d3">
       <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-btn" aria-label="Download Qamr on the App Store" data-track="appstore_click" data-location="hero">
@@ -1759,9 +2153,10 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
     </div>
     <div class="trust-pills rv d3" aria-label="What you get">
+      <span class="trust-pill">140+ countries</span>
       <span class="trust-pill">Free to download</span>
       <span class="trust-pill">Muslim-built</span>
-      <span class="trust-pill">No AI-generated media</span>
+      <span class="trust-pill">No AI slop</span>
     </div>
   </div>
 
@@ -1796,6 +2191,12 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="sc-card" aria-label="Qamr Pulse — Ummah news">
       <img src="ios/qamrpulse_ios.PNG" alt="Qamr Pulse — high-signal Ummah news and discussions" loading="lazy" />
     </div>
+    <div class="sc-card" aria-label="Qamr World map">
+      <img src="ios/map.png" alt="Qamr World map of global Muslim communities" loading="lazy" />
+    </div>
+    <div class="sc-card" aria-label="Community forums">
+      <img src="ios/forum.png" alt="Qamr community forum discussions" loading="lazy" />
+    </div>
     <div class="sc-card" aria-label="Direct messages">
       <img src="ios/dms_ios.png" alt="Qamr direct messages" loading="lazy" />
     </div>
@@ -1810,6 +2211,8 @@ img, svg, video { max-width: 100%; height: auto; }
     <button class="sc-dot" type="button" aria-label="Screenshot 4"></button>
     <button class="sc-dot" type="button" aria-label="Screenshot 5"></button>
     <button class="sc-dot" type="button" aria-label="Screenshot 6"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 7"></button>
+    <button class="sc-dot" type="button" aria-label="Screenshot 8"></button>
   </div>
 </section>
 
@@ -1821,6 +2224,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <span class="marquee-item">No AI Slop</span>
     <span class="marquee-item">No Fake Media</span>
     <span class="marquee-item">Built by a Muslim Founder</span>
+    <span class="marquee-item">Global Muslim Communities</span>
     <span class="marquee-item">Quran · Hadith · Duas</span>
     <span class="marquee-item">Reels Worth Watching</span>
     <span class="marquee-item">Now Live on iOS &amp; Android</span>
@@ -1828,6 +2232,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <span class="marquee-item">No AI Slop</span>
     <span class="marquee-item">No Fake Media</span>
     <span class="marquee-item">Built by a Muslim Founder</span>
+    <span class="marquee-item">Global Muslim Communities</span>
     <span class="marquee-item">Quran · Hadith · Duas</span>
     <span class="marquee-item">Reels Worth Watching</span>
   </div>
@@ -1863,8 +2268,8 @@ img, svg, video { max-width: 100%; height: auto; }
       </div>
       <div class="why-card">
         <div class="why-num">05</div>
-        <div class="why-title">Discussions by country &amp; topic</div>
-        <div class="why-desc">Country rooms and topic threads so you find Muslims who get your context.</div>
+        <div class="why-title">Qamr World communities</div>
+        <div class="why-desc">Discover Muslims by country, city, interest, and shared causes across the globe.</div>
       </div>
     </div>
   </div>
@@ -1933,6 +2338,91 @@ img, svg, video { max-width: 100%; height: auto; }
         <div class="ff-label">Discussions</div>
         <div class="ff-val">By country &amp; topic</div>
         <div class="ff-sub">No engagement bait</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QAMR WORLD -->
+<section id="qamr-world">
+  <div class="world-wrap">
+    <div class="world-head rv">
+      <div class="section-eye">Qamr World</div>
+      <h2>One Ummah. <em>Every corner of the world.</em></h2>
+      <p>From a living world map to country forums and topic rooms — Qamr World is where Muslims everywhere find each other, share context, and build real community.</p>
+    </div>
+
+    <div class="world-panel rv d1">
+      <div class="world-copy">
+        <div class="world-stats">
+          <div class="world-stat"><strong>140+</strong><span>Countries</span></div>
+          <div class="world-stat"><strong>2,400</strong><span>Forums &amp; rooms</span></div>
+          <div class="world-stat"><strong>24/7</strong><span>Live majalis</span></div>
+        </div>
+        <h3>Find your <em>majlis.</em></h3>
+        <p>Open the world map and tap any country. Step into living forums, local city rooms, and topic majalis where Muslims gather to talk about what actually matters to them.</p>
+        <div class="world-points">
+          <div class="world-point">
+            <i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 6 8 12 8 12s8-6 8-12a8 8 0 00-8-8z"/></svg></i>
+            <span>Explore Muslims by country, city, and region on the Qamr World map.</span>
+          </div>
+          <div class="world-point">
+            <i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></i>
+            <span>Join forum-style country threads &amp; topic majalis — Quran, marriage, da'wah, finance.</span>
+          </div>
+          <div class="world-point">
+            <i><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></i>
+            <span>Meet Muslims who share your context, questions, and ambitions.</span>
+          </div>
+        </div>
+
+        <div class="world-countries" aria-label="Active communities">
+          <span class="world-chip"><span class="dot"></span>Indonesia <span>· 4.2k</span></span>
+          <span class="world-chip"><span class="dot"></span>Egypt <span>· 3.8k</span></span>
+          <span class="world-chip"><span class="dot"></span>Türkiye <span>· 3.1k</span></span>
+          <span class="world-chip"><span class="dot"></span>Pakistan <span>· 2.9k</span></span>
+          <span class="world-chip"><span class="dot"></span>Morocco <span>· 2.4k</span></span>
+          <span class="world-chip"><span class="dot"></span>UK <span>· 1.7k</span></span>
+          <span class="world-chip"><span class="dot"></span>Nigeria <span>· 1.5k</span></span>
+          <span class="world-chip"><span class="dot"></span>Bosnia <span>· 980</span></span>
+          <span class="world-chip" style="background:rgba(255,217,125,.08);border-color:rgba(255,217,125,.28);color:var(--accent)">+ 132 more</span>
+        </div>
+      </div>
+
+      <div class="world-visual" aria-label="Qamr World map and community forum screens">
+        <div class="world-rings" aria-hidden="true"></div>
+        <div class="world-orbit" aria-hidden="true">
+          <div class="world-orbit-av av1">ID</div>
+          <div class="world-orbit-av av2">EG</div>
+          <div class="world-orbit-av av3">TR</div>
+          <div class="world-orbit-av av4">PK</div>
+          <div class="world-orbit-av av5">MA</div>
+          <div class="world-orbit-av av6">UK</div>
+        </div>
+
+        <div class="world-phone">
+          <img src="ios/map.png" alt="Qamr World map screen" loading="lazy" />
+        </div>
+        <div class="world-phone">
+          <img src="ios/forum.png" alt="Qamr community forum screen" loading="lazy" />
+        </div>
+
+        <div class="world-activity">
+          <div class="world-activity-avs">
+            <div class="av"></div>
+            <div class="av"></div>
+            <div class="av"></div>
+          </div>
+          <div class="world-activity-text"><strong>412 Muslims</strong> active in this room</div>
+        </div>
+
+        <div class="world-badge">
+          <span class="pulse-dot"></span>
+          <div>
+            <strong>From map to majlis</strong>
+            <span>Discover · Join · Discuss</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
