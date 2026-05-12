@@ -2153,7 +2153,6 @@ img, svg, video { max-width: 100%; height: auto; }
       </a>
     </div>
     <div class="trust-pills rv d3" aria-label="What you get">
-      <span class="trust-pill">140+ countries</span>
       <span class="trust-pill">Free to download</span>
       <span class="trust-pill">Muslim-built</span>
       <span class="trust-pill">No AI slop</span>
@@ -2354,11 +2353,6 @@ img, svg, video { max-width: 100%; height: auto; }
 
     <div class="world-panel rv d1">
       <div class="world-copy">
-        <div class="world-stats">
-          <div class="world-stat"><strong>140+</strong><span>Countries</span></div>
-          <div class="world-stat"><strong>2,400</strong><span>Forums &amp; rooms</span></div>
-          <div class="world-stat"><strong>24/7</strong><span>Live majalis</span></div>
-        </div>
         <h3>Find your <em>majlis.</em></h3>
         <p>Open the world map and tap any country. Step into living forums, local city rooms, and topic majalis where Muslims gather to talk about what actually matters to them.</p>
         <div class="world-points">
@@ -2375,45 +2369,16 @@ img, svg, video { max-width: 100%; height: auto; }
             <span>Meet Muslims who share your context, questions, and ambitions.</span>
           </div>
         </div>
-
-        <div class="world-countries" aria-label="Active communities">
-          <span class="world-chip"><span class="dot"></span>Indonesia <span>· 4.2k</span></span>
-          <span class="world-chip"><span class="dot"></span>Egypt <span>· 3.8k</span></span>
-          <span class="world-chip"><span class="dot"></span>Türkiye <span>· 3.1k</span></span>
-          <span class="world-chip"><span class="dot"></span>Pakistan <span>· 2.9k</span></span>
-          <span class="world-chip"><span class="dot"></span>Morocco <span>· 2.4k</span></span>
-          <span class="world-chip"><span class="dot"></span>UK <span>· 1.7k</span></span>
-          <span class="world-chip"><span class="dot"></span>Nigeria <span>· 1.5k</span></span>
-          <span class="world-chip"><span class="dot"></span>Bosnia <span>· 980</span></span>
-          <span class="world-chip" style="background:rgba(255,217,125,.08);border-color:rgba(255,217,125,.28);color:var(--accent)">+ 132 more</span>
-        </div>
       </div>
 
       <div class="world-visual" aria-label="Qamr World map and community forum screens">
         <div class="world-rings" aria-hidden="true"></div>
-        <div class="world-orbit" aria-hidden="true">
-          <div class="world-orbit-av av1">ID</div>
-          <div class="world-orbit-av av2">EG</div>
-          <div class="world-orbit-av av3">TR</div>
-          <div class="world-orbit-av av4">PK</div>
-          <div class="world-orbit-av av5">MA</div>
-          <div class="world-orbit-av av6">UK</div>
-        </div>
 
         <div class="world-phone">
           <img src="ios/map.png" alt="Qamr World map screen" loading="lazy" />
         </div>
         <div class="world-phone">
           <img src="ios/forum.png" alt="Qamr community forum screen" loading="lazy" />
-        </div>
-
-        <div class="world-activity">
-          <div class="world-activity-avs">
-            <div class="av"></div>
-            <div class="av"></div>
-            <div class="av"></div>
-          </div>
-          <div class="world-activity-text"><strong>412 Muslims</strong> active in this room</div>
         </div>
 
         <div class="world-badge">
