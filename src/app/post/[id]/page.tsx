@@ -50,7 +50,7 @@ export default function ComingSoonPost() {
                 aria-label="Download Qamr on the App Store"
               >
                 <span className="qs-btn-icon">
-                  <svg width="22" height="26" viewBox="0 0 24 24" fill="#0f0819" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                  <svg width="22" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                 </span>
                 <span className="qs-btn-text">
                   <span className="qs-btn-small">Download on the</span>
@@ -64,10 +64,10 @@ export default function ComingSoonPost() {
               >
                 <span className="qs-btn-icon">
                   <svg width="20" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="#0f0819" opacity=".95"/>
-                    <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="#0f0819" opacity=".8"/>
-                    <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="#0f0819" opacity=".62"/>
-                    <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="#0f0819" opacity=".88"/>
+                    <path d="M3.6 1.2a1.6 1.6 0 00-.6 1.3v19a1.6 1.6 0 00.6 1.3l11-11.3z" fill="currentColor" opacity=".95"/>
+                    <path d="M14.6 11.5 17.8 8.3 5.2.8a1.4 1.4 0 00-1.6.4z" fill="currentColor" opacity=".8"/>
+                    <path d="M14.6 12.5 3.6 23.5a1.4 1.4 0 001.6.3l12.6-7.4z" fill="currentColor" opacity=".62"/>
+                    <path d="M20.8 10.4l-3-1.8-3.2 3.4 3.2 3.3 3-1.7a1.7 1.7 0 000-3.2z" fill="currentColor" opacity=".88"/>
                   </svg>
                 </span>
                 <span className="qs-btn-text">
@@ -230,53 +230,92 @@ const CSS = `
   text-wrap: balance;
 }
 
-/* CTAs (same off-white app-store style as landing hero) */
+/* Dark-glass store CTAs — matches the landing hero */
 .qamr-soon .qs-ctas {
   display: flex; flex-wrap: wrap; justify-content: center;
-  gap: 12px;
+  gap: 14px;
   margin: 0 auto;
 }
 .qamr-soon .qs-btn {
-  display: inline-flex; align-items: center; gap: 11px;
-  padding: 11px 22px 11px 18px;
-  min-width: 188px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, var(--fg) 0%, #ddd6c5 100%);
-  color: #0f0819;
+  position: relative;
+  display: inline-flex; align-items: center; gap: 13px;
+  padding: 14px 26px 14px 22px;
+  min-width: 204px;
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at top right, rgba(120,60,160,.16) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(24,14,38,.82) 0%, rgba(10,6,20,.92) 100%);
+  color: var(--fg);
   text-decoration: none;
-  border: 1px solid rgba(0,0,0,.08);
+  border: 1px solid rgba(212,191,138,.22);
   box-shadow:
-    0 6px 18px rgba(0,0,0,.35),
-    0 0 0 1px rgba(212,191,138,.22),
-    inset 0 1px 0 rgba(255,255,255,.6),
-    inset 0 -1px 0 rgba(0,0,0,.06);
-  transition: transform .25s var(--ease), box-shadow .35s var(--ease), filter .25s var(--ease);
+    0 14px 36px rgba(0,0,0,.55),
+    0 0 0 1px rgba(212,191,138,.06),
+    0 0 32px rgba(212,191,138,.06),
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 -1px 0 rgba(0,0,0,.3);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: transform .4s var(--ease), box-shadow .45s var(--ease), border-color .35s var(--ease);
+  overflow: hidden;
+  will-change: transform;
+}
+.qamr-soon .qs-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit; padding: 1px;
+  background: linear-gradient(160deg, rgba(212,191,138,.55), rgba(212,191,138,.04) 42%, rgba(212,191,138,.3) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none; opacity: .8;
+  transition: opacity .4s var(--ease);
+}
+.qamr-soon .qs-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 42%, rgba(212,191,138,.16) 50%, transparent 58%);
+  transform: translateX(-130%);
+  transition: transform 1s var(--ease);
+  pointer-events: none;
 }
 .qamr-soon .qs-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  border-color: rgba(212,191,138,.38);
   box-shadow:
-    0 12px 28px rgba(0,0,0,.45),
-    0 0 0 1px rgba(212,191,138,.4),
-    inset 0 1px 0 rgba(255,255,255,.7),
-    inset 0 -1px 0 rgba(0,0,0,.08);
-  filter: brightness(1.02);
+    0 22px 52px rgba(0,0,0,.65),
+    0 0 0 1px rgba(212,191,138,.18),
+    0 0 48px rgba(212,191,138,.12),
+    inset 0 1px 0 rgba(255,255,255,.07),
+    inset 0 -1px 0 rgba(0,0,0,.32);
 }
+.qamr-soon .qs-btn:hover::before { opacity: 1; }
+.qamr-soon .qs-btn:hover::after { transform: translateX(130%); }
 .qamr-soon .qs-btn:active {
   transform: translateY(0) scale(.985);
-  transition: transform .12s var(--ease);
+  transition: transform .15s var(--ease);
 }
 .qamr-soon .qs-btn-icon {
-  flex: none; width: 26px; height: 26px;
+  flex: none; width: 28px; height: 28px;
   display: flex; align-items: center; justify-content: center;
+  color: var(--fg);
+  position: relative; z-index: 1;
 }
-.qamr-soon .qs-btn-icon svg { display: block; }
-.qamr-soon .qs-btn-text { display: flex; flex-direction: column; line-height: 1.05; text-align: left; }
+.qamr-soon .qs-btn-icon svg {
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.5));
+}
+.qamr-soon .qs-btn-text {
+  display: flex; flex-direction: column;
+  line-height: 1.08; text-align: left;
+  position: relative; z-index: 1;
+}
 .qamr-soon .qs-btn-small {
-  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(15,8,25,.62); font-weight: 500; margin-bottom: 3px;
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(212,191,138,.72); font-weight: 500; margin-bottom: 3px;
 }
 .qamr-soon .qs-btn-big {
-  font-size: 16px; font-weight: 600; letter-spacing: -.01em; color: #0f0819;
+  font-size: 17px; font-weight: 600; letter-spacing: -.01em;
+  color: var(--fg);
 }
 
 .qamr-soon .qs-note {
@@ -293,28 +332,36 @@ const CSS = `
   .qamr-soon .qs-kicker { margin-bottom: 22px; font-size: 10px; padding: 5px 14px; }
   .qamr-soon .qs-h1 { font-size: clamp(40px, 11vw, 64px); margin-bottom: 18px; line-height: 1.02; letter-spacing: -.03em; }
   .qamr-soon .qs-lead { font-size: 14.5px; margin-bottom: 32px; line-height: 1.6; }
-  .qamr-soon .qs-ctas { gap: 10px; max-width: 340px; }
-  .qamr-soon .qs-btn {
-    flex: 1 1 0; min-width: 0;
-    justify-content: center;
-    padding: 9px 14px; border-radius: 12px; gap: 9px;
-    background: linear-gradient(180deg, #f1ece0 0%, #e1dac9 100%);
-    border: 1px solid rgba(0,0,0,.06);
-    box-shadow:
-      0 4px 12px rgba(0,0,0,.22),
-      0 0 0 1px rgba(212,191,138,.14),
-      inset 0 1px 0 rgba(255,255,255,.55);
+  .qamr-soon .qs-ctas {
+    flex-direction: column; align-items: stretch;
+    gap: 16px; max-width: 360px;
   }
-  .qamr-soon .qs-btn-icon { width: 20px; height: 20px; }
-  .qamr-soon .qs-btn-icon svg { height: 18px; width: auto; }
-  .qamr-soon .qs-btn-small { font-size: 8px; margin-bottom: 1px; letter-spacing: .12em; }
-  .qamr-soon .qs-btn-big { font-size: 13px; }
+  .qamr-soon .qs-btn {
+    width: 100%; flex: 0 0 auto; min-width: 0;
+    justify-content: center;
+    padding: 17px 24px; gap: 13px;
+    border-radius: 20px;
+    background:
+      radial-gradient(ellipse at top right, rgba(120,60,160,.18) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(26,16,42,.85) 0%, rgba(10,6,20,.94) 100%);
+    border: 1px solid rgba(212,191,138,.24);
+    box-shadow:
+      0 18px 44px rgba(0,0,0,.6),
+      0 0 0 1px rgba(212,191,138,.08),
+      0 0 40px rgba(212,191,138,.08),
+      inset 0 1px 0 rgba(255,255,255,.05),
+      inset 0 -1px 0 rgba(0,0,0,.32);
+  }
+  .qamr-soon .qs-btn-icon { width: 28px; height: 28px; }
+  .qamr-soon .qs-btn-icon svg { height: 24px; width: auto; }
+  .qamr-soon .qs-btn-small { font-size: 10px; margin-bottom: 3px; letter-spacing: .16em; }
+  .qamr-soon .qs-btn-big { font-size: 17px; }
   .qamr-soon .qs-note { font-size: 10px; margin-top: 22px; }
 }
 
 @media (max-width: 380px) {
-  .qamr-soon .qs-ctas { flex-direction: column; align-items: stretch; max-width: 280px; }
-  .qamr-soon .qs-btn { flex: 0 0 auto; width: 100%; padding: 10px 14px; }
-  .qamr-soon .qs-btn-big { font-size: 13px; }
+  .qamr-soon .qs-ctas { max-width: 100%; gap: 12px; }
+  .qamr-soon .qs-btn { padding: 15px 20px; border-radius: 17px; }
+  .qamr-soon .qs-btn-big { font-size: 15.5px; }
 }
 `;
