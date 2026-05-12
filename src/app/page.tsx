@@ -1393,107 +1393,69 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 /* ───── HERO STORE BUTTONS (light, app-store style) ───── */
-/* Bright dark-glass store buttons — premium, lit-from-above, highly clickable */
+/* Calm dark-glass store buttons — restrained, integrated with the hero */
 .store-btn {
   position: relative;
   display: inline-flex; align-items: center; gap: 13px;
   padding: 14px 26px 14px 22px;
   min-width: 204px;
-  border-radius: 18px;
-  background:
-    radial-gradient(ellipse at 50% -25%, rgba(232,213,168,.22) 0%, transparent 55%),
-    radial-gradient(ellipse at top right, rgba(140,70,180,.26) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(44,24,68,.92) 0%, rgba(16,10,28,.96) 100%);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(22,14,34,.78) 0%, rgba(12,8,22,.88) 100%);
   color: var(--fg);
   text-decoration: none;
-  border: 1px solid rgba(212,191,138,.42);
+  border: 1px solid rgba(212,191,138,.16);
   box-shadow:
-    0 18px 44px rgba(0,0,0,.55),
-    0 0 0 1px rgba(212,191,138,.14),
-    0 0 48px rgba(212,191,138,.14),
-    inset 0 1px 0 rgba(255,255,255,.14),
-    inset 0 2px 6px rgba(232,213,168,.08),
-    inset 0 -12px 28px rgba(0,0,0,.28);
-  backdrop-filter: blur(14px) saturate(1.25);
-  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+    0 10px 28px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 -1px 0 rgba(0,0,0,.22);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
   transition:
-    transform .4s var(--ease),
-    box-shadow .45s var(--ease),
+    transform .35s var(--ease),
+    box-shadow .4s var(--ease),
     border-color .35s var(--ease);
   overflow: hidden;
   will-change: transform;
 }
-/* Bright gold gradient hairline outline */
-.store-btn::before {
-  content: '';
-  position: absolute; inset: 0;
-  border-radius: inherit; padding: 1px;
-  background: linear-gradient(160deg, rgba(232,213,168,.85), rgba(212,191,138,.1) 42%, rgba(232,213,168,.55) 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  pointer-events: none;
-  opacity: .92;
-  transition: opacity .4s var(--ease);
-}
-/* Gold sheen sweep on hover */
-.store-btn::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(110deg, transparent 40%, rgba(232,213,168,.26) 50%, transparent 60%);
-  transform: translateX(-130%);
-  transition: transform 1s var(--ease);
-  pointer-events: none;
-}
 .store-btn:hover {
-  transform: translateY(-3px);
-  border-color: rgba(232,213,168,.65);
+  transform: translateY(-2px);
+  border-color: rgba(212,191,138,.28);
   box-shadow:
-    0 28px 64px rgba(0,0,0,.62),
-    0 0 0 1px rgba(212,191,138,.32),
-    0 0 72px rgba(212,191,138,.24),
-    inset 0 1px 0 rgba(255,255,255,.18),
-    inset 0 2px 8px rgba(232,213,168,.14),
-    inset 0 -12px 28px rgba(0,0,0,.26);
+    0 14px 36px rgba(0,0,0,.5),
+    0 0 28px rgba(212,191,138,.06),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    inset 0 -1px 0 rgba(0,0,0,.24);
 }
-.store-btn:hover::before { opacity: 1; }
-.store-btn:hover::after { transform: translateX(130%); }
 .store-btn:active {
-  transform: translateY(0) scale(.985);
+  transform: translateY(0) scale(.99);
   transition: transform .15s var(--ease);
 }
 .store-btn-icon {
   flex: none;
-  width: 28px; height: 28px;
+  width: 26px; height: 26px;
   display: flex; align-items: center; justify-content: center;
   color: var(--fg);
-  position: relative; z-index: 1;
 }
-.store-btn-icon svg {
-  display: block;
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,.55)) drop-shadow(0 0 6px rgba(232,213,168,.12));
-}
+.store-btn-icon svg { display: block; }
 .store-btn-text {
   display: flex; flex-direction: column;
   line-height: 1.08;
   text-align: left;
-  position: relative; z-index: 1;
 }
 .store-btn-small {
   font-size: 10px;
-  letter-spacing: .16em;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(232,213,168,.88);
+  color: rgba(201,194,182,.7);
   font-weight: 500;
   margin-bottom: 3px;
-  text-shadow: 0 0 12px rgba(212,191,138,.18);
 }
 .store-btn-big {
   font-family: var(--bd);
-  font-size: 17px;
+  font-size: 16.5px;
   font-weight: 600;
   letter-spacing: -.01em;
   color: var(--fg);
-  text-shadow: 0 1px 2px rgba(0,0,0,.45);
 }
 
 /* ───── TRUST PILLS (replaces hero-meta) ───── */
@@ -1679,32 +1641,24 @@ img, svg, video { max-width: 100%; height: auto; }
     flex: 0 0 auto;
     min-width: 0;
     justify-content: center;
-    padding: 17px 24px;
+    padding: 16px 24px;
     gap: 13px;
-    border-radius: 20px;
-    background:
-      radial-gradient(ellipse at 50% -25%, rgba(232,213,168,.25) 0%, transparent 55%),
-      radial-gradient(ellipse at top right, rgba(140,70,180,.28) 0%, transparent 60%),
-      linear-gradient(180deg, rgba(46,26,72,.94) 0%, rgba(16,10,28,.97) 100%);
-    border: 1px solid rgba(212,191,138,.46);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(20,12,32,.78) 0%, rgba(10,6,20,.9) 100%);
+    border: 1px solid rgba(212,191,138,.18);
     box-shadow:
-      0 22px 52px rgba(0,0,0,.62),
-      0 0 0 1px rgba(212,191,138,.16),
-      0 0 56px rgba(212,191,138,.18),
-      inset 0 1px 0 rgba(255,255,255,.16),
-      inset 0 2px 8px rgba(232,213,168,.1),
-      inset 0 -14px 32px rgba(0,0,0,.3);
+      0 12px 32px rgba(0,0,0,.45),
+      inset 0 1px 0 rgba(255,255,255,.05),
+      inset 0 -1px 0 rgba(0,0,0,.24);
   }
   .store-btn:hover {
-    transform: translateY(-3px);
-    border-color: rgba(232,213,168,.7);
+    transform: translateY(-2px);
+    border-color: rgba(212,191,138,.32);
     box-shadow:
-      0 32px 72px rgba(0,0,0,.7),
-      0 0 0 1px rgba(212,191,138,.34),
-      0 0 80px rgba(212,191,138,.28),
-      inset 0 1px 0 rgba(255,255,255,.2),
-      inset 0 2px 10px rgba(232,213,168,.16),
-      inset 0 -14px 32px rgba(0,0,0,.28);
+      0 18px 42px rgba(0,0,0,.55),
+      0 0 32px rgba(212,191,138,.07),
+      inset 0 1px 0 rgba(255,255,255,.06),
+      inset 0 -1px 0 rgba(0,0,0,.26);
   }
   .store-btn-icon { width: 28px; height: 28px; }
   .store-btn-icon svg { height: 24px; width: auto; }
