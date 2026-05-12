@@ -1772,7 +1772,7 @@ img, svg, video { max-width: 100%; height: auto; }
   <div class="hero-phone-wrap rv d4">
     <div class="hero-phone-stage">
       <div class="hero-phone-side hero-phone-l">
-        <img src="ios/dms ios.png" alt="" />
+        <img src="ios/dms_ios.png" alt="" />
       </div>
       <div class="hero-phone-side hero-phone-r">
         <img src="ios/qamrhub_ios.PNG" alt="" />
