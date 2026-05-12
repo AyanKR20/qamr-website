@@ -2125,7 +2125,7 @@ img, svg, video { max-width: 100%; height: auto; }
       Connect with the <em>Ummah.</em>
     </h1>
     <p class="hero-sub rv d2">
-      The social app where Muslims actually meet. Country forums, topic majalis, Qamr World map — real people, no AI slop.
+      The social app for Muslims. Reels, Islamic Hub, Country forums, and a lot more... 
     </p>
     <div class="ctas rv d3">
       <a href="https://apps.apple.com/app/qamr/id6764144560" class="store-btn" aria-label="Download Qamr on the App Store" data-track="appstore_click" data-location="hero">
