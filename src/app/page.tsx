@@ -149,6 +149,12 @@ export default function QamrLanding() {
       floatDl.href = primaryHref;
       floatDl.dataset.track = isIOS ? "appstore_click" : isAndroid ? "playstore_click" : "primary_click";
     }
+    // Top-right nav download CTA — same device-aware redirect
+    const navCta = document.getElementById("nav-cta") as HTMLAnchorElement | null;
+    if (navCta) {
+      navCta.href = primaryHref;
+      navCta.dataset.track = isIOS ? "appstore_click" : isAndroid ? "playstore_click" : "primary_click";
+    }
     const hero = document.getElementById("hero");
     let floatRaf: number | null = null;
     const onScrollFloat = () => {
@@ -358,6 +364,9 @@ nav.scrolled {
 .nav-row {
   max-width: 1280px; margin: 0 auto; padding: 0 48px;
   display: flex; align-items: center; justify-content: space-between;
+}
+.nav-end {
+  display: flex; align-items: center; gap: 32px;
 }
 .nav-brand {
   display: flex; align-items: center; gap: 10px;
@@ -1785,70 +1794,141 @@ img, svg, video { max-width: 100%; height: auto; }
   .hero-phone-stage, .hero-phone { width: min(78vw, 220px); }
 }
 
-/* ───── HERO STORE BUTTONS (light, app-store style) ───── */
-/* Calm dark-glass store buttons — restrained, integrated with the hero */
+/* ───── HERO STORE BUTTONS — ivory/moonlight premium ───── */
 .store-btn {
   position: relative;
-  display: inline-flex; align-items: center; gap: 13px;
-  padding: 14px 26px 14px 22px;
-  min-width: 204px;
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(22,14,34,.78) 0%, rgba(12,8,22,.88) 100%);
-  color: var(--fg);
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 14px 28px 14px 22px;
+  min-width: 212px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, #fbf5e9 0%, #f1e7d2 100%);
+  color: #1a0d2e;
   text-decoration: none;
-  border: 1px solid rgba(212,191,138,.16);
+  border: 1px solid rgba(255,255,255,.5);
   box-shadow:
-    0 10px 28px rgba(0,0,0,.4),
-    inset 0 1px 0 rgba(255,255,255,.05),
-    inset 0 -1px 0 rgba(0,0,0,.22);
-  backdrop-filter: blur(12px) saturate(1.1);
-  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    0 14px 32px rgba(0,0,0,.42),
+    0 1px 0 rgba(255,255,255,.6) inset,
+    0 -8px 22px rgba(255,217,125,.18) inset,
+    0 0 0 1px rgba(255,217,125,.12);
   transition:
-    transform .35s var(--ease),
-    box-shadow .4s var(--ease),
-    border-color .35s var(--ease);
+    transform .4s var(--ease),
+    box-shadow .45s var(--ease),
+    background .4s var(--ease);
   overflow: hidden;
   will-change: transform;
+  isolation: isolate;
+}
+.store-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.store-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.6) 50%, transparent 62%);
+  transform: translateX(-130%);
+  transition: transform .9s var(--ease);
+  pointer-events: none;
+  border-radius: inherit;
 }
 .store-btn:hover {
-  transform: translateY(-2px);
-  border-color: rgba(212,191,138,.28);
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, #ffffff 0%, #f6ecd6 100%);
   box-shadow:
-    0 14px 36px rgba(0,0,0,.5),
-    0 0 28px rgba(212,191,138,.06),
-    inset 0 1px 0 rgba(255,255,255,.06),
-    inset 0 -1px 0 rgba(0,0,0,.24);
+    0 22px 50px rgba(0,0,0,.5),
+    0 0 38px rgba(255,217,125,.28),
+    0 1px 0 rgba(255,255,255,.7) inset,
+    0 -8px 22px rgba(255,217,125,.24) inset,
+    0 0 0 1px rgba(255,217,125,.32);
 }
+.store-btn:hover::after { transform: translateX(130%); }
 .store-btn:active {
-  transform: translateY(0) scale(.99);
+  transform: translateY(-1px) scale(.99);
   transition: transform .15s var(--ease);
 }
 .store-btn-icon {
   flex: none;
-  width: 26px; height: 26px;
+  width: 28px; height: 28px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--fg);
+  color: #1a0d2e;
+  position: relative; z-index: 1;
 }
 .store-btn-icon svg { display: block; }
 .store-btn-text {
   display: flex; flex-direction: column;
   line-height: 1.08;
   text-align: left;
+  position: relative; z-index: 1;
 }
 .store-btn-small {
   font-size: 10px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(201,194,182,.7);
+  color: rgba(26,13,46,.62);
   font-weight: 500;
   margin-bottom: 3px;
 }
 .store-btn-big {
   font-family: var(--bd);
-  font-size: 16.5px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: -.01em;
-  color: var(--fg);
+  color: #1a0d2e;
+}
+
+/* Nav download CTA — same premium ivory, compact pill */
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 9px 18px 9px 14px;
+  border-radius: 100px;
+  background: linear-gradient(180deg, #fbf5e9 0%, #f1e7d2 100%);
+  color: #1a0d2e;
+  text-decoration: none;
+  font-family: var(--bd);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  border: 1px solid rgba(255,255,255,.5);
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.4),
+    0 1px 0 rgba(255,255,255,.6) inset,
+    0 -6px 16px rgba(255,217,125,.18) inset,
+    0 0 0 1px rgba(255,217,125,.14);
+  transition: transform .35s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.nav-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,0) 55%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, #ffffff 0%, #f6ecd6 100%);
+  box-shadow:
+    0 14px 32px rgba(0,0,0,.5),
+    0 0 32px rgba(255,217,125,.28),
+    0 1px 0 rgba(255,255,255,.7) inset,
+    0 -6px 16px rgba(255,217,125,.24) inset,
+    0 0 0 1px rgba(255,217,125,.34);
+}
+.nav-cta:active { transform: translateY(0) scale(.98); }
+.nav-cta svg { display: block; position: relative; z-index: 1; }
+.nav-cta span { position: relative; z-index: 1; }
+@media (max-width: 720px) {
+  .nav-cta { padding: 8px 14px 8px 12px; font-size: 12.5px; gap: 7px; }
+  .nav-cta svg { width: 14px; height: 14px; }
+}
+@media (max-width: 420px) {
+  .nav-cta .nav-cta-label-long { display: none; }
 }
 
 /* ───── TRUST PILLS (replaces hero-meta) ───── */
@@ -2037,21 +2117,9 @@ img, svg, video { max-width: 100%; height: auto; }
     padding: 16px 24px;
     gap: 13px;
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(20,12,32,.78) 0%, rgba(10,6,20,.9) 100%);
-    border: 1px solid rgba(212,191,138,.18);
-    box-shadow:
-      0 12px 32px rgba(0,0,0,.45),
-      inset 0 1px 0 rgba(255,255,255,.05),
-      inset 0 -1px 0 rgba(0,0,0,.24);
   }
   .store-btn:hover {
     transform: translateY(-2px);
-    border-color: rgba(212,191,138,.32);
-    box-shadow:
-      0 18px 42px rgba(0,0,0,.55),
-      0 0 32px rgba(212,191,138,.07),
-      inset 0 1px 0 rgba(255,255,255,.06),
-      inset 0 -1px 0 rgba(0,0,0,.26);
   }
   .store-btn-icon { width: 28px; height: 28px; }
   .store-btn-icon svg { height: 24px; width: auto; }
@@ -2102,12 +2170,18 @@ img, svg, video { max-width: 100%; height: auto; }
       <img src="logo.png" alt="Qamr" />
       <span class="nav-brand-name">Qamr</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="#contrast">Why Qamr</a></li>
-      <li><a href="#showcase">Platform</a></li>
-      <li><a href="#qamr-world">Qamr World</a></li>
-      <li><a href="#trust">Our Promise</a></li>
-    </ul>
+    <div class="nav-end">
+      <ul class="nav-links">
+        <li><a href="#contrast">Why Qamr</a></li>
+        <li><a href="#showcase">Platform</a></li>
+        <li><a href="#qamr-world">Qamr World</a></li>
+        <li><a href="#trust">Our Promise</a></li>
+      </ul>
+      <a href="https://apps.apple.com/app/qamr/id6764144560" class="nav-cta" id="nav-cta" aria-label="Download Qamr" data-track="primary_click" data-location="nav">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span><span class="nav-cta-label-long">Download </span>Qamr</span>
+      </a>
+    </div>
   </div>
 </nav>
 
