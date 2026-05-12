@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { PostHogInit } from "@/components/PostHogInit";
-import { PostHogProdTestButton } from "@/components/PostHogProdTestButton";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -44,7 +43,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <PostHogInit />
         {children}
-        <PostHogProdTestButton />
         <Analytics />
       </body>
     </html>
