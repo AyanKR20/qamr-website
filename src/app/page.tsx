@@ -1804,7 +1804,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <img src="ios/dms_ios.png" alt="Qamr direct messages" loading="lazy" />
     </div>
     <div class="sc-card" aria-label="Profile">
-      <img src="ios/profile_ios.png" alt="Qamr profile" loading="lazy" />
+      <img src="ios/profile_ios.PNG" alt="Qamr profile" loading="lazy" />
     </div>
   </div>
   <div class="sc-dots" aria-hidden="true">
