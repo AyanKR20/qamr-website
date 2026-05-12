@@ -1476,23 +1476,23 @@ img, svg, video { max-width: 100%; height: auto; }
 @media (max-width: 900px) {
   #screens {
     display: block;
-    padding: 8px 0 28px;
+    padding: 4px 0 28px;
   }
   .sc-track {
-    display: flex; gap: 16px;
+    display: flex; gap: 18px;
     overflow-x: auto; overflow-y: visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 18px 18vw 30px;
-    scroll-padding-inline: 18vw;
+    padding: 14px 13vw 28px;
+    scroll-padding-inline: 13vw;
   }
   .sc-track::-webkit-scrollbar { display: none; }
   .sc-card {
-    flex: 0 0 64vw;
-    max-width: 280px;
+    flex: 0 0 74vw;
+    max-width: 340px;
     scroll-snap-align: center;
-    border-radius: 38px;
+    border-radius: 42px;
     overflow: hidden;
     border: 1px solid var(--bord-lt);
     background: #0a0518;
@@ -1537,9 +1537,9 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 @media (max-width: 480px) {
-  #screens { padding: 6px 0 22px; }
-  .sc-track { padding: 16px 14vw 26px; scroll-padding-inline: 14vw; }
-  .sc-card { flex-basis: 70vw; border-radius: 34px; }
+  #screens { padding: 2px 0 22px; }
+  .sc-track { padding: 12px 11vw 24px; scroll-padding-inline: 11vw; gap: 16px; }
+  .sc-card { flex-basis: 78vw; border-radius: 38px; }
 }
 
 /* ───── FLOATING DOWNLOAD PILL (mobile, after hero scroll) ───── */
@@ -1586,86 +1586,116 @@ img, svg, video { max-width: 100%; height: auto; }
 }
 
 /* ───── HERO INSTALL STACK MOBILE OVERRIDES ───── */
+/* Mobile = focused app install page. Bigger, calmer, more spacious. */
 @media (max-width: 900px) {
   .hero-meta { display: none; }
+  /* Trust chips removed from mobile hero — reduce above-the-fold clutter */
+  .trust-pills { display: none; }
   /* Hide the hero phone trio on mobile — the carousel section below takes over */
   .hero-phone-wrap, .hero-floor-grad { display: none; }
-  #hero { padding-bottom: 10px; }
 
-  /* Tighter, more refined headline */
-  .hero-h1 {
-    font-size: clamp(34px, 8.4vw, 50px);
-    line-height: 1.02;
-    letter-spacing: -.03em;
-    margin-bottom: 14px;
+  #hero { padding: 104px 22px 6px; }
+
+  /* Bigger, more breathing kicker */
+  .hero-kicker {
+    margin-bottom: 30px;
+    padding: 7px 16px;
+    font-size: 11px;
+    letter-spacing: .18em;
   }
 
-  /* More breathing room before the CTA pair */
-  .hero-sub { margin-bottom: 28px; }
+  /* Larger, more dominant headline */
+  .hero-h1 {
+    font-size: clamp(46px, 11.5vw, 68px);
+    line-height: 1.0;
+    letter-spacing: -.035em;
+    margin-bottom: 24px;
+  }
 
-  /* Lighter, app-store-native buttons — equal width, softer shadow */
-  .ctas { gap: 10px; max-width: 340px; margin: 0 auto; }
+  /* More generous subtitle + space before CTAs */
+  .hero-sub {
+    font-size: 15.5px;
+    line-height: 1.6;
+    max-width: 90%;
+    margin: 0 auto 38px;
+  }
+
+  /* Vertical, full-width, large & tappable store buttons */
+  .ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
   .store-btn {
-    flex: 1 1 0;
+    width: 100%;
+    flex: 0 0 auto;
     min-width: 0;
     justify-content: center;
-    padding: 9px 14px;
-    border-radius: 12px;
-    gap: 9px;
-    background: linear-gradient(180deg, #f1ece0 0%, #e1dac9 100%);
-    border: 1px solid rgba(0,0,0,.06);
+    padding: 14px 22px;
+    gap: 12px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #f6f1e3 0%, #d8d1bf 100%);
+    border: 1px solid rgba(0,0,0,.08);
     box-shadow:
-      0 4px 12px rgba(0,0,0,.22),
-      0 0 0 1px rgba(212,191,138,.14),
-      inset 0 1px 0 rgba(255,255,255,.55);
+      0 10px 26px rgba(0,0,0,.35),
+      0 0 0 1px rgba(212,191,138,.28),
+      0 0 22px rgba(212,191,138,.05),
+      inset 0 1px 0 rgba(255,255,255,.7),
+      inset 0 -1px 0 rgba(0,0,0,.06);
   }
   .store-btn:hover {
+    transform: translateY(-2px);
     box-shadow:
-      0 8px 20px rgba(0,0,0,.3),
-      0 0 0 1px rgba(212,191,138,.28),
-      inset 0 1px 0 rgba(255,255,255,.6);
+      0 14px 32px rgba(0,0,0,.4),
+      0 0 0 1px rgba(212,191,138,.42),
+      0 0 28px rgba(212,191,138,.1),
+      inset 0 1px 0 rgba(255,255,255,.75),
+      inset 0 -1px 0 rgba(0,0,0,.08);
   }
-  .store-btn-icon { width: 20px; height: 20px; }
-  .store-btn-icon svg { height: 18px; width: auto; }
-  .store-btn-small { font-size: 8px; margin-bottom: 1px; letter-spacing: .12em; }
-  .store-btn-big { font-size: 13px; }
-
-  /* Smaller, more subtle trust pills */
-  .trust-pills { margin-top: 18px; gap: 5px 6px; }
-  .trust-pill {
-    font-size: 10px;
-    padding: 4px 9px;
-    color: rgba(201,194,182,.78);
-    background: rgba(212,191,138,.025);
-    border-color: rgba(212,191,138,.08);
+  .store-btn:active {
+    transform: translateY(0) scale(.985);
+    transition: transform .12s var(--ease);
   }
-  .trust-pill::before {
-    width: 3px; height: 3px;
-    box-shadow: 0 0 4px rgba(212,191,138,.4);
-    opacity: .8;
-  }
+  .store-btn-icon { width: 28px; height: 28px; }
+  .store-btn-icon svg { height: 24px; width: auto; }
+  .store-btn-small { font-size: 10px; margin-bottom: 2px; letter-spacing: .14em; }
+  .store-btn-big { font-size: 16.5px; }
 }
 
 @media (max-width: 480px) {
+  #hero { padding: 92px 18px 4px; }
+  .hero-kicker { margin-bottom: 24px; font-size: 10.5px; }
   .hero-h1 {
-    font-size: clamp(30px, 9vw, 42px);
-    letter-spacing: -.028em;
-    margin-bottom: 12px;
+    font-size: clamp(42px, 12vw, 58px);
+    letter-spacing: -.032em;
+    margin-bottom: 20px;
   }
-  .hero-sub { margin-bottom: 24px; font-size: 13.5px; line-height: 1.55; }
-  .ctas { max-width: 320px; gap: 8px; }
-  .store-btn { padding: 9px 12px; gap: 8px; }
-  .store-btn-big { font-size: 12.5px; }
-  .store-btn-small { font-size: 7.5px; }
-  .trust-pills { margin-top: 16px; }
-  .trust-pill { font-size: 9.5px; padding: 4px 8px; }
+  .hero-sub {
+    font-size: 14.5px;
+    line-height: 1.58;
+    margin-bottom: 32px;
+    max-width: 92%;
+  }
+  .ctas { max-width: 340px; gap: 11px; }
+  .store-btn { padding: 13px 20px; gap: 11px; border-radius: 15px; }
+  .store-btn-icon { width: 26px; height: 26px; }
+  .store-btn-icon svg { height: 22px; width: auto; }
+  .store-btn-big { font-size: 15.5px; }
+  .store-btn-small { font-size: 9.5px; }
 }
 
-/* Stack store buttons vertically on very small screens for full-width tappability */
 @media (max-width: 380px) {
-  .ctas { flex-direction: column; align-items: stretch; gap: 8px; max-width: 280px; }
-  .store-btn { flex: 0 0 auto; width: 100%; padding: 10px 14px; }
-  .store-btn-big { font-size: 13px; }
+  #hero { padding: 84px 16px 4px; }
+  .hero-h1 {
+    font-size: clamp(38px, 12vw, 50px);
+    margin-bottom: 18px;
+  }
+  .hero-sub { font-size: 14px; margin-bottom: 28px; }
+  .ctas { max-width: 100%; gap: 10px; }
+  .store-btn { padding: 12px 18px; }
+  .store-btn-big { font-size: 15px; }
 }
 `}</style>
       <div dangerouslySetInnerHTML={{ __html: `
