@@ -2327,7 +2327,7 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="why-card">
         <div class="why-num">02</div>
         <div class="why-title">Reels without AI slop</div>
-        <div class="why-desc">Human-made reels and posts. AI-generated media is detected and filtered.</div>
+        <div class="why-desc">Human-made reels and posts. AI-generated slop is blocked and removed.</div>
       </div>
       <div class="why-card">
         <div class="why-num">03</div>
