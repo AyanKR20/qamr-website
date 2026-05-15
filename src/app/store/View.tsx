@@ -5,7 +5,7 @@ import posthog from "posthog-js";
 
 const IOS_URL = "https://apps.apple.com/app/qamr/id6764144560";
 const ANDROID_URL =
-  "https://play.google.com/store/apps/details?id=com.ayankhokhar.qamr";
+  "https://play.google.com/store/apps/details?id=com.ayank.qamr";
 const REDIRECT_DELAY_MS = 700;
 
 type Platform = "ios" | "android" | "desktop";
