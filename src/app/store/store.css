@@ -1,0 +1,167 @@
+.qamr-store {
+  --bg: #08040f;
+  --fg: #ede8df;
+  --fg-dim: #c9c2b6;
+  --muted-lt: #8a8298;
+  --accent: #d4bf8a;
+  --acc-lt: #ecd9a8;
+  --bord-lt: rgba(212, 191, 138, 0.18);
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-bd), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.qamr-store .bg-orb,
+.qamr-store .bg-warm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -55%);
+}
+
+.qamr-store .bg-orb {
+  width: min(900px, 150vw);
+  height: min(600px, 100vw);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(90, 30, 122, 0.2) 0%,
+    rgba(45, 10, 62, 0.08) 45%,
+    transparent 70%
+  );
+}
+
+.qamr-store .bg-warm {
+  width: min(460px, 85vw);
+  height: min(280px, 52vw);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(212, 191, 138, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+.qamr-store .store-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qamr-store .store-logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 1px rgba(212, 191, 138, 0.08),
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 80px rgba(90, 30, 122, 0.22);
+}
+
+.qamr-store .store-headline {
+  margin: 32px 0 0;
+  font-family: var(--font-hd), Georgia, serif;
+  font-size: clamp(34px, 11vw, 44px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--fg);
+}
+
+.qamr-store .store-sub {
+  margin: 14px 0 0;
+  font-size: 15px;
+  color: var(--muted-lt);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 340px;
+}
+
+.qamr-store .store-fallback {
+  margin: 28px 0 0;
+  font-size: 12.5px;
+  color: var(--fg-dim);
+}
+
+.qamr-store .store-buttons {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.qamr-store .sb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 13px 22px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.qamr-store .sb svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.qamr-store .sb-text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+  text-align: left;
+}
+
+.qamr-store .sb-top {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.qamr-store .sb-bot {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.qamr-store .sb-ios {
+  background: var(--fg);
+  color: #08040f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.qamr-store .sb-android {
+  background: rgba(212, 191, 138, 0.05);
+  color: var(--fg);
+  border: 1px solid var(--bord-lt);
+}
+
+.qamr-store .sb-android svg {
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .qamr-store .store-buttons {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+  }
+}

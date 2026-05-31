@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import StoreView from "./View";
+import "./store.css";
+
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Download Qamr",
