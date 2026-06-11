@@ -2,17 +2,14 @@
 
 import type { ComponentType } from "react";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
 type TelemetryComponent = ComponentType;
 
 export function SiteTelemetry() {
-  const pathname = usePathname();
   const [Telemetry, setTelemetry] = useState<TelemetryComponent | null>(null);
-  const isStore = pathname === "/store" || pathname?.startsWith("/store/");
 
   useEffect(() => {
-    if (isStore || Telemetry) return;
+    if (Telemetry) return;
 
     let mounted = true;
 
@@ -23,9 +20,9 @@ export function SiteTelemetry() {
     return () => {
       mounted = false;
     };
-  }, [Telemetry, isStore]);
+  }, [Telemetry]);
 
-  if (isStore || !Telemetry) {
+  if (!Telemetry) {
     return null;
   }
 
