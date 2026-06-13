@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Support Qamr",
-  description:
-    "Support Qamr, an independent Muslim app built for the Ummah.",
+  description: "Support Qamr, an independent Muslim app built for the Ummah.",
   openGraph: {
     title: "Support Qamr",
     description: "Support Qamr, an independent Muslim app built for the Ummah.",
@@ -11,71 +10,34 @@ export const metadata: Metadata = {
   },
 };
 
-const STRIPE = {
-  five:   "https://buy.stripe.com/6oU14m9yAd4K456adj3oA00",
-  ten:    "https://buy.stripe.com/7sY8wOaCEfcSgRSadj3oA01",
-  twenty: "https://buy.stripe.com/9B6eVcfWY1m2bxygBH3oA02",
-  fifty:  "https://buy.stripe.com/eVqdR8fWY7Kq7hiclr3oA03",
-} as const;
-
 const AMOUNTS = [
-  { label: "$5",  href: STRIPE.five   },
-  { label: "$10", href: STRIPE.ten    },
-  { label: "$25", href: STRIPE.twenty },
-  { label: "$50", href: STRIPE.fifty  },
+  { label: "$5",  href: "https://buy.stripe.com/6oU14m9yAd4K456adj3oA00" },
+  { label: "$10", href: "https://buy.stripe.com/7sY8wOaCEfcSgRSadj3oA01" },
+  { label: "$25", href: "https://buy.stripe.com/9B6eVcfWY1m2bxygBH3oA02" },
+  { label: "$50", href: "https://buy.stripe.com/eVqdR8fWY7Kq7hiclr3oA03" },
 ] as const;
 
 const USES = [
-  {
-    label: "Servers & infrastructure",
-    desc: "Keeping Qamr fast and available for everyone.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-        <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-        <line x1="6" y1="6" x2="6.01" y2="6" />
-        <line x1="6" y1="18" x2="6.01" y2="18" />
-      </svg>
-    ),
-  },
-  {
-    label: "App development",
-    desc: "Building and improving features the Ummah needs.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polyline points="16 18 22 12 16 6" />
-        <polyline points="8 6 2 12 8 18" />
-      </svg>
-    ),
-  },
-  {
-    label: "Moderation & safety",
-    desc: "Keeping Qamr a trustworthy, human-first space.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-  },
-  {
-    label: "New Muslim-focused features",
-    desc: "Quran, Hadith, prayer tools, nasheeds, and more.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    ),
-  },
+  { emoji: "🖥", label: "Servers & Infrastructure", desc: "Keep Qamr online and fast." },
+  { emoji: "🚀", label: "Development",              desc: "Build new features and improve existing ones." },
+  { emoji: "🛡", label: "Moderation & Safety",      desc: "Help maintain a healthy Muslim community." },
+  { emoji: "🌍", label: "Growth",                   desc: "Reach more Muslims around the world." },
+] as const;
+
+const STATS = [
+  { num: "2,000+",  label: "Downloads"    },
+  { num: "20+",     label: "Countries"    },
+  { num: "100%",    label: "Independent"  },
 ] as const;
 
 const FAQS = [
   {
-    q: "Is Qamr still free?",
-    a: "Yes. Support is completely optional and Qamr remains free to use.",
+    q: "Is Qamr free?",
+    a: "Yes. Qamr is completely free and will always remain so.",
   },
   {
     q: "Do I get extra features for supporting?",
-    a: "No. This is voluntary support only and does not unlock digital features, content, or badges.",
+    a: "No. This is voluntary support only. It does not unlock features, content, or badges.",
   },
   {
     q: "Is payment secure?",
@@ -83,7 +45,7 @@ const FAQS = [
   },
   {
     q: "Can I support monthly?",
-    a: "Yes, use the monthly supporter option above.",
+    a: "Yes, through our monthly supporter option.",
   },
 ] as const;
 
@@ -101,87 +63,64 @@ export default function SupportPage() {
               <span className="sp-brand-name">Qamr</span>
             </a>
             <a href="/" className="sp-back-link" aria-label="Back to Qamr homepage">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
-              Back to site
+              Back
             </a>
           </div>
         </nav>
 
-        {/* ── Hero ── */}
+        {/* ── Section 1: Above the fold ── */}
         <section className="sp-hero">
-          <div className="sp-orb" aria-hidden="true" />
-          <div className="sp-warm" aria-hidden="true" />
           <div className="sp-hero-inner">
-            <div className="sp-kicker" aria-hidden="true">
-              <span className="sp-k-dot" />
+            <div className="sp-badge" aria-hidden="true">
+              <span className="sp-badge-dot" />
               For the Ummah
             </div>
-            <h1 className="sp-h1">
-              Support<br />
-              <em>Qamr</em>
-            </h1>
-            <p className="sp-lead">
-              Built by people who love this Ummah. Whatever you can give
-              helps Qamr stay free, independent, and growing for every Muslim who uses it.
-            </p>
-          </div>
-        </section>
-
-        {/* ── Amounts (first) ── */}
-        <section className="sp-section sp-amounts-section" aria-labelledby="amounts-heading">
-          <div className="sp-inner">
-            <div className="sp-label" aria-hidden="true">Choose what feels right</div>
-            <h2 className="sp-h2" id="amounts-heading">Every bit helps</h2>
-            <p className="sp-amounts-intro">
-              No pressure. No perks. Just your support.
+            <h1 className="sp-h1">Support Qamr</h1>
+            <p className="sp-sub">
+              Qamr is an independent platform built to help Muslims connect,
+              learn, and grow together. Your support helps keep it free and
+              continue improving for the global Ummah.
             </p>
 
-            <div className="sp-pills" role="list">
+            <div className="sp-btn-grid" role="list">
               {AMOUNTS.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
-                  className="sp-pill"
+                  className="sp-btn"
                   role="listitem"
                   aria-label={`Support Qamr with ${label}`}
                   rel="noopener noreferrer"
                 >
-                  <span className="sp-pill-amount">{label}</span>
+                  {label}
                 </a>
               ))}
             </div>
 
-            <p className="sp-stripe-note">
-              Payments secured by Stripe · No account needed
+            <div className="sp-trust-row">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0110 0v4" />
+              </svg>
+              Secure payments powered by Stripe
+            </div>
+            <p className="sp-disclaimer">
+              Support is completely optional. Qamr remains free for everyone.
             </p>
           </div>
         </section>
 
-        {/* ── Mission (second) ── */}
-        <section className="sp-section sp-mission" aria-labelledby="why-heading">
-          <div className="sp-inner sp-mission-inner">
-            <div className="sp-label" aria-hidden="true">Our mission</div>
-            <h2 className="sp-h2" id="why-heading">Why support Qamr?</h2>
-            <p className="sp-body">
-              Qamr is built with the goal of creating a better online space for
-              Muslims — with features like Quran, Hadith, prayer tools, nasheeds,
-              Muslim news, and a community feed. Every contribution helps cover
-              development, servers, moderation, and new features.
-            </p>
-          </div>
-        </section>
-
-        {/* ── Transparency ── */}
-        <section className="sp-section sp-uses-section" aria-labelledby="uses-heading">
+        {/* ── Section 2: Where support goes ── */}
+        <section className="sp-section" aria-labelledby="uses-heading">
           <div className="sp-inner">
-            <div className="sp-label" aria-hidden="true">Transparency</div>
-            <h2 className="sp-h2" id="uses-heading">What your support goes towards</h2>
+            <h2 className="sp-section-h" id="uses-heading">Where your support goes</h2>
             <div className="sp-uses-grid" role="list">
-              {USES.map(({ icon, label, desc }) => (
+              {USES.map(({ emoji, label, desc }) => (
                 <div className="sp-use-card" key={label} role="listitem">
-                  <div className="sp-use-icon">{icon}</div>
+                  <span className="sp-use-emoji" aria-hidden="true">{emoji}</span>
                   <div>
                     <span className="sp-use-label">{label}</span>
                     <span className="sp-use-desc">{desc}</span>
@@ -192,18 +131,42 @@ export default function SupportPage() {
           </div>
         </section>
 
-        {/* ── FAQ ── */}
-        <section className="sp-section sp-faq-section" aria-labelledby="faq-heading">
-          <div className="sp-inner sp-faq-inner">
-            <div className="sp-label" aria-hidden="true">FAQ</div>
-            <h2 className="sp-h2" id="faq-heading">Common questions</h2>
+        {/* ── Section 3: Built for the Ummah ── */}
+        <section className="sp-section" aria-labelledby="mission-heading">
+          <div className="sp-inner">
+            <h2 className="sp-section-h" id="mission-heading">Built for the Ummah</h2>
+            <p className="sp-mission-body">
+              Qamr is built independently — no venture funding, no large team.
+              Just a genuine effort to create a better space for Muslims online.
+              Every contribution directly helps improve the platform and allows us
+              to serve more of the global Ummah.
+            </p>
+          </div>
+        </section>
+
+        {/* ── Section 4: Social proof ── */}
+        <section className="sp-section sp-stats-section" aria-label="Community stats">
+          <div className="sp-stats" role="list">
+            {STATS.map(({ num, label }) => (
+              <div className="sp-stat" key={label} role="listitem">
+                <span className="sp-stat-num">{num}</span>
+                <span className="sp-stat-label">{label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Section 5: FAQ ── */}
+        <section className="sp-section" aria-labelledby="faq-heading">
+          <div className="sp-inner">
+            <h2 className="sp-section-h" id="faq-heading">Common questions</h2>
             <div className="sp-faq-list">
               {FAQS.map(({ q, a }) => (
                 <details className="sp-faq-item" key={q}>
                   <summary className="sp-faq-q">
                     <span>{q}</span>
                     <span className="sp-faq-chevron" aria-hidden="true">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="6 9 12 15 18 9" />
                       </svg>
                     </span>
@@ -212,30 +175,6 @@ export default function SupportPage() {
                 </details>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* ── Footer CTA ── */}
-        <section className="sp-cta" aria-label="Call to action">
-          <div className="sp-cta-orb" aria-hidden="true" />
-          <div className="sp-cta-inner">
-            <h2 className="sp-cta-h">
-              Help Qamr reach<br />
-              <em>more Muslims</em>
-            </h2>
-            <p className="sp-cta-body">
-              Even a small contribution helps keep Qamr growing.
-            </p>
-            <a
-              href="#amounts-heading"
-              className="sp-cta-btn"
-              aria-label="Support Qamr — choose an amount"
-            >
-              Support Qamr
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
           </div>
         </section>
 
@@ -249,7 +188,7 @@ export default function SupportPage() {
             <nav className="sp-foot-links" aria-label="Footer navigation">
               <a href="/privacy">Privacy</a>
               <a href="/terms">Terms</a>
-              <a href="/community-guidelines">Community Guidelines</a>
+              <a href="/community-guidelines">Community</a>
               <a href="mailto:qamrapp@gmail.com">Contact</a>
             </nav>
             <p className="sp-foot-copy">© 2026 Qamr. Built for humans.</p>
@@ -269,17 +208,17 @@ const CSS = `
   --muted-lt: #8a8298;
   --accent: #d4bf8a;
   --acc-lt: #e8d5a8;
-  --surface: #0f0819;
-  --surf-lt: #160e22;
-  --border: #1e1530;
-  --bord-lt: #2c1f46;
+  --surface: #0d0718;
+  --surf-lt: #150d24;
+  --border: #1c1428;
+  --bord-lt: #2a1d40;
   --hd: 'Playfair Display', Georgia, serif;
   --bd: 'DM Sans', system-ui, sans-serif;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--bd);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
 }
@@ -293,8 +232,8 @@ const CSS = `
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 900;
-  opacity: .018;
+  z-index: 999;
+  opacity: .014;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -303,16 +242,15 @@ const CSS = `
   position: sticky;
   top: 0;
   z-index: 800;
-  background: rgba(8, 4, 15, .88);
+  background: rgba(8, 4, 15, .92);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  padding: 18px 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 .sp-nav-row {
-  max-width: 1040px;
+  max-width: 560px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 13px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -320,20 +258,20 @@ const CSS = `
 .sp-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   text-decoration: none;
   color: var(--fg);
 }
 .sp-brand-mark {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 7px;
   object-fit: cover;
   display: block;
 }
 .sp-brand-name {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: -.02em;
 }
@@ -343,94 +281,116 @@ const CSS = `
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 18px;
+  gap: 6px;
+  padding: 7px 14px;
   border-radius: 100px;
   border: 1px solid var(--border);
   transition: border-color .2s, color .2s;
 }
 .sp-back-link:hover {
-  border-color: rgba(212, 191, 138, .3);
+  border-color: rgba(212, 191, 138, .28);
   color: var(--fg);
 }
 
 /* ── Hero ── */
 .sp-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 130px 32px 110px;
-  text-align: center;
   border-bottom: 1px solid var(--border);
-}
-.sp-orb {
-  position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1000px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(90, 30, 122, .16) 0%, rgba(45, 10, 62, .05) 50%, transparent 72%);
-  pointer-events: none;
-}
-.sp-warm {
-  position: absolute;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 320px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(212, 191, 138, .07) 0%, transparent 70%);
-  pointer-events: none;
+  padding: 48px 24px 40px;
 }
 .sp-hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 640px;
+  max-width: 480px;
   margin: 0 auto;
+  text-align: center;
 }
-.sp-kicker {
+.sp-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 18px;
+  gap: 7px;
+  padding: 4px 12px;
   border-radius: 100px;
-  border: 1px solid rgba(212, 191, 138, .14);
-  background: rgba(212, 191, 138, .04);
-  font-size: 11px;
+  border: 1px solid rgba(212, 191, 138, .15);
+  background: rgba(212, 191, 138, .06);
+  font-size: 10px;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
-.sp-k-dot {
+.sp-badge-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
   background: var(--accent);
   opacity: .65;
+  flex-shrink: 0;
 }
 .sp-h1 {
   font-family: var(--hd);
-  font-size: clamp(56px, 7.5vw, 100px);
+  font-size: clamp(40px, 7vw, 56px);
   font-weight: 800;
-  line-height: .98;
-  letter-spacing: -.04em;
-  margin-bottom: 28px;
+  letter-spacing: -.035em;
+  line-height: 1.0;
+  margin-bottom: 14px;
+  color: var(--fg);
 }
-.sp-h1 em {
-  font-style: italic;
-  color: var(--accent);
-  font-weight: 700;
-}
-.sp-lead {
-  font-size: 18px;
+.sp-sub {
+  font-size: 15px;
   color: var(--muted-lt);
   font-weight: 300;
-  max-width: 500px;
-  margin: 0 auto;
-  line-height: 1.78;
+  line-height: 1.72;
+  margin-bottom: 28px;
+}
+
+/* ── Support buttons ── */
+.sp-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.sp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 68px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(212, 191, 138, .24);
+  background: rgba(212, 191, 138, .07);
+  text-decoration: none;
+  color: var(--accent);
+  font-family: var(--hd);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  transition: background .18s, border-color .18s, color .18s, transform .15s, box-shadow .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.sp-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #07030d;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(212, 191, 138, .2);
+}
+.sp-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Trust signals ── */
+.sp-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.sp-disclaimer {
+  font-size: 12px;
+  color: var(--muted);
+  opacity: .65;
 }
 
 /* ── Shared section ── */
@@ -438,150 +398,109 @@ const CSS = `
   border-bottom: 1px solid var(--border);
 }
 .sp-inner {
-  max-width: 1040px;
+  max-width: 560px;
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: 40px 24px;
 }
-.sp-label {
-  font-size: 10px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.sp-label::before {
-  content: '';
-  width: 20px;
-  height: 1px;
-  background: var(--accent);
-  opacity: .45;
-}
-.sp-h2 {
+.sp-section-h {
   font-family: var(--hd);
-  font-size: clamp(28px, 3vw, 40px);
+  font-size: clamp(20px, 3vw, 26px);
   font-weight: 700;
-  letter-spacing: -.025em;
-  margin-bottom: 8px;
-  line-height: 1.15;
-}
-.sp-body {
-  font-size: 17px;
-  color: var(--muted-lt);
-  font-weight: 300;
-  line-height: 1.82;
-  max-width: 620px;
-}
-
-/* ── Amounts ── */
-.sp-amounts-intro {
-  font-size: 15px;
-  color: var(--muted);
-  font-weight: 300;
-  margin-bottom: 36px;
-  margin-top: 2px;
-}
-.sp-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.sp-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 13px 22px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, .018);
-  text-decoration: none;
+  letter-spacing: -.02em;
+  margin-bottom: 18px;
   color: var(--fg);
-  transition: border-color .2s, background .2s, transform .18s, box-shadow .25s;
-}
-.sp-pill:hover {
-  border-color: rgba(212, 191, 138, .32);
-  background: rgba(212, 191, 138, .05);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, .2);
-}
-.sp-pill-amount {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--fg);
-  letter-spacing: -.015em;
-}
-.sp-stripe-note {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 18px;
-  letter-spacing: .01em;
+  line-height: 1.2;
 }
 
-/* ── Mission ── */
-.sp-mission-inner {
-  max-width: 780px;
-}
-
-/* ── Transparency ── */
+/* ── Uses grid ── */
 .sp-uses-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 2px;
-  margin-top: 36px;
-  border: 1px solid var(--border);
-  border-radius: 18px;
+  background: var(--border);
+  border-radius: 14px;
   overflow: hidden;
 }
 .sp-use-card {
+  background: var(--surface);
+  padding: 18px 18px;
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  padding: 28px 26px;
-  background: var(--surface);
-  transition: background .2s;
+  gap: 11px;
+  transition: background .18s;
 }
 .sp-use-card:hover {
   background: var(--surf-lt);
 }
-.sp-use-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  border: 1px solid var(--bord-lt);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  background: rgba(212, 191, 138, .04);
+.sp-use-emoji {
+  font-size: 19px;
+  line-height: 1;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .sp-use-label {
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--fg);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   line-height: 1.3;
 }
 .sp-use-desc {
   display: block;
-  font-size: 13px;
-  color: var(--muted);
+  font-size: 12px;
+  color: var(--muted-lt);
   font-weight: 300;
-  line-height: 1.55;
+  line-height: 1.5;
+}
+
+/* ── Mission ── */
+.sp-mission-body {
+  font-size: 15px;
+  color: var(--muted-lt);
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+/* ── Stats ── */
+.sp-stats-section {
+  /* override sp-inner padding — stats fill full width of container */
+}
+.sp-stats {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+}
+.sp-stat {
+  flex: 1;
+  padding: 30px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.sp-stat:last-child {
+  border-right: none;
+}
+.sp-stat-num {
+  display: block;
+  font-family: var(--hd);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -.025em;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+.sp-stat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted-lt);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: .1em;
 }
 
 /* ── FAQ ── */
-.sp-faq-inner {
-  max-width: 680px;
-}
 .sp-faq-list {
-  margin-top: 36px;
   border-top: 1px solid var(--border);
 }
 .sp-faq-item {
@@ -591,28 +510,28 @@ const CSS = `
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 20px 0;
-  font-size: 15px;
+  gap: 12px;
+  padding: 16px 0;
+  font-size: 14px;
   font-weight: 400;
   color: var(--fg);
   cursor: pointer;
   list-style: none;
   user-select: none;
-  transition: color .2s;
+  transition: color .18s;
 }
 .sp-faq-q::-webkit-details-marker {
   display: none;
 }
 .sp-faq-item[open] .sp-faq-q {
-  color: var(--acc-lt);
+  color: var(--accent);
 }
 .sp-faq-chevron {
   color: var(--muted);
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  transition: transform .25s, color .2s;
+  transition: transform .22s, color .18s;
 }
 .sp-faq-item[open] .sp-faq-chevron {
   transform: rotate(180deg);
@@ -622,159 +541,91 @@ const CSS = `
   font-size: 14px;
   color: var(--muted-lt);
   font-weight: 300;
-  line-height: 1.75;
-  padding: 0 0 20px;
-  max-width: 540px;
-}
-
-/* ── Footer CTA ── */
-.sp-cta {
-  padding: 110px 32px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-}
-.sp-cta-orb {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 450px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(90, 30, 122, .12) 0%, transparent 68%);
-  pointer-events: none;
-}
-.sp-cta-inner {
-  position: relative;
-  z-index: 2;
-  max-width: 560px;
-  margin: 0 auto;
-}
-.sp-cta-h {
-  font-family: var(--hd);
-  font-size: clamp(36px, 4.2vw, 56px);
-  font-weight: 800;
-  letter-spacing: -.03em;
-  line-height: 1.08;
-  margin-bottom: 16px;
-}
-.sp-cta-h em {
-  font-style: italic;
-  color: var(--accent);
-  font-weight: 700;
-}
-.sp-cta-body {
-  font-size: 16px;
-  color: var(--muted-lt);
-  font-weight: 300;
-  margin-bottom: 36px;
-}
-.sp-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 16px 36px;
-  border-radius: 100px;
-  background: var(--accent);
-  color: #08040f;
-  font-size: 15px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: background .25s, transform .2s, box-shadow .3s;
-}
-.sp-cta-btn:hover {
-  background: var(--acc-lt);
-  transform: translateY(-2px);
-  box-shadow: 0 16px 50px rgba(212, 191, 138, .22);
+  line-height: 1.7;
+  padding: 0 20px 16px 0;
 }
 
 /* ── Footer ── */
 .sp-footer {
-  padding: 36px 32px;
+  padding: 26px 24px;
 }
 .sp-foot-row {
-  max-width: 1040px;
+  max-width: 560px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 14px;
 }
 .sp-foot-brand {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   text-decoration: none;
 }
 .sp-foot-mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
   object-fit: cover;
 }
 .sp-foot-brand span {
   font-family: 'Inter', system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: rgba(237, 232, 223, .4);
+  color: rgba(237, 232, 223, .36);
   letter-spacing: -.02em;
 }
 .sp-foot-links {
   display: flex;
-  gap: 24px;
+  gap: 18px;
 }
 .sp-foot-links a {
   font-size: 12px;
-  color: rgba(106, 98, 120, .5);
+  color: rgba(106, 98, 120, .48);
   text-decoration: none;
-  transition: color .2s;
+  transition: color .18s;
 }
 .sp-foot-links a:hover {
   color: var(--muted-lt);
 }
 .sp-foot-copy {
   font-size: 11px;
-  color: rgba(106, 98, 120, .38);
+  color: rgba(106, 98, 120, .36);
 }
 
 /* ── Responsive ── */
-@media (max-width: 720px) {
-  .sp-uses-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 400px) {
+  .sp-btn {
+    font-size: 24px;
+    min-height: 62px;
+  }
+  .sp-stats {
+    flex-direction: column;
+  }
+  .sp-stat {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    text-align: left;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .sp-stat:last-child {
+    border-bottom: none;
   }
 }
-@media (max-width: 640px) {
-  .sp-hero {
-    padding: 90px 24px 80px;
-  }
-  .sp-inner {
-    padding: 60px 24px;
-  }
-  .sp-cta {
-    padding: 80px 24px;
-  }
-  .sp-nav-row {
-    padding: 0 20px;
-  }
+@media (max-width: 360px) {
   .sp-foot-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 10px;
   }
   .sp-foot-links {
     flex-wrap: wrap;
-    gap: 14px;
-  }
-}
-@media (max-width: 480px) {
-  .sp-pills {
-    gap: 8px;
-  }
-  .sp-pill {
-    padding: 12px 18px;
+    gap: 10px;
   }
 }
 `;
