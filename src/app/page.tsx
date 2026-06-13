@@ -41,157 +41,154 @@ import { useEffect } from "react";
 export default function QamrLanding() {
   useEffect(() => {
     // ─────────────────────────────────────────────────────────────
-    // 1) CRITICAL PATH — runs synchronously on hydrate.
-    //    Keep this section tiny.
+    // 1) SYNCHRONOUS CRITICAL PATH
+    //    Everything that must respond to the first user interaction
+    //    goes here — no deferral. Keeps INP at interaction cost only,
+    //    not interaction cost + idle-callback wait.
     // ─────────────────────────────────────────────────────────────
 
-    // Mark JS as ready (enables motion-safe animations via [data-js])
     document.documentElement.dataset.js = "1";
 
-    // Inject fonts with display=swap. Non-blocking; text shows in fallback first.
-    if (!document.getElementById("qamr-fonts")) {
-      const pc1 = document.createElement("link");
-      pc1.rel = "preconnect";
-      pc1.href = "https://fonts.googleapis.com";
-      const pc2 = document.createElement("link");
-      pc2.rel = "preconnect";
-      pc2.href = "https://fonts.gstatic.com";
-      pc2.crossOrigin = "";
-      const f = document.createElement("link");
-      f.id = "qamr-fonts";
-      f.rel = "stylesheet";
-      // Trimmed weight set: only what the page actually uses.
-      f.href =
-        "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@300;400;500&display=swap";
-      document.head.append(pc1, pc2, f);
-    }
-
-    // Nav scroll state — single passive listener.
+    // Nav scroll state
     const nav = document.getElementById("nav");
     const onScroll = () => nav?.classList.toggle("scrolled", window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // ─────────────────────────────────────────────────────────────
-    // 2) DEFERRED — everything else runs in idle time.
-    //    No reveal, no tilt, no carousel logic before first paint.
-    // ─────────────────────────────────────────────────────────────
+    // Reveal-on-scroll — attached immediately so below-fold sections animate
+    // as soon as the user scrolls, not after idle time.
+    const revealObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            (e.target as HTMLElement).classList.add("in");
+            revealObs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    document.querySelectorAll(".rv").forEach((el) => revealObs.observe(el));
 
-    let revealObs: IntersectionObserver | null = null;
-    let onScrollFloat: (() => void) | null = null;
-    let onScrollParallax: (() => void) | null = null;
-    let cleanupTilt: (() => void) | null = null;
-    let cleanupCarousel: (() => void) | null = null;
-    let cleanupTracking: (() => void) | null = null;
-    let cleanupTweaks: (() => void) | null = null;
-    let onMsg: ((e: MessageEvent) => void) | null = null;
+    // Device-aware CTAs — cheap UA sniff, run before any tap is possible
+    const APPSTORE = "https://apps.apple.com/app/qamr/id6764144560";
+    const PLAYSTORE =
+      "https://play.google.com/store/apps/details?id=com.ayank.qamr";
+    const ua = (navigator.userAgent || "").toLowerCase();
+    const isIOS =
+      /iphone|ipad|ipod/.test(ua) ||
+      (/(macintosh)/.test(ua) &&
+        (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints! > 1);
+    const isAndroid = /android/.test(ua);
+    const primaryHref = isIOS ? APPSTORE : isAndroid ? PLAYSTORE : APPSTORE;
+    const trackName = isIOS
+      ? "appstore_click"
+      : isAndroid
+      ? "playstore_click"
+      : "primary_click";
 
+    const floatDl = document.querySelector(".float-dl") as HTMLAnchorElement | null;
+    if (floatDl) {
+      floatDl.href = primaryHref;
+      floatDl.dataset.track = trackName;
+    }
+    const navCta = document.getElementById("nav-cta") as HTMLAnchorElement | null;
+    if (navCta) {
+      navCta.href = primaryHref;
+      navCta.dataset.track = trackName;
+    }
+
+    // Floating download pill — mobile only, scroll listener attached now
     const isTouch =
       window.matchMedia("(hover: none)").matches ||
       window.matchMedia("(max-width: 900px)").matches;
+
+    let onScrollFloat: (() => void) | null = null;
+    if (isTouch) {
+      const hero = document.getElementById("hero");
+      let floatRaf: number | null = null;
+      onScrollFloat = () => {
+        if (floatRaf) return;
+        floatRaf = requestAnimationFrame(() => {
+          floatRaf = null;
+          if (!floatDl || !hero) return;
+          floatDl.classList.toggle("show", window.scrollY > hero.offsetHeight * 0.7);
+        });
+      };
+      window.addEventListener("scroll", onScrollFloat, { passive: true });
+    }
+
+    // Analytics — kick off the import NOW so the module is ready before the
+    // first click lands. On fast connections this resolves in <100 ms.
+    const analyticsLoaded = import("@vercel/analytics");
+
+    // Click tracking — synchronous capture-phase listener so zero idle wait
+    const onTrackClick = (e: MouseEvent) => {
+      const t = (e.target as HTMLElement | null)?.closest(
+        "[data-track]"
+      ) as HTMLElement | null;
+      if (!t) return;
+      const name = t.dataset.track;
+      const location = t.dataset.location || "unknown";
+      if (!name) return;
+      analyticsLoaded
+        .then((m) => {
+          try {
+            m.track(name, { location });
+          } catch {
+            /* best-effort */
+          }
+        })
+        .catch(() => {
+          /* analytics is non-essential */
+        });
+    };
+    document.addEventListener("click", onTrackClick, true);
+
+    // ─────────────────────────────────────────────────────────────
+    // 2) DEFERRED — purely visual, non-interaction enhancements.
+    //    Nothing here affects what happens when a user taps a button.
+    // ─────────────────────────────────────────────────────────────
+
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    const initEnhancements = () => {
-      // ── Reveal-on-scroll (below-the-fold only; hero never uses .rv) ──
-      revealObs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              (e.target as HTMLElement).classList.add("in");
-              revealObs?.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-      );
-      document.querySelectorAll(".rv").forEach((el) => revealObs!.observe(el));
+    let onScrollParallax: (() => void) | null = null;
+    let cleanupTilt: (() => void) | null = null;
+    let cleanupCarousel: (() => void) | null = null;
+    let cleanupTweaks: (() => void) | null = null;
+    let onMsg: ((e: MessageEvent) => void) | null = null;
 
-      // ── Device-aware CTAs ──
-      const APPSTORE = "https://apps.apple.com/app/qamr/id6764144560";
-      const PLAYSTORE =
-        "https://play.google.com/store/apps/details?id=com.ayank.qamr";
-      const ua = (navigator.userAgent || "").toLowerCase();
-      const isIOS =
-        /iphone|ipad|ipod/.test(ua) ||
-        (/(macintosh)/.test(ua) &&
-          (navigator as Navigator & { maxTouchPoints?: number }).maxTouchPoints! >
-            1);
-      const isAndroid = /android/.test(ua);
-      const primaryHref = isIOS ? APPSTORE : isAndroid ? PLAYSTORE : APPSTORE;
-      const trackName = isIOS
-        ? "appstore_click"
-        : isAndroid
-        ? "playstore_click"
-        : "primary_click";
+    type IdleCb = (
+      cb: () => void,
+      opts?: { timeout?: number }
+    ) => number | NodeJS.Timeout;
+    const idle: IdleCb =
+      (window as unknown as { requestIdleCallback?: IdleCb })
+        .requestIdleCallback || ((cb) => setTimeout(cb, 1));
 
-      const floatDl = document.querySelector(".float-dl") as HTMLAnchorElement | null;
-      if (floatDl) {
-        floatDl.href = primaryHref;
-        floatDl.dataset.track = trackName;
-      }
-      const navCta = document.getElementById("nav-cta") as HTMLAnchorElement | null;
-      if (navCta) {
-        navCta.href = primaryHref;
-        navCta.dataset.track = trackName;
-      }
+    idle(() => {
+      // Skip expensive GPU effects on low-end or slow-connection devices
+      const navRef = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: { effectiveType?: string };
+      };
+      const lowEnd =
+        typeof navRef.deviceMemory === "number" && navRef.deviceMemory < 4;
+      const slowConn =
+        navRef.connection?.effectiveType === "2g" ||
+        navRef.connection?.effectiveType === "slow-2g";
 
-      // ── Floating download pill — mobile only ──
-      if (isTouch) {
-        const hero = document.getElementById("hero");
-        let floatRaf: number | null = null;
-        onScrollFloat = () => {
-          if (floatRaf) return;
-          floatRaf = requestAnimationFrame(() => {
-            floatRaf = null;
-            if (!floatDl || !hero) return;
-            const past = window.scrollY > hero.offsetHeight * 0.7;
-            floatDl.classList.toggle("show", past);
-          });
-        };
-        window.addEventListener("scroll", onScrollFloat, { passive: true });
-      }
-
-      // ── Hero tilt + parallax — desktop pointer only ──
-      if (!isTouch && !reducedMotion) {
+      if (!isTouch && !reducedMotion && !lowEnd && !slowConn) {
         cleanupTilt = initHeroTilt();
         onScrollParallax = makeParallax();
         window.addEventListener("scroll", onScrollParallax, { passive: true });
       }
 
-      // ── Screenshot carousel — only init on mobile, where it's visible ──
       if (isTouch) {
         cleanupCarousel = initCarousel();
       }
 
-      // ── Analytics — lazy import on first click ──
-      let analyticsLoaded: Promise<typeof import("@vercel/analytics")> | null = null;
-      const onTrackClick = (e: MouseEvent) => {
-        const t = (e.target as HTMLElement | null)?.closest(
-          "[data-track]"
-        ) as HTMLElement | null;
-        if (!t) return;
-        const name = t.dataset.track;
-        const location = t.dataset.location || "unknown";
-        if (!name) return;
-        if (!analyticsLoaded) analyticsLoaded = import("@vercel/analytics");
-        analyticsLoaded
-          .then((m) => {
-            try {
-              m.track(name, { location });
-            } catch {
-              /* best-effort */
-            }
-          })
-          .catch(() => {
-            /* analytics is non-essential */
-          });
-      };
-      document.addEventListener("click", onTrackClick, true);
-      cleanupTracking = () =>
-        document.removeEventListener("click", onTrackClick, true);
-
-      // ── Tweaks panel (host iframe protocol — only on parent) ──
       cleanupTweaks = initTweaks();
       const panel = document.getElementById("tweaks-panel");
       onMsg = (e: MessageEvent) => {
@@ -203,27 +200,17 @@ export default function QamrLanding() {
       if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: "__edit_mode_available" }, "*");
       }
-    };
-
-    // requestIdleCallback so initial paint is unblocked.
-    type IdleCb = (
-      cb: () => void,
-      opts?: { timeout?: number }
-    ) => number | NodeJS.Timeout;
-    const idle: IdleCb =
-      (window as unknown as { requestIdleCallback?: IdleCb })
-        .requestIdleCallback || ((cb) => setTimeout(cb, 1));
-    idle(initEnhancements, { timeout: 1200 });
+    }, { timeout: 2000 });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (onScrollFloat) window.removeEventListener("scroll", onScrollFloat);
       if (onScrollParallax) window.removeEventListener("scroll", onScrollParallax);
       if (onMsg) window.removeEventListener("message", onMsg);
-      revealObs?.disconnect();
+      revealObs.disconnect();
+      document.removeEventListener("click", onTrackClick, true);
       cleanupTilt?.();
       cleanupCarousel?.();
-      cleanupTracking?.();
       cleanupTweaks?.();
     };
   }, []);
@@ -1413,7 +1400,7 @@ img, svg, video { max-width: 100%; height: auto; }
 <nav id="nav">
   <div class="nav-row">
     <a href="#" class="nav-brand">
-      <img src="logo.png" alt="Qamr" width="30" height="30" fetchpriority="high" decoding="async" />
+      <picture><source srcset="logo.webp" type="image/webp" /><img src="logo.png" alt="Qamr" width="30" height="30" fetchpriority="high" decoding="async" /></picture>
       <span class="nav-brand-name">Qamr</span>
     </a>
     <div class="nav-end">
@@ -1483,14 +1470,17 @@ img, svg, video { max-width: 100%; height: auto; }
   <div class="hero-phone-wrap">
     <div class="hero-phone-stage">
       <div class="hero-phone-side hero-phone-l">
-        <img src="ios/dms_ios.png" alt="" width="600" height="1300" loading="lazy" decoding="async" fetchpriority="low" />
+        <img src="ios/dms_ios.webp" alt="" width="600" height="1300" loading="lazy" decoding="async" fetchpriority="low" />
       </div>
       <div class="hero-phone-side hero-phone-r">
-        <img src="ios/qamrhub_ios.PNG" alt="" width="600" height="1300" loading="lazy" decoding="async" fetchpriority="low" />
+        <img src="ios/qamrhub_ios.webp" alt="" width="600" height="1300" loading="lazy" decoding="async" fetchpriority="low" />
       </div>
       <div class="hero-phone">
         <!-- LCP candidate on desktop. fetchpriority=high so browser pulls it ahead of below-fold assets. -->
-        <img src="ios/feedtab_ios.png" alt="Qamr Feed" width="600" height="1300" fetchpriority="high" decoding="async" />
+        <picture>
+          <source srcset="ios/feedtab_ios.webp" type="image/webp" />
+          <img src="ios/feedtab_ios.png" alt="Qamr Feed" width="600" height="1300" fetchpriority="high" decoding="async" />
+        </picture>
       </div>
     </div>
   </div>
@@ -1501,28 +1491,31 @@ img, svg, video { max-width: 100%; height: auto; }
 <section id="screens" aria-label="App screenshots">
   <div class="sc-track" role="group" aria-roledescription="carousel">
     <div class="sc-card is-active" aria-label="Feed">
-      <img src="ios/feedtab_ios.png" alt="Qamr feed" width="600" height="1300" fetchpriority="high" decoding="async" />
+      <picture>
+        <source srcset="ios/feedtab_ios.webp" type="image/webp" />
+        <img src="ios/feedtab_ios.png" alt="Qamr feed" width="600" height="1300" fetchpriority="high" decoding="async" />
+      </picture>
     </div>
     <div class="sc-card" aria-label="Reels">
-      <img src="ios/reels_ios.png" alt="Qamr reels" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/reels_ios.webp" alt="Qamr reels" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
     <div class="sc-card" aria-label="Qamr Hub — Quran, Hadith, Duas">
-      <img src="ios/qamrhub_ios.PNG" alt="Qamr Hub — Quran, Hadith, Duas, prayer tools" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/qamrhub_ios.webp" alt="Qamr Hub — Quran, Hadith, Duas, prayer tools" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
     <div class="sc-card" aria-label="Qamr Pulse — Ummah news">
-      <img src="ios/qamrpulse_ios.PNG" alt="Qamr Pulse — high-signal Ummah news and discussions" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/qamrpulse_ios.webp" alt="Qamr Pulse — high-signal Ummah news and discussions" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
     <div class="sc-card" aria-label="Qamr World map">
-      <img src="ios/map.png" alt="Qamr World map of global Muslim communities" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/map.webp" alt="Qamr World map of global Muslim communities" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
     <div class="sc-card" aria-label="Community forums">
-      <img src="ios/forum.png" alt="Qamr community forum discussions" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/forum.webp" alt="Qamr community forum discussions" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
     <div class="sc-card" aria-label="Direct messages">
-      <img src="ios/dms_ios.png" alt="Qamr direct messages" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/dms_ios.webp" alt="Qamr direct messages" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
     <div class="sc-card" aria-label="Profile">
-      <img src="ios/profile_ios.PNG" alt="Qamr profile" width="600" height="1300" loading="lazy" decoding="async" />
+      <img src="ios/profile_ios.webp" alt="Qamr profile" width="600" height="1300" loading="lazy" decoding="async" />
     </div>
   </div>
   <div class="sc-dots" aria-hidden="true">
@@ -1613,7 +1606,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.22) 0%,rgba(120,40,160,.06) 45%,transparent 75%)"></div>
       <div class="feat-phone">
-        <img src="ios/feedtab_ios.png" alt="Qamr feed and reels" width="600" height="1300" loading="lazy" decoding="async" />
+        <img src="ios/feedtab_ios.webp" alt="Qamr feed and reels" width="600" height="1300" loading="lazy" decoding="async" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">AI Media</div>
@@ -1633,7 +1626,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(212,191,138,.14) 0%,rgba(212,191,138,.04) 45%,transparent 75%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrhub_ios.PNG" alt="Quran, Hadith, Duas and prayer tools" width="600" height="1300" loading="lazy" decoding="async" />
+        <img src="ios/qamrhub_ios.webp" alt="Quran, Hadith, Duas and prayer tools" width="600" height="1300" loading="lazy" decoding="async" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">In one place</div>
@@ -1653,7 +1646,7 @@ img, svg, video { max-width: 100%; height: auto; }
     <div class="feat-visual">
       <div class="feat-glow" style="background:radial-gradient(ellipse,rgba(120,40,160,.22) 0%,rgba(120,40,160,.06) 45%,transparent 75%)"></div>
       <div class="feat-phone">
-        <img src="ios/qamrpulse_ios.PNG" alt="Qamr Pulse and Ummah discussions" width="600" height="1300" loading="lazy" decoding="async" />
+        <img src="ios/qamrpulse_ios.webp" alt="Qamr Pulse and Ummah discussions" width="600" height="1300" loading="lazy" decoding="async" />
       </div>
       <div class="feat-float tr">
         <div class="ff-label">Discussions</div>
@@ -1696,10 +1689,10 @@ img, svg, video { max-width: 100%; height: auto; }
       <div class="world-visual" aria-label="Qamr World map and community forum screens">
         <div class="world-rings" aria-hidden="true"></div>
         <div class="world-phone">
-          <img src="ios/map.png" alt="Qamr World map screen" width="600" height="1300" loading="lazy" decoding="async" />
+          <img src="ios/map.webp" alt="Qamr World map screen" width="600" height="1300" loading="lazy" decoding="async" />
         </div>
         <div class="world-phone">
-          <img src="ios/forum.png" alt="Qamr community forum screen" width="600" height="1300" loading="lazy" decoding="async" />
+          <img src="ios/forum.webp" alt="Qamr community forum screen" width="600" height="1300" loading="lazy" decoding="async" />
         </div>
         <div class="world-badge">
           <span class="pulse-dot"></span>
@@ -1867,7 +1860,7 @@ img, svg, video { max-width: 100%; height: auto; }
 <footer>
   <div class="foot-row">
     <a href="#" class="foot-brand">
-      <img src="logo.png" alt="Qamr" width="24" height="24" loading="lazy" decoding="async" />
+      <img src="logo.webp" alt="Qamr" width="24" height="24" loading="lazy" decoding="async" />
       <span>Qamr</span>
     </a>
     <div class="foot-links">

@@ -31,6 +31,10 @@ export function PostHogInit() {
     posthog.init(token, {
       api_host: host,
       defaults: "2026-01-30",
+      autocapture: false,
+      capture_pageview: true,
+      capture_pageleave: false,
+      disable_session_recording: true,
     });
   }, []);
 
