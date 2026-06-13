@@ -11,30 +11,26 @@ export const metadata: Metadata = {
   },
 };
 
-// ── Replace these with your real Stripe Payment Links ──────────────────────
 const STRIPE = {
-  five:    "https://buy.stripe.com/PLACEHOLDER_5",
-  ten:     "https://buy.stripe.com/PLACEHOLDER_10",
-  twenty:  "https://buy.stripe.com/PLACEHOLDER_25",
-  fifty:   "https://buy.stripe.com/PLACEHOLDER_50",
-  custom:  "https://buy.stripe.com/PLACEHOLDER_CUSTOM",
-  monthly: "https://buy.stripe.com/PLACEHOLDER_MONTHLY",
+  five:   "https://buy.stripe.com/6oU14m9yAd4K456adj3oA00",
+  ten:    "https://buy.stripe.com/7sY8wOaCEfcSgRSadj3oA01",
+  twenty: "https://buy.stripe.com/9B6eVcfWY1m2bxygBH3oA02",
+  fifty:  "https://buy.stripe.com/eVqdR8fWY7Kq7hiclr3oA03",
 } as const;
 
 const AMOUNTS = [
-  { label: "$5",      sub: "One-time",   href: STRIPE.five,    featured: false },
-  { label: "$10",     sub: "One-time",   href: STRIPE.ten,     featured: false },
-  { label: "$25",     sub: "One-time",   href: STRIPE.twenty,  featured: false },
-  { label: "$50",     sub: "One-time",   href: STRIPE.fifty,   featured: false },
-  { label: "Custom",  sub: "Any amount", href: STRIPE.custom,  featured: false },
-  { label: "Monthly", sub: "Recurring",  href: STRIPE.monthly, featured: true  },
+  { label: "$5",  href: STRIPE.five   },
+  { label: "$10", href: STRIPE.ten    },
+  { label: "$25", href: STRIPE.twenty },
+  { label: "$50", href: STRIPE.fifty  },
 ] as const;
 
 const USES = [
   {
     label: "Servers & infrastructure",
+    desc: "Keeping Qamr fast and available for everyone.",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
         <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
         <line x1="6" y1="6" x2="6.01" y2="6" />
@@ -44,8 +40,9 @@ const USES = [
   },
   {
     label: "App development",
+    desc: "Building and improving features the Ummah needs.",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polyline points="16 18 22 12 16 6" />
         <polyline points="8 6 2 12 8 18" />
       </svg>
@@ -53,16 +50,18 @@ const USES = [
   },
   {
     label: "Moderation & safety",
+    desc: "Keeping Qamr a trustworthy, human-first space.",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
       </svg>
     ),
   },
   {
     label: "New Muslim-focused features",
+    desc: "Quran, Hadith, prayer tools, nasheeds, and more.",
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
@@ -117,64 +116,59 @@ export default function SupportPage() {
           <div className="sp-hero-inner">
             <div className="sp-kicker" aria-hidden="true">
               <span className="sp-k-dot" />
-              Community
+              For the Ummah
             </div>
             <h1 className="sp-h1">
               Support<br />
               <em>Qamr</em>
             </h1>
             <p className="sp-lead">
-              Qamr is an independent Muslim app built to help the Ummah connect,
-              learn, and grow. Your support helps keep it free and improving.
-            </p>
-            <p className="sp-note">
-              Support is completely optional. Qamr remains free to use.
+              Built by people who love this Ummah. Whatever you can give
+              helps Qamr stay free, independent, and growing for every Muslim who uses it.
             </p>
           </div>
         </section>
 
-        {/* ── Mission ── */}
-        <section className="sp-section sp-mission" aria-labelledby="why-heading">
+        {/* ── Amounts (first) ── */}
+        <section className="sp-section sp-amounts-section" aria-labelledby="amounts-heading">
           <div className="sp-inner">
+            <div className="sp-label" aria-hidden="true">Choose what feels right</div>
+            <h2 className="sp-h2" id="amounts-heading">Every bit helps</h2>
+            <p className="sp-amounts-intro">
+              No pressure. No perks. Just your support.
+            </p>
+
+            <div className="sp-pills" role="list">
+              {AMOUNTS.map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="sp-pill"
+                  role="listitem"
+                  aria-label={`Support Qamr with ${label}`}
+                  rel="noopener noreferrer"
+                >
+                  <span className="sp-pill-amount">{label}</span>
+                </a>
+              ))}
+            </div>
+
+            <p className="sp-stripe-note">
+              Payments secured by Stripe · No account needed
+            </p>
+          </div>
+        </section>
+
+        {/* ── Mission (second) ── */}
+        <section className="sp-section sp-mission" aria-labelledby="why-heading">
+          <div className="sp-inner sp-mission-inner">
             <div className="sp-label" aria-hidden="true">Our mission</div>
             <h2 className="sp-h2" id="why-heading">Why support Qamr?</h2>
             <p className="sp-body">
               Qamr is built with the goal of creating a better online space for
-              Muslims, with features like Quran, Hadith, prayer tools, nasheeds,
+              Muslims — with features like Quran, Hadith, prayer tools, nasheeds,
               Muslim news, and a community feed. Every contribution helps cover
               development, servers, moderation, and new features.
-            </p>
-          </div>
-        </section>
-
-        {/* ── Support options ── */}
-        <section className="sp-section sp-amounts-section" aria-labelledby="amounts-heading">
-          <div className="sp-inner">
-            <div className="sp-label" aria-hidden="true">Choose an amount</div>
-            <h2 className="sp-h2" id="amounts-heading">Support Qamr</h2>
-            <div className="sp-grid" role="list">
-              {AMOUNTS.map(({ label, sub, href, featured }) => (
-                <a
-                  key={label}
-                  href={href}
-                  className={`sp-card${featured ? " sp-card-featured" : ""}`}
-                  role="listitem"
-                  aria-label={`Support Qamr — ${label} ${sub.toLowerCase()}`}
-                  rel="noopener noreferrer"
-                >
-                  <span className="sp-card-val">{label}</span>
-                  <span className="sp-card-sub">{sub}</span>
-                  <span className="sp-card-cta">
-                    {featured ? "Become a supporter" : "Support now"}
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </a>
-              ))}
-            </div>
-            <p className="sp-stripe-note">
-              No account is required. Payments are handled securely by Stripe.
             </p>
           </div>
         </section>
@@ -183,12 +177,15 @@ export default function SupportPage() {
         <section className="sp-section sp-uses-section" aria-labelledby="uses-heading">
           <div className="sp-inner">
             <div className="sp-label" aria-hidden="true">Transparency</div>
-            <h2 className="sp-h2" id="uses-heading">What your support helps with</h2>
+            <h2 className="sp-h2" id="uses-heading">What your support goes towards</h2>
             <div className="sp-uses-grid" role="list">
-              {USES.map(({ icon, label }) => (
+              {USES.map(({ icon, label, desc }) => (
                 <div className="sp-use-card" key={label} role="listitem">
                   <div className="sp-use-icon">{icon}</div>
-                  <span className="sp-use-label">{label}</span>
+                  <div>
+                    <span className="sp-use-label">{label}</span>
+                    <span className="sp-use-desc">{desc}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -361,43 +358,43 @@ const CSS = `
 .sp-hero {
   position: relative;
   overflow: hidden;
-  padding: 120px 32px 100px;
+  padding: 130px 32px 110px;
   text-align: center;
   border-bottom: 1px solid var(--border);
 }
 .sp-orb {
   position: absolute;
-  top: -20%;
+  top: -30%;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
-  height: 600px;
+  width: 1000px;
+  height: 700px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(90, 30, 122, .18) 0%, rgba(45, 10, 62, .06) 45%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(90, 30, 122, .16) 0%, rgba(45, 10, 62, .05) 50%, transparent 72%);
   pointer-events: none;
 }
 .sp-warm {
   position: absolute;
-  top: 0;
+  top: -10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 400px;
-  height: 260px;
+  width: 500px;
+  height: 320px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(212, 191, 138, .06) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(212, 191, 138, .07) 0%, transparent 70%);
   pointer-events: none;
 }
 .sp-hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 680px;
+  max-width: 640px;
   margin: 0 auto;
 }
 .sp-kicker {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 16px;
+  padding: 6px 18px;
   border-radius: 100px;
   border: 1px solid rgba(212, 191, 138, .14);
   background: rgba(212, 191, 138, .04);
@@ -405,22 +402,22 @@ const CSS = `
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 .sp-k-dot {
   width: 4px;
   height: 4px;
   border-radius: 50%;
   background: var(--accent);
-  opacity: .7;
+  opacity: .65;
 }
 .sp-h1 {
   font-family: var(--hd);
-  font-size: clamp(52px, 7vw, 96px);
+  font-size: clamp(56px, 7.5vw, 100px);
   font-weight: 800;
-  line-height: 1.0;
+  line-height: .98;
   letter-spacing: -.04em;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 .sp-h1 em {
   font-style: italic;
@@ -431,23 +428,12 @@ const CSS = `
   font-size: 18px;
   color: var(--muted-lt);
   font-weight: 300;
-  max-width: 520px;
-  margin: 0 auto 20px;
-  line-height: 1.75;
-}
-.sp-note {
-  display: inline-block;
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 400;
-  padding: 8px 20px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, .015);
-  letter-spacing: .01em;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.78;
 }
 
-/* ── Shared section layout ── */
+/* ── Shared section ── */
 .sp-section {
   border-bottom: 1px solid var(--border);
 }
@@ -461,7 +447,7 @@ const CSS = `
   letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -472,136 +458,99 @@ const CSS = `
   width: 20px;
   height: 1px;
   background: var(--accent);
-  opacity: .5;
+  opacity: .45;
 }
 .sp-h2 {
   font-family: var(--hd);
-  font-size: clamp(30px, 3.2vw, 44px);
+  font-size: clamp(28px, 3vw, 40px);
   font-weight: 700;
   letter-spacing: -.025em;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   line-height: 1.15;
 }
 .sp-body {
   font-size: 17px;
   color: var(--muted-lt);
   font-weight: 300;
-  line-height: 1.8;
-  max-width: 680px;
+  line-height: 1.82;
+  max-width: 620px;
+}
+
+/* ── Amounts ── */
+.sp-amounts-intro {
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 36px;
+  margin-top: 2px;
+}
+.sp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.sp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 22px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, .018);
+  text-decoration: none;
+  color: var(--fg);
+  transition: border-color .2s, background .2s, transform .18s, box-shadow .25s;
+}
+.sp-pill:hover {
+  border-color: rgba(212, 191, 138, .32);
+  background: rgba(212, 191, 138, .05);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .2);
+}
+.sp-pill-amount {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fg);
+  letter-spacing: -.015em;
+}
+.sp-stripe-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 18px;
+  letter-spacing: .01em;
 }
 
 /* ── Mission ── */
-.sp-mission .sp-inner {
-  max-width: 860px;
+.sp-mission-inner {
+  max-width: 780px;
 }
 
-/* ── Amount cards ── */
-.sp-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 44px 0 24px;
-}
-.sp-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  padding: 28px 24px 24px;
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  text-decoration: none;
-  color: var(--fg);
-  transition: border-color .25s, background .25s, transform .2s, box-shadow .3s;
-  position: relative;
-  overflow: hidden;
-}
-.sp-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at top left, rgba(212, 191, 138, .05) 0%, transparent 60%);
-  opacity: 0;
-  transition: opacity .3s;
-  pointer-events: none;
-}
-.sp-card:hover {
-  border-color: rgba(212, 191, 138, .25);
-  background: var(--surf-lt);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, .3);
-}
-.sp-card:hover::before {
-  opacity: 1;
-}
-.sp-card-featured {
-  border-color: rgba(212, 191, 138, .22);
-  background: linear-gradient(135deg, rgba(212, 191, 138, .06) 0%, var(--surface) 60%);
-}
-.sp-card-featured:hover {
-  border-color: rgba(212, 191, 138, .42);
-  box-shadow: 0 16px 50px rgba(212, 191, 138, .12);
-}
-.sp-card-val {
-  font-family: var(--hd);
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -.03em;
-  color: var(--fg);
-  line-height: 1;
-}
-.sp-card-featured .sp-card-val {
-  color: var(--accent);
-}
-.sp-card-sub {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  font-weight: 400;
-  margin-bottom: 10px;
-}
-.sp-card-cta {
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent);
-  transition: gap .2s;
-}
-.sp-card:hover .sp-card-cta {
-  gap: 10px;
-}
-.sp-stripe-note {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-/* ── Transparency cards ── */
+/* ── Transparency ── */
 .sp-uses-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 40px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 36px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
 }
 .sp-use-card {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
-  padding: 28px 24px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
+  gap: 16px;
+  padding: 28px 26px;
   background: var(--surface);
+  transition: background .2s;
+}
+.sp-use-card:hover {
+  background: var(--surf-lt);
 }
 .sp-use-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   border: 1px solid var(--bord-lt);
   display: flex;
   align-items: center;
@@ -609,20 +558,30 @@ const CSS = `
   color: var(--accent);
   background: rgba(212, 191, 138, .04);
   flex-shrink: 0;
+  margin-top: 2px;
 }
 .sp-use-label {
+  display: block;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--fg);
-  line-height: 1.45;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.sp-use-desc {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.55;
 }
 
 /* ── FAQ ── */
 .sp-faq-inner {
-  max-width: 720px;
+  max-width: 680px;
 }
 .sp-faq-list {
-  margin-top: 40px;
+  margin-top: 36px;
   border-top: 1px solid var(--border);
 }
 .sp-faq-item {
@@ -633,7 +592,7 @@ const CSS = `
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 22px 0;
+  padding: 20px 0;
   font-size: 15px;
   font-weight: 400;
   color: var(--fg);
@@ -645,7 +604,7 @@ const CSS = `
 .sp-faq-q::-webkit-details-marker {
   display: none;
 }
-.sp-faq-item:hover .sp-faq-q {
+.sp-faq-item[open] .sp-faq-q {
   color: var(--acc-lt);
 }
 .sp-faq-chevron {
@@ -660,17 +619,17 @@ const CSS = `
   color: var(--accent);
 }
 .sp-faq-a {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--muted-lt);
   font-weight: 300;
   line-height: 1.75;
-  padding: 0 40px 24px 0;
-  max-width: 580px;
+  padding: 0 0 20px;
+  max-width: 540px;
 }
 
 /* ── Footer CTA ── */
 .sp-cta {
-  padding: 100px 32px;
+  padding: 110px 32px;
   text-align: center;
   border-bottom: 1px solid var(--border);
   position: relative;
@@ -681,24 +640,24 @@ const CSS = `
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
-  height: 400px;
+  width: 800px;
+  height: 450px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(90, 30, 122, .13) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(90, 30, 122, .12) 0%, transparent 68%);
   pointer-events: none;
 }
 .sp-cta-inner {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 560px;
   margin: 0 auto;
 }
 .sp-cta-h {
   font-family: var(--hd);
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(36px, 4.2vw, 56px);
   font-weight: 800;
   letter-spacing: -.03em;
-  line-height: 1.1;
+  line-height: 1.08;
   margin-bottom: 16px;
 }
 .sp-cta-h em {
@@ -728,13 +687,12 @@ const CSS = `
 .sp-cta-btn:hover {
   background: var(--acc-lt);
   transform: translateY(-2px);
-  box-shadow: 0 16px 50px rgba(212, 191, 138, .24);
+  box-shadow: 0 16px 50px rgba(212, 191, 138, .22);
 }
 
 /* ── Footer ── */
 .sp-footer {
   padding: 36px 32px;
-  border-top: 1px solid var(--border);
 }
 .sp-foot-row {
   max-width: 1040px;
@@ -761,7 +719,7 @@ const CSS = `
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: rgba(237, 232, 223, .45);
+  color: rgba(237, 232, 223, .4);
   letter-spacing: -.02em;
 }
 .sp-foot-links {
@@ -779,37 +737,24 @@ const CSS = `
 }
 .sp-foot-copy {
   font-size: 11px;
-  color: rgba(106, 98, 120, .4);
+  color: rgba(106, 98, 120, .38);
 }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .sp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+@media (max-width: 720px) {
   .sp-uses-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 640px) {
   .sp-hero {
-    padding: 80px 24px 70px;
+    padding: 90px 24px 80px;
   }
   .sp-inner {
     padding: 60px 24px;
   }
-  .sp-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .sp-card {
-    padding: 22px 18px 20px;
-  }
-  .sp-card-val {
-    font-size: 26px;
-  }
   .sp-cta {
-    padding: 70px 24px;
+    padding: 80px 24px;
   }
   .sp-nav-row {
     padding: 0 20px;
@@ -824,12 +769,12 @@ const CSS = `
     gap: 14px;
   }
 }
-@media (max-width: 420px) {
-  .sp-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 480px) {
+  .sp-pills {
+    gap: 8px;
   }
-  .sp-uses-grid {
-    grid-template-columns: 1fr;
+  .sp-pill {
+    padding: 12px 18px;
   }
 }
 `;
