@@ -204,13 +204,13 @@ const CSS = `
   --fg: #ede8df;
   --muted: #6a6278;
   --muted-lt: #9088a0;
-  --accent: #d4bf8a;
-  --acc-lt: #e8d5a8;
+  --accent: #edd46e;
+  --acc-lt: #f6e9a0;
   --surface: #110a1c;
   --surf-lt: #1a1028;
   --border: #251a38;
   --bord-lt: #3a2850;
-  --hd: 'Playfair Display', Georgia, serif;
+  --hd: 'DM Sans', system-ui, sans-serif;
   --bd: 'DM Sans', system-ui, sans-serif;
   background: var(--bg);
   color: var(--fg);
@@ -286,7 +286,7 @@ const CSS = `
   transition: border-color .2s, color .2s;
 }
 .sp-back-link:hover {
-  border-color: rgba(212, 191, 138, .35);
+  border-color: rgba(237, 212, 110, .35);
   color: var(--fg);
 }
 
@@ -342,8 +342,8 @@ const CSS = `
   gap: 7px;
   padding: 5px 14px;
   border-radius: 100px;
-  border: 1px solid rgba(212, 191, 138, .18);
-  background: rgba(212, 191, 138, .06);
+  border: 1px solid rgba(237, 212, 110, .18);
+  background: rgba(237, 212, 110, .06);
   font-size: 10px;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -356,7 +356,7 @@ const CSS = `
   height: 5px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 8px rgba(212, 191, 138, .65);
+  box-shadow: 0 0 8px rgba(237, 212, 110, .65);
   flex-shrink: 0;
   animation: sp-pulse 2.4s ease-in-out infinite;
 }
@@ -368,18 +368,18 @@ const CSS = `
 /* Headline */
 .sp-h1 {
   font-family: var(--hd);
-  font-size: clamp(42px, 7.5vw, 60px);
-  font-weight: 800;
-  letter-spacing: -.04em;
-  line-height: .98;
+  font-size: clamp(42px, 7.5vw, 62px);
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1.04;
   margin-bottom: 16px;
   color: var(--fg);
 }
-/* "Qamr" gets the homepage gradient treatment */
+/* "Qamr" gets light golden gradient */
 .sp-h1 em {
-  font-style: italic;
-  font-weight: 700;
-  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 58%, #c2a86a 100%);
+  font-style: normal;
+  font-weight: 500;
+  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 60%, #c8a430 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -410,10 +410,10 @@ const CSS = `
   background: linear-gradient(180deg, #1c1030 0%, #0c0618 100%);
   text-decoration: none;
   color: var(--accent);
-  font-family: var(--hd);
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -.02em;
+  font-family: var(--bd);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -.01em;
   overflow: hidden;
   box-shadow:
     0 2px 0 rgba(0, 0, 0, .4),
@@ -430,9 +430,9 @@ const CSS = `
   border-radius: inherit;
   padding: 1px;
   background: linear-gradient(160deg,
-    rgba(212, 191, 138, .52) 0%,
-    rgba(212, 191, 138, .06) 45%,
-    rgba(212, 191, 138, .26) 100%);
+    rgba(237, 212, 110, .52) 0%,
+    rgba(237, 212, 110, .06) 45%,
+    rgba(237, 212, 110, .26) 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -445,7 +445,7 @@ const CSS = `
   color: #07030d;
   transform: translateY(-2px);
   box-shadow:
-    0 12px 36px rgba(212, 191, 138, .28),
+    0 12px 36px rgba(237, 212, 110, .28),
     0 4px 12px rgba(0, 0, 0, .3);
 }
 .sp-btn:hover::before {
@@ -481,12 +481,12 @@ const CSS = `
 }
 .sp-section-h {
   font-family: var(--hd);
-  font-size: clamp(20px, 3vw, 26px);
-  font-weight: 700;
-  letter-spacing: -.02em;
+  font-size: clamp(18px, 2.8vw, 23px);
+  font-weight: 500;
+  letter-spacing: -.01em;
   margin-bottom: 20px;
   color: var(--fg);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 /* ── Uses grid ── */
@@ -539,7 +539,7 @@ const CSS = `
   font-weight: 300;
   line-height: 1.82;
   padding-left: 16px;
-  border-left: 2px solid rgba(212, 191, 138, .3);
+  border-left: 2px solid rgba(237, 212, 110, .3);
 }
 
 /* ── Stats ── */
@@ -559,10 +559,10 @@ const CSS = `
 }
 .sp-stat-num {
   display: block;
-  font-family: var(--hd);
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -.025em;
+  font-family: var(--bd);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -.015em;
   margin-bottom: 5px;
   line-height: 1;
   background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 100%);
