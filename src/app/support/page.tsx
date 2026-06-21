@@ -43,10 +43,6 @@ const FAQS = [
     q: "Is payment secure?",
     a: "Yes. Payments are processed securely through Stripe.",
   },
-  {
-    q: "Can I support monthly?",
-    a: "Yes, through our monthly supporter option.",
-  },
 ] as const;
 
 export default function SupportPage() {
@@ -73,12 +69,14 @@ export default function SupportPage() {
 
         {/* ── Section 1: Above the fold ── */}
         <section className="sp-hero">
+          <div className="sp-orb-purple" aria-hidden="true" />
+          <div className="sp-orb-gold"   aria-hidden="true" />
           <div className="sp-hero-inner">
             <div className="sp-badge" aria-hidden="true">
               <span className="sp-badge-dot" />
               For the Ummah
             </div>
-            <h1 className="sp-h1">Support Qamr</h1>
+            <h1 className="sp-h1">Support <em>Qamr</em></h1>
             <p className="sp-sub">
               Qamr is an independent platform built to help Muslims connect,
               learn, and grow together. Your support helps keep it free and
@@ -205,13 +203,13 @@ const CSS = `
   --bg: #08040f;
   --fg: #ede8df;
   --muted: #6a6278;
-  --muted-lt: #8a8298;
+  --muted-lt: #9088a0;
   --accent: #d4bf8a;
   --acc-lt: #e8d5a8;
-  --surface: #0d0718;
-  --surf-lt: #150d24;
-  --border: #1c1428;
-  --bord-lt: #2a1d40;
+  --surface: #110a1c;
+  --surf-lt: #1a1028;
+  --border: #251a38;
+  --bord-lt: #3a2850;
   --hd: 'Playfair Display', Georgia, serif;
   --bd: 'DM Sans', system-ui, sans-serif;
   background: var(--bg);
@@ -233,7 +231,7 @@ const CSS = `
   inset: 0;
   pointer-events: none;
   z-index: 999;
-  opacity: .014;
+  opacity: .022;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -242,7 +240,7 @@ const CSS = `
   position: sticky;
   top: 0;
   z-index: 800;
-  background: rgba(8, 4, 15, .92);
+  background: rgba(8, 4, 15, .88);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -250,7 +248,7 @@ const CSS = `
 .sp-nav-row {
   max-width: 560px;
   margin: 0 auto;
-  padding: 13px 24px;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -288,60 +286,113 @@ const CSS = `
   transition: border-color .2s, color .2s;
 }
 .sp-back-link:hover {
-  border-color: rgba(212, 191, 138, .28);
+  border-color: rgba(212, 191, 138, .35);
   color: var(--fg);
 }
 
 /* ── Hero ── */
 .sp-hero {
+  position: relative;
+  overflow: hidden;
   border-bottom: 1px solid var(--border);
-  padding: 48px 24px 40px;
+  padding: 52px 24px 44px;
+}
+/* Large purple atmospheric orb — matches homepage hero-orb */
+.sp-orb-purple {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 640px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse,
+    rgba(90, 30, 122, .22) 0%,
+    rgba(61, 18, 82,  .10) 42%,
+    transparent 70%);
+  pointer-events: none;
+}
+/* Warm gold orb — matches homepage hero-orb-warm */
+.sp-orb-gold {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 560px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse,
+    rgba(255, 217, 125, .18) 0%,
+    rgba(240, 180, 120, .07) 42%,
+    transparent 70%);
+  pointer-events: none;
 }
 .sp-hero-inner {
+  position: relative;
+  z-index: 2;
   max-width: 480px;
   margin: 0 auto;
   text-align: center;
 }
+
+/* Kicker badge */
 .sp-badge {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: 100px;
-  border: 1px solid rgba(212, 191, 138, .15);
+  border: 1px solid rgba(212, 191, 138, .18);
   background: rgba(212, 191, 138, .06);
   font-size: 10px;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  font-weight: 500;
 }
 .sp-badge-dot {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--accent);
-  opacity: .65;
+  box-shadow: 0 0 8px rgba(212, 191, 138, .65);
   flex-shrink: 0;
+  animation: sp-pulse 2.4s ease-in-out infinite;
 }
+@keyframes sp-pulse {
+  0%, 100% { opacity: .9; }
+  50%       { opacity: .35; }
+}
+
+/* Headline */
 .sp-h1 {
   font-family: var(--hd);
-  font-size: clamp(40px, 7vw, 56px);
+  font-size: clamp(42px, 7.5vw, 60px);
   font-weight: 800;
-  letter-spacing: -.035em;
-  line-height: 1.0;
-  margin-bottom: 14px;
+  letter-spacing: -.04em;
+  line-height: .98;
+  margin-bottom: 16px;
   color: var(--fg);
+}
+/* "Qamr" gets the homepage gradient treatment */
+.sp-h1 em {
+  font-style: italic;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 58%, #c2a86a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .sp-sub {
   font-size: 15px;
   color: var(--muted-lt);
   font-weight: 300;
   line-height: 1.72;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
-/* ── Support buttons ── */
+/* ── Support buttons — premium store-badge style ── */
 .sp-btn-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -349,32 +400,59 @@ const CSS = `
   margin-bottom: 18px;
 }
 .sp-btn {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 68px;
-  border-radius: 14px;
-  border: 1.5px solid rgba(212, 191, 138, .24);
-  background: rgba(212, 191, 138, .07);
+  min-height: 72px;
+  border-radius: 16px;
+  border: 1px solid var(--bord-lt);
+  background: linear-gradient(180deg, #1c1030 0%, #0c0618 100%);
   text-decoration: none;
   color: var(--accent);
   font-family: var(--hd);
   font-size: 28px;
   font-weight: 700;
   letter-spacing: -.02em;
-  transition: background .18s, border-color .18s, color .18s, transform .15s, box-shadow .2s;
+  overflow: hidden;
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, .4),
+    0 6px 20px rgba(0, 0, 0, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .05);
+  transition: transform .2s, box-shadow .25s, border-color .2s, background .2s, color .2s;
   -webkit-tap-highlight-color: transparent;
+}
+/* Gradient border shimmer — matches homepage store-badge::before */
+.sp-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(160deg,
+    rgba(212, 191, 138, .52) 0%,
+    rgba(212, 191, 138, .06) 45%,
+    rgba(212, 191, 138, .26) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity .2s;
 }
 .sp-btn:hover {
   background: var(--accent);
   border-color: var(--accent);
   color: #07030d;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(212, 191, 138, .2);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 36px rgba(212, 191, 138, .28),
+    0 4px 12px rgba(0, 0, 0, .3);
+}
+.sp-btn:hover::before {
+  opacity: 0;
 }
 .sp-btn:active {
   transform: translateY(0);
-  box-shadow: none;
 }
 
 /* ── Trust signals ── */
@@ -384,13 +462,12 @@ const CSS = `
   justify-content: center;
   gap: 6px;
   font-size: 12px;
-  color: var(--muted);
+  color: var(--muted-lt);
   margin-bottom: 7px;
 }
 .sp-disclaimer {
   font-size: 12px;
   color: var(--muted);
-  opacity: .65;
 }
 
 /* ── Shared section ── */
@@ -407,7 +484,7 @@ const CSS = `
   font-size: clamp(20px, 3vw, 26px);
   font-weight: 700;
   letter-spacing: -.02em;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   color: var(--fg);
   line-height: 1.2;
 }
@@ -416,24 +493,25 @@ const CSS = `
 .sp-uses-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  gap: 1px;
   background: var(--border);
-  border-radius: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
   overflow: hidden;
 }
 .sp-use-card {
   background: var(--surface);
-  padding: 18px 18px;
+  padding: 20px 18px;
   display: flex;
   align-items: flex-start;
-  gap: 11px;
+  gap: 12px;
   transition: background .18s;
 }
 .sp-use-card:hover {
   background: var(--surf-lt);
 }
 .sp-use-emoji {
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1;
   flex-shrink: 0;
   margin-top: 1px;
@@ -443,7 +521,7 @@ const CSS = `
   font-size: 13px;
   font-weight: 500;
   color: var(--fg);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   line-height: 1.3;
 }
 .sp-use-desc {
@@ -459,13 +537,12 @@ const CSS = `
   font-size: 15px;
   color: var(--muted-lt);
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.82;
+  padding-left: 16px;
+  border-left: 2px solid rgba(212, 191, 138, .3);
 }
 
 /* ── Stats ── */
-.sp-stats-section {
-  /* override sp-inner padding — stats fill full width of container */
-}
 .sp-stats {
   max-width: 560px;
   margin: 0 auto;
@@ -473,7 +550,7 @@ const CSS = `
 }
 .sp-stat {
   flex: 1;
-  padding: 30px 16px;
+  padding: 32px 16px;
   text-align: center;
   border-right: 1px solid var(--border);
 }
@@ -483,12 +560,15 @@ const CSS = `
 .sp-stat-num {
   display: block;
   font-family: var(--hd);
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--accent);
   letter-spacing: -.025em;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
   line-height: 1;
+  background: linear-gradient(180deg, var(--acc-lt) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .sp-stat-label {
   display: block;
@@ -511,7 +591,7 @@ const CSS = `
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 16px 0;
+  padding: 17px 0;
   font-size: 14px;
   font-weight: 400;
   color: var(--fg);
@@ -527,7 +607,7 @@ const CSS = `
   color: var(--accent);
 }
 .sp-faq-chevron {
-  color: var(--muted);
+  color: var(--muted-lt);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -583,7 +663,7 @@ const CSS = `
 }
 .sp-foot-links a {
   font-size: 12px;
-  color: rgba(106, 98, 120, .48);
+  color: rgba(106, 98, 120, .5);
   text-decoration: none;
   transition: color .18s;
 }
@@ -599,7 +679,7 @@ const CSS = `
 @media (max-width: 400px) {
   .sp-btn {
     font-size: 24px;
-    min-height: 62px;
+    min-height: 64px;
   }
   .sp-stats {
     flex-direction: column;
