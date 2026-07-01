@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Clean + legacy share-link aliases → canonical viewer routes.
+      { source: "/p/:id", destination: "/post/:id", permanent: false },
+      { source: "/r/:id", destination: "/reel/:id", permanent: false },
+      { source: "/posts/:id", destination: "/post/:id", permanent: false },
+      { source: "/reels/:id", destination: "/reel/:id", permanent: false },
     ];
   },
 
