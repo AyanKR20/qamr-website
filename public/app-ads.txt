@@ -275,10 +275,7 @@ jcprog.com, pub-4518750432, RESELLER
 lunamedia.io, 2fdb16a1-5025-4c41-9b17-e01e47ebc8b4, RESELLER, 524ecb396915caaf
 themediagrid.com, FALINO, RESELLER, 9fac4a4a87c2a44f
 tredio.io, 357a6fdf7642bf815a88822c447d9dc436891, RESELLER
-google.com, pub-2923085774557613, RESELLER, f08c47fec0942fa0
-google.com, pub-5060663379040713, RESELLER, f08c47fec0942fa0
-google.com, pub-1682595508078257, RESELLER, f08c47fec0942fa0
-google.com, pub-3990748024667386, RESELLER, f08c47fec0942fa0
+google.com, pub-7246199441563942, DIRECT, f08c47fec0942fa0
 indexexchange.com, 214183, RESELLER, 50b1c356f2c5c8fc
 triplelift.com, 13042, RESELLER
 triplelift.com, 13883, RESELLER, 6c33edb13117fd86
