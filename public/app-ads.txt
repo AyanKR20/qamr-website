@@ -1,4 +1,5 @@
 start.io, 206462900, DIRECT
+start.io, 138836697, DIRECT
 pubnative.net, 1007349, RESELLER, d641df8625486a7b
 pubmatic.com, 161162, RESELLER, 5d62403b186f2ace
 conversantmedia.com, 100339, RESELLER, 03113cd04947736d
@@ -59,6 +60,7 @@ pubmatic.com, 164125, RESELLER, 5d62403b186f2ace
 taboola.com, 1618213, DIRECT, c228e6794e811952
 rubiconproject.com, 17328, RESELLER, 0bfd66d529a55807
 apester.com, 91071, DIRECT
+apester.com, 91071, RESELLER
 triplelift.com, 11457, RESELLER, 6c33edb13117fd86
 rubiconproject.com, 27784, RESELLER, 0bfd66d529a55807
 axonix.com, 59204, RESELLER
@@ -77,6 +79,7 @@ undertone.com, 4261, RESELLER
 adyoulike.com, 721f20f70910d379981dc19ec5da709f, RESELLER
 video.unrulymedia.com, 2464975885, RESELLER
 bidmachine.io, 1447, RESELLER
+bidmachine.io, 1700, RESELLER
 appnexus.com, 7664, RESELLER
 pubmatic.com, 160925, RESELLER, 5d62403b186f2ace
 rubiconproject.com, 20736, RESELLER, 0bfd66d529a55807
