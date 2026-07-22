@@ -300,3 +300,6 @@ unity.com, 135471380, DIRECT, 96cabb5fbdde37a7
 unity.com, 137650761, DIRECT, 96cabb5fbdde37a7
 openx.com, 565175463, RESELLER, 6a698e2ec38604c6
 media.net, 8cu9b72o6, RESELLER
+bold-win.com, 1162, reseller, 71746737d0bab951
+triplelift.com, 14699, reseller, 6c33edb13117fd86
+lijit.com, 584539, reseller, fafdf38b16bf6b2b
